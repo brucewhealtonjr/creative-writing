@@ -1,6 +1,6 @@
 uuid: 44b6db05-d6e7-41fc-80fc-dd90e3c7a5f7
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.tell-me-i-m-not-invisible-toc

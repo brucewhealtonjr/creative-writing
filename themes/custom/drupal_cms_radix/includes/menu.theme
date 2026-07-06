@@ -4,3 +4,68 @@
  * @file
  * Theme and preprocess functions for menus.
  */
+
+/**
+ * Marks empty Book Part nodes as structural labels in book trees.
+ */
+function drupal_cms_radix_preprocess_book_tree(array &$variables): void {
+  if (empty($variables['items'])) {
+    return;
+  }
+
+  $nids = [];
+  drupal_cms_radix_collect_book_tree_nids($variables['items'], $nids);
+  if (!$nids) {
+    return;
+  }
+
+  $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($nids);
+  $label_only = [];
+
+  foreach ($nodes as $nid => $node) {
+    if ($node->bundle() !== 'book_part') {
+      continue;
+    }
+
+    $body = '';
+    if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
+      $body = trim(strip_tags((string) $node->get('body')->value));
+    }
+
+    if ($body === '') {
+      $label_only[(int) $nid] = TRUE;
+    }
+  }
+
+  drupal_cms_radix_mark_book_tree_label_items($variables['items'], $label_only);
+}
+
+/**
+ * Collects node IDs from a book tree recursively.
+ */
+function drupal_cms_radix_collect_book_tree_nids(array $items, array &$nids): void {
+  foreach ($items as $item) {
+    if (!empty($item['original_link']['nid'])) {
+      $nids[] = (int) $item['original_link']['nid'];
+    }
+    if (!empty($item['below'])) {
+      drupal_cms_radix_collect_book_tree_nids($item['below'], $nids);
+    }
+  }
+
+  $nids = array_values(array_unique($nids));
+}
+
+/**
+ * Adds a label-only marker to empty Book Part items.
+ */
+function drupal_cms_radix_mark_book_tree_label_items(array &$items, array $label_only): void {
+  foreach ($items as &$item) {
+    $nid = !empty($item['original_link']['nid']) ? (int) $item['original_link']['nid'] : NULL;
+    $item['label_only'] = $nid && !empty($label_only[$nid]);
+
+    if (!empty($item['below'])) {
+      drupal_cms_radix_mark_book_tree_label_items($item['below'], $label_only);
+    }
+  }
+}
