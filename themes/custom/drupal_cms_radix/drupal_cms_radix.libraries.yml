@@ -2,6 +2,7 @@ style:
   css:
     theme:
       build/css/main.style.css: {}
+      build/css/book-tree.css: {}
   js:
     build/js/main.script.js: {}
   dependencies:

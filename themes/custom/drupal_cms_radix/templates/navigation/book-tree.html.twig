@@ -18,13 +18,18 @@
     {% endif %}
     {% for item in items %}
       <li{{ item.attributes }}>
-        {% if item.label_only %}
+        {% if item.label_only and item.below %}
+          <details class="book-tree__section"{{ item.in_active_trail ? ' open' }}>
+            <summary class="book-tree__label">{{ item.title }}</summary>
+            {{ book_tree.book_links(item.below, attributes, menu_level + 1) }}
+          </details>
+        {% elseif item.label_only %}
           <span class="book-tree__label">{{ item.title }}</span>
         {% else %}
           {{ link(item.title, item.url) }}
-        {% endif %}
-        {% if item.below %}
-          {{ book_tree.book_links(item.below, attributes, menu_level + 1) }}
+          {% if item.below %}
+            {{ book_tree.book_links(item.below, attributes, menu_level + 1) }}
+          {% endif %}
         {% endif %}
       </li>
     {% endfor %}

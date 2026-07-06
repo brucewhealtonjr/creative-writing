@@ -1,0 +1,44 @@
+.book-tree__section {
+  margin: 0.2rem 0;
+}
+
+.book-tree__section > summary {
+  align-items: center;
+  border-radius: $border-radius-sm;
+  color: $gray-900;
+  cursor: pointer;
+  display: flex;
+  gap: 0.35rem;
+  line-height: 1.35;
+  list-style: none;
+  padding: 0.35rem 0.45rem;
+}
+
+.book-tree__section > summary::-webkit-details-marker {
+  display: none;
+}
+
+.book-tree__section > summary::before {
+  border-bottom: 0.28rem solid transparent;
+  border-left: 0.4rem solid $primary;
+  border-top: 0.28rem solid transparent;
+  content: "";
+  flex: 0 0 auto;
+  transform: translateY(0.02rem);
+  transition: transform 150ms ease;
+}
+
+.book-tree__section[open] > summary::before {
+  transform: rotate(90deg) translateX(0.02rem);
+}
+
+.book-tree__section > summary:hover,
+.book-tree__section > summary:focus {
+  background: rgba($primary, 0.12);
+  color: darken($primary, 12%);
+  outline: 0;
+}
+
+.book-tree__section > ul {
+  margin-top: 0.2rem;
+}
