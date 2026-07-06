@@ -1,0 +1,31 @@
+uuid: b54c620b-c3ee-434c-a3bb-54013230888f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_youtube_content
+    - paragraphs.paragraphs_type.chapter_section
+  module:
+    - iframe
+id: paragraph.chapter_section.field_youtube_content
+field_name: field_youtube_content
+entity_type: paragraph
+bundle: chapter_section
+label: 'YouTube Content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: null
+  headerlevel: '3'
+  class: youtube
+  frameborder: '1'
+  scrolling: null
+  transparency: null
+  allowfullscreen: '1'
+  tokensupport: null
+  width: null
+  height: null
+field_type: iframe

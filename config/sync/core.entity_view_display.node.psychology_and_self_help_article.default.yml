@@ -1,0 +1,51 @@
+uuid: 76867d79-0c00-469e-8702-1e885bb403f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.psychology_and_self_help_article.body
+    - field.field.node.psychology_and_self_help_article.field_categories
+    - field.field.node.psychology_and_self_help_article.field_related_to_the_book
+    - node.type.psychology_and_self_help_article
+  module:
+    - text
+    - user
+id: node.psychology_and_self_help_article.default
+targetEntityType: node
+bundle: psychology_and_self_help_article
+mode: default
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_categories:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_related_to_the_book:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden: {  }

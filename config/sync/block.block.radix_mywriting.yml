@@ -1,0 +1,25 @@
+uuid: e2b1cf90-9dea-4f7e-bd4a-f7b7ccf9a60d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+  module:
+    - block_content
+  theme:
+    - radix
+id: radix_mywriting
+theme: radix
+region: navbar_branding
+weight: -10
+provider: null
+plugin: 'block_content:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+settings:
+  id: 'block_content:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+  label: 'About Bruce Whealton'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,32 @@
+uuid: 055d4131-13ff-4d18-bfe6-f007587c1a26
+langcode: en
+status: true
+dependencies:
+  module:
+    - book
+    - node
+  theme:
+    - brucewhealton
+id: brucewhealton_booknavigation
+theme: brucewhealton
+region: sidebar_first
+weight: -8
+provider: null
+plugin: book_navigation
+settings:
+  id: book_navigation
+  label: 'Table of Contents'
+  label_display: visible
+  provider: book
+  block_mode: 'book pages'
+  show_top_item: false
+  use_top_level_title: false
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      book_chapter: book_chapter
+      book_cover_and_description: book_cover_and_description

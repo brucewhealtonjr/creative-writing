@@ -1,0 +1,29 @@
+uuid: 7e2390b0-cdd6-4277-a30a-6346d7420683
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ai_creativity_writing
+    - node.type.article
+    - taxonomy.vocabulary.ai_and_creative_technology
+id: node.article.field_ai_creativity_writing
+field_name: field_ai_creativity_writing
+entity_type: node
+bundle: article
+label: 'AI & Creativity/Writing'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      ai_and_creative_technology: ai_and_creative_technology
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

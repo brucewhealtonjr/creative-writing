@@ -1,0 +1,22 @@
+uuid: d72b5b6e-c974-41bc-88f1-e4c33cd84b38
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.book_cover_and_description
+id: node.book_cover_and_description.promote
+field_name: promote
+entity_type: node
+bundle: book_cover_and_description
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

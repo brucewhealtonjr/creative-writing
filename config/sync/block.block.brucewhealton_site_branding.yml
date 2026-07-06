@@ -1,0 +1,25 @@
+uuid: 0c96a337-0ead-43e4-be37-f0babe30b0ba
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: HjyJfsRI3N0Bg177RXo1cAuzjnHFwz6kNq2groJBHFE
+id: brucewhealton_site_branding
+theme: brucewhealton
+region: header
+weight: -6
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

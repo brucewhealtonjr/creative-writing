@@ -1,0 +1,24 @@
+uuid: 0db0a78d-6479-4e12-bab6-c79f4ba6950a
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.books_by_bruce
+  module:
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__books_by_bruce_block_1
+theme: olivero
+region: sidebar
+weight: -8
+provider: null
+plugin: 'views_block:books_by_bruce-block_1'
+settings:
+  id: 'views_block:books_by_bruce-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility: {  }

@@ -1,0 +1,41 @@
+uuid: e038a05b-7fd8-4e1f-bf94-206e2a89f970
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.rss
+    - field.field.node.article.body
+    - field.field.node.article.comment
+    - field.field.node.article.field_ai_creativity_writing
+    - field.field.node.article.field_categories
+    - field.field.node.article.field_embedded_content
+    - field.field.node.article.field_external_link
+    - field.field.node.article.field_image
+    - field.field.node.article.field_related_to_the_book
+    - field.field.node.article.field_tags
+    - node.type.article
+  module:
+    - user
+_core:
+  default_config_hash: 2rIr6K5Q0UQ9khg0zE_CK-PtJH76UL-BDDZcZnZzwCc
+id: node.article.rss
+targetEntityType: node
+bundle: article
+mode: rss
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  addtoany: true
+  body: true
+  comment: true
+  field_ai_creativity_writing: true
+  field_categories: true
+  field_embedded_content: true
+  field_external_link: true
+  field_image: true
+  field_related_to_the_book: true
+  field_tags: true

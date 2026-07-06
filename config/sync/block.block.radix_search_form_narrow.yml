@@ -1,0 +1,23 @@
+uuid: 94644bf5-268e-4f00-8706-6f5f334b7f0c
+langcode: en
+status: false
+dependencies:
+  module:
+    - search
+  theme:
+    - radix
+_core:
+  default_config_hash: XntIyCPucEPsFN3YmS2QhtUK8C3zCBki70c6JKjLVZg
+id: radix_search_form_narrow
+theme: radix
+region: navbar_branding
+weight: -4
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (narrow)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

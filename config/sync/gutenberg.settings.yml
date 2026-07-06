@@ -1,0 +1,426 @@
+article_enable_full: false
+article_template: ''
+article_template_lock: none
+book_allowed_blocks:
+  - core-embed/amazon-kindle
+  - core-embed/facebook
+  - core-embed/flickr
+  - core-embed/instagram
+  - core-embed/soundcloud
+  - core-embed/spotify
+  - core-embed/twitter
+  - core-embed/vimeo
+  - core-embed/youtube
+  - core/audio
+  - core/block
+  - core/button
+  - core/buttons
+  - core/code
+  - core/column
+  - core/columns
+  - core/cover
+  - core/embed
+  - core/file
+  - core/gallery
+  - core/group
+  - core/html
+  - core/image
+  - core/media-text
+  - core/preformatted
+  - core/pullquote
+  - core/quote
+  - core/separator
+  - core/spacer
+  - core/table
+  - core/text-columns
+  - core/verse
+  - core/video
+  - media/all
+book_allowed_content_block_types:
+  - content-block/all
+book_allowed_drupal_blocks:
+  - addtoany_block
+  - addtoany_follow_block
+  - book_navigation
+  - drupalblock/all_addtoany
+  - drupalblock/all_content_block
+  - drupalmedia/drupal-media-entity
+  - search_form_block
+  - system_breadcrumb_block
+book_chapter_enable_full: false
+book_cover_and_description_enable_full: true
+book_enable_full: true
+book_part_allowed_blocks:
+  - core-embed/facebook
+  - core-embed/flickr
+  - core-embed/instagram
+  - core-embed/soundcloud
+  - core-embed/spotify
+  - core-embed/twitter
+  - core-embed/vimeo
+  - core-embed/youtube
+  - core/all
+  - core/audio
+  - core/block
+  - core/button
+  - core/buttons
+  - core/code
+  - core/column
+  - core/columns
+  - core/cover
+  - core/details
+  - core/embed
+  - core/file
+  - core/gallery
+  - core/group
+  - core/html
+  - core/image
+  - core/media-text
+  - core/preformatted
+  - core/pullquote
+  - core/quote
+  - core/separator
+  - core/social-link
+  - core/social-links
+  - core/spacer
+  - core/table
+  - core/text-columns
+  - core/verse
+  - core/video
+  - example-blocks/card
+  - example-blocks/dynamic-card
+  - media/all
+book_part_allowed_content_block_types:
+  - content-block/all
+  - content-block/basic
+book_part_allowed_drupal_blocks:
+  - 'block_content:325ff406-00b6-40e5-9d13-cebdc643d3be'
+  - 'block_content:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+  - 'block_content:355f0b8b-aa92-4b20-ba17-ad89302554fc'
+  - 'block_content:69f86f12-a6e2-41d5-be9c-ddc6b2795c0d'
+  - 'block_content:868594f0-a662-4ee8-b917-467bffe89295'
+  - 'block_content:b03738cc-3b87-41ae-9ff8-9349cdabecd4'
+  - 'block_content:d8c10715-5fdf-4b22-beee-29062047840f'
+  - 'block_content:f56f5a40-6c55-436e-a148-3132dca15de9'
+  - drupalblock/all_addtoany
+  - drupalblock/all_content_block
+  - drupalblock/all_core
+  - drupalblock/all_lists_views_
+  - drupalmedia/drupal-media-entity
+  - 'entity_view:node'
+  - page_title_block
+  - search_form_block
+  - system_breadcrumb_block
+book_part_enable_full: true
+book_part_template: ''
+book_part_template_lock: insert
+book_template: ''
+book_template_lock: none
+books_and_creative_writing_by_br_allowed_blocks:
+  - core-embed/facebook
+  - core-embed/flickr
+  - core-embed/instagram
+  - core-embed/soundcloud
+  - core-embed/spotify
+  - core-embed/twitter
+  - core-embed/vimeo
+  - core-embed/youtube
+  - core/audio
+  - core/block
+  - core/button
+  - core/buttons
+  - core/code
+  - core/column
+  - core/columns
+  - core/cover
+  - core/embed
+  - core/file
+  - core/freeform
+  - core/gallery
+  - core/group
+  - core/heading
+  - core/html
+  - core/image
+  - core/list
+  - core/media-text
+  - core/paragraph
+  - core/preformatted
+  - core/pullquote
+  - core/quote
+  - core/separator
+  - core/spacer
+  - core/subhead
+  - core/table
+  - core/text-columns
+  - core/verse
+  - core/video
+  - embed
+books_and_creative_writing_by_br_allowed_drupal_blocks:
+  - search_form_block
+  - system_breadcrumb_block
+books_and_creative_writing_by_br_enable_full: true
+books_and_creative_writing_by_br_template: ''
+books_and_creative_writing_by_br_template_lock: none
+external_published_books_enable_full: false
+page_enable_full: false
+people_allowed_blocks:
+  - core-embed/facebook
+  - core-embed/flickr
+  - core-embed/instagram
+  - core-embed/soundcloud
+  - core-embed/spotify
+  - core-embed/twitter
+  - core-embed/vimeo
+  - core-embed/youtube
+  - core/audio
+  - core/block
+  - core/button
+  - core/buttons
+  - core/code
+  - core/column
+  - core/columns
+  - core/cover
+  - core/details
+  - core/embed
+  - core/file
+  - core/gallery
+  - core/group
+  - core/html
+  - core/image
+  - core/media-text
+  - core/preformatted
+  - core/pullquote
+  - core/quote
+  - core/separator
+  - core/social-link
+  - core/social-links
+  - core/spacer
+  - core/table
+  - core/text-columns
+  - core/verse
+  - core/video
+  - media/all
+people_allowed_content_block_types:
+  - content-block/all
+people_allowed_drupal_blocks:
+  - drupalblock/all_content_block
+  - search_form_block
+  - system_breadcrumb_block
+people_enable_full: true
+people_template: ''
+people_template_lock: none
+psychology_and_self_help_article_enable_full: false
+psychology_and_self_help_article_template: ''
+psychology_and_self_help_article_template_lock: none
+test_content_allowed_blocks:
+  - core-embed/facebook
+  - core-embed/flickr
+  - core-embed/instagram
+  - core-embed/soundcloud
+  - core-embed/spotify
+  - core-embed/twitter
+  - core-embed/videopress
+  - core-embed/vimeo
+  - core-embed/youtube
+  - core/audio
+  - core/block
+  - core/button
+  - core/buttons
+  - core/code
+  - core/column
+  - core/columns
+  - core/cover
+  - core/details
+  - core/embed
+  - core/file
+  - core/gallery
+  - core/group
+  - core/html
+  - core/image
+  - core/media-text
+  - core/preformatted
+  - core/pullquote
+  - core/quote
+  - core/separator
+  - core/spacer
+  - core/table
+  - core/text-columns
+  - core/verse
+  - core/video
+test_content_allowed_content_block_types: {  }
+test_content_allowed_drupal_blocks:
+  - search_form_block
+  - system_breadcrumb_block
+test_content_enable_full: true
+test_content_template: ''
+test_content_template_lock: none
+books_and_creative_writing_by_br_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+test_content_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+article_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+psychology_and_self_help_article_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+book_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+people_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+book_part_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+book_cover_and_description_template: ''
+book_cover_and_description_template_lock: none
+book_cover_and_description_allowed_blocks:
+  - core-embed/all
+  - core-embed/amazon-kindle
+  - core-embed/animoto
+  - core-embed/cloudup
+  - core-embed/collegehumor
+  - core-embed/crowdsignal
+  - core-embed/dailymotion
+  - core-embed/facebook
+  - core-embed/flickr
+  - core-embed/imgur
+  - core-embed/instagram
+  - core-embed/issuu
+  - core-embed/kickstarter
+  - core-embed/mixcloud
+  - core-embed/pinterest
+  - core-embed/pocket-casts
+  - core-embed/reddit
+  - core-embed/reverbnation
+  - core-embed/screencast
+  - core-embed/scribd
+  - core-embed/slideshare
+  - core-embed/smugmug
+  - core-embed/soundcloud
+  - core-embed/speaker-deck
+  - core-embed/spotify
+  - core-embed/ted
+  - core-embed/tiktok
+  - core-embed/tumblr
+  - core-embed/twitter
+  - core-embed/videopress
+  - core-embed/vimeo
+  - core-embed/wolfram-cloud
+  - core-embed/wordpress
+  - core-embed/wordpress-tv
+  - core-embed/youtube
+  - core/all
+  - core/audio
+  - core/block
+  - core/button
+  - core/buttons
+  - core/code
+  - core/column
+  - core/columns
+  - core/cover
+  - core/details
+  - core/embed
+  - core/file
+  - core/gallery
+  - core/group
+  - core/html
+  - core/image
+  - core/media-text
+  - core/preformatted
+  - core/pullquote
+  - core/quote
+  - core/separator
+  - core/social-link
+  - core/social-links
+  - core/spacer
+  - core/table
+  - core/text-columns
+  - core/verse
+  - core/video
+  - media/all
+book_cover_and_description_allowed_drupal_blocks:
+  - book_block_children
+  - book_block_edit
+  - book_block_navigation
+  - book_block_toc
+  - book_navigation
+  - drupalblock/all_addtoany
+  - drupalblock/all_chaos_tools
+  - drupalblock/all_content_block
+  - drupalblock/all_core
+  - drupalblock/all_lists_views_
+  - page_title_block
+  - search_form_block
+  - system_breadcrumb_block
+book_cover_and_description_allowed_image_styles:
+  full: full
+  large: large
+  max_1300x1300: max_1300x1300
+  max_2600x2600: max_2600x2600
+  max_325x325: max_325x325
+  max_650x650: max_650x650
+  media_library: media_library
+  medium: medium
+  thumbnail: thumbnail
+  wide: wide
+book_cover_and_description_allowed_content_block_types: {  }

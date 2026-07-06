@@ -1,0 +1,26 @@
+uuid: ebf5eacf-a848-4d7d-a78d-e524840998b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - filter.format.gutenberg
+    - node.type.book_part
+  module:
+    - text
+id: node.book_part.body
+field_name: body
+entity_type: node
+bundle: book_part
+label: Content
+description: 'Include the content - either a chapter, poem or a description of what would appear in the child pages. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats:
+    - gutenberg
+field_type: text_with_summary

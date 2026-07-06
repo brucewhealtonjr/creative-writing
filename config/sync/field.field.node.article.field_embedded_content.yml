@@ -1,0 +1,31 @@
+uuid: a06f281c-9081-4487-82a0-52669c5e5837
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_embedded_content
+    - node.type.article
+  module:
+    - iframe
+id: node.article.field_embedded_content
+field_name: field_embedded_content
+entity_type: node
+bundle: article
+label: 'Embedded content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: null
+  headerlevel: '3'
+  class: ''
+  frameborder: '1'
+  scrolling: 'yes'
+  transparency: null
+  allowfullscreen: '0'
+  tokensupport: '2'
+  width: null
+  height: null
+field_type: iframe

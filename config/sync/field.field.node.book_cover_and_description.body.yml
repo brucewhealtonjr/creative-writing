@@ -1,0 +1,24 @@
+uuid: 6e6eb87a-6390-44ce-b47d-37822a073832
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.book_cover_and_description
+  module:
+    - text
+id: node.book_cover_and_description.body
+field_name: body
+entity_type: node
+bundle: book_cover_and_description
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

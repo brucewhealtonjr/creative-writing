@@ -1,0 +1,54 @@
+uuid: cff8b550-ca9c-469b-a6e9-4b5537f3b9b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.chapter_section.field_content
+    - field.field.paragraph.chapter_section.field_section_header
+    - field.field.paragraph.chapter_section.field_youtube_content
+    - paragraphs.paragraphs_type.chapter_section
+  module:
+    - iframe
+    - text
+id: paragraph.chapter_section.default
+targetEntityType: paragraph
+bundle: chapter_section
+mode: default
+content:
+  field_content:
+    type: text_textarea_with_summary
+    weight: 4
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_section_header:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_youtube_content:
+    type: iframe_urlwidthheight
+    weight: 2
+    region: content
+    settings:
+      headerlevel: '3'
+      class: ''
+      frameborder: '0'
+      scrolling: auto
+      transparency: '0'
+      allowfullscreen: '0'
+      tokensupport: '0'
+      width: ''
+      height: ''
+      expose_class: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

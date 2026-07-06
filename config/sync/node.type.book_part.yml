@@ -1,0 +1,18 @@
+uuid: 25be354b-f28b-4333-98d1-6f2ca9d5e3da
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Book Part'
+type: book_part
+description: 'This is for either a Chapter, Section or Part of a book. Some books are nested and have Two or more parts, each with Sections and each section has chapters. '
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

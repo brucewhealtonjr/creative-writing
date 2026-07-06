@@ -1,0 +1,22 @@
+uuid: a99ef92c-769a-4cc9-a15f-8b739711d4a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.book_chapter
+id: node.book_chapter.promote
+field_name: promote
+entity_type: node
+bundle: book_chapter
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

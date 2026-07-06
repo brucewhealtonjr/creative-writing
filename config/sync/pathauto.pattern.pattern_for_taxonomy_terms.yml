@@ -1,0 +1,33 @@
+uuid: f8231d22-820d-4111-9e56-a09e4782b7d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.books
+    - taxonomy.vocabulary.categories
+    - taxonomy.vocabulary.external_writing
+    - taxonomy.vocabulary.pattern_categories
+    - taxonomy.vocabulary.people
+    - taxonomy.vocabulary.tags
+  module:
+    - taxonomy
+id: pattern_for_taxonomy_terms
+label: 'Pattern for taxonomy terms'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/[term:vocabulary]/[term:name]'
+selection_criteria:
+  cff75c47-d6c9-47a2-a2fe-270717bae2b9:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      books: books
+      categories: categories
+      external_writing: external_writing
+      pattern_categories: pattern_categories
+      people: people
+      tags: tags
+selection_logic: and
+weight: -5
+relationships: {  }

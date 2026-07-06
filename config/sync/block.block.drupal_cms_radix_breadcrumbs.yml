@@ -1,0 +1,22 @@
+uuid: 2301c6bc-d9a5-4f28-a83a-d486b8848763
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - drupal_cms_radix
+_core:
+  default_config_hash: kT3AoL1IoV2D57IFSDkdRVYGKmot4xg6mXeUhVjwMjA
+id: drupal_cms_radix_breadcrumbs
+theme: drupal_cms_radix
+region: header
+weight: -5
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

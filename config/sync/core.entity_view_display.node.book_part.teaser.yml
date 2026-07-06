@@ -1,0 +1,44 @@
+uuid: 941fc22d-b59c-4f6b-bb4f-7c2a3048d352
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.book_part.body
+    - field.field.node.book_part.field_featured_image
+    - node.type.book_part
+  module:
+    - image
+    - text
+    - user
+id: node.book_part.teaser
+targetEntityType: node
+bundle: book_part
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_featured_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  addtoany: true

@@ -1,0 +1,9 @@
+uuid: 16f3bf6c-5ef6-427e-b90f-9f38532202dd
+langcode: en
+status: true
+dependencies: {  }
+id: node__article
+label: 'Content: Article'
+tags:
+  schema_article_type: Article
+  schema_book_type: Book

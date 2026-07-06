@@ -1,0 +1,25 @@
+uuid: e8c05bbc-5ec6-46e6-b92b-33f5aa4fcff4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:b03738cc-3b87-41ae-9ff8-9349cdabecd4'
+  module:
+    - block_content
+  theme:
+    - brucewhealton
+id: brucewhealton_sitetitle
+theme: brucewhealton
+region: none
+weight: -9
+provider: null
+plugin: 'block_content:b03738cc-3b87-41ae-9ff8-9349cdabecd4'
+settings:
+  id: 'block_content:b03738cc-3b87-41ae-9ff8-9349cdabecd4'
+  label: 'Site Title'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

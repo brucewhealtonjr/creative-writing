@@ -1,0 +1,22 @@
+uuid: eb6c6f80-cf20-44cf-92fd-2bc3313d3ac2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: 5KC8SBGBoArWlWaW_nljIAyhqLiCAsMqM5CmM3qH_gk
+id: brucewhealton_messages
+theme: brucewhealton
+region: highlighted
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

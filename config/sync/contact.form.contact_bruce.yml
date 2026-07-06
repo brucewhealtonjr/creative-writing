@@ -1,0 +1,13 @@
+uuid: 818412aa-351a-4fff-9dcc-7d2cdfe3c40f
+langcode: en
+status: true
+dependencies: {  }
+id: contact_bruce
+label: 'Contact Bruce'
+recipients:
+  - brucewhealton@outlook.com
+  - bruce@brucewhealton.com
+reply: 'Thank you for writing to me, I will get back to you with a response to your comments.'
+weight: 0
+message: 'Thank you for writing, I will get back to you as soon as I can.'
+redirect: /

@@ -1,0 +1,74 @@
+uuid: c52bba3e-daa6-4c56-bc80-9041c7a7c0e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.book_cover_and_description.body
+    - field.field.node.book_cover_and_description.field_beginning_of_the_book
+    - field.field.node.book_cover_and_description.field_book_categories
+    - field.field.node.book_cover_and_description.field_book_cover_page
+    - field.field.node.book_cover_and_description.field_people_or_characters
+    - image.style.max_650x650
+    - node.type.book_cover_and_description
+  module:
+    - image
+    - text
+    - user
+id: node.book_cover_and_description.default
+targetEntityType: node
+bundle: book_cover_and_description
+mode: default
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_beginning_of_the_book:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_book_categories:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_book_cover_page:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: max_650x650
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_people_or_characters:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden: {  }

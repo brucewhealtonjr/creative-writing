@@ -1,0 +1,22 @@
+uuid: d5d9a412-9d23-4fb0-84c4-06814bddab9d
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: RwDlRHn5P-gAWUgUr-M-SXzmTJ-P4BEeATdmhmVVhSU
+id: brucewhealton_help
+theme: brucewhealton
+region: highlighted
+weight: -2
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

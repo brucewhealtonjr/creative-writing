@@ -1,0 +1,25 @@
+uuid: ee659a23-a874-4975-b56c-1c4d8c6db852
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:69f86f12-a6e2-41d5-be9c-ddc6b2795c0d'
+  module:
+    - block_content
+  theme:
+    - olivero
+id: olivero_listofbooksonyoutube
+theme: olivero
+region: sidebar
+weight: 0
+provider: null
+plugin: 'block_content:69f86f12-a6e2-41d5-be9c-ddc6b2795c0d'
+settings:
+  id: 'block_content:69f86f12-a6e2-41d5-be9c-ddc6b2795c0d'
+  label: 'List of Books On YouTube'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

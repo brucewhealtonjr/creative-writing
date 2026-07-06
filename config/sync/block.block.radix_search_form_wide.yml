@@ -1,0 +1,23 @@
+uuid: 18a3a328-f8b5-4bb2-8586-6dc0c073e1ce
+langcode: en
+status: false
+dependencies:
+  module:
+    - search
+  theme:
+    - radix
+_core:
+  default_config_hash: RyRcFjzy20_JTQ4PHYf81kn6WH309qIFit8J93w3B4M
+id: radix_search_form_wide
+theme: radix
+region: navbar_branding
+weight: -6
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (wide)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

@@ -1,0 +1,20 @@
+uuid: 26b066b6-0695-4d67-89ae-2b73b3b7b6bc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_people_or_characters
+field_name: field_people_or_characters
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 7
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

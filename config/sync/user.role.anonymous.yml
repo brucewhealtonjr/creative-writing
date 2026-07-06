@@ -1,0 +1,66 @@
+uuid: 1da47bdc-7eeb-4119-96e3-e7d12411551e
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.restricted_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - node.type.book
+    - node.type.book_chapter
+    - node.type.book_cover_and_description
+    - node.type.external_published_books
+    - node.type.page
+    - taxonomy.vocabulary.books
+    - taxonomy.vocabulary.categories
+    - taxonomy.vocabulary.people
+  module:
+    - block_content
+    - book
+    - comment
+    - contact
+    - filter
+    - media
+    - node
+    - search
+    - system
+    - taxonomy
+_core:
+  default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
+id: anonymous
+label: 'Anonymous user'
+weight: 0
+is_admin: false
+permissions:
+  - 'access block library'
+  - 'access comments'
+  - 'access content'
+  - 'access media overview'
+  - 'access printer-friendly version'
+  - 'access site-wide contact form'
+  - 'access user contact forms'
+  - 'post comments'
+  - 'search content'
+  - 'use text format restricted_html'
+  - 'view all taxonomy revisions'
+  - 'view any audio media revisions'
+  - 'view any document media revisions'
+  - 'view any image media revisions'
+  - 'view any remote_video media revisions'
+  - 'view any video media revisions'
+  - 'view article revisions'
+  - 'view book revisions'
+  - 'view book_chapter revisions'
+  - 'view book_cover_and_description revisions'
+  - 'view external_published_books revisions'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view page revisions'
+  - 'view term revisions in books'
+  - 'view term revisions in categories'
+  - 'view term revisions in people'
+  - 'view vocabulary labels'

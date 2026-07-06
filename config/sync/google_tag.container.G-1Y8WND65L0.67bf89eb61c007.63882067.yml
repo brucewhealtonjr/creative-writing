@@ -1,0 +1,37 @@
+uuid: 834e1d79-55b9-4c96-90d8-f47ebdacb2b6
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: G-1Y8WND65L0.67bf89eb61c007.63882067
+label: G-1Y8WND65L0
+weight: 0
+tag_container_ids:
+  - G-1Y8WND65L0
+advanced_settings:
+  consent_mode: false
+dimensions_metrics: {  }
+conditions:
+  'entity_bundle:taxonomy_term':
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    context_mapping:
+      taxonomy_term: '@taxonomy_term.taxonomy_term_route_context:taxonomy_term'
+    bundles:
+      books: books
+      categories: categories
+      external_writing: external_writing
+      pattern_categories: pattern_categories
+      people: people
+      tags: tags
+events:
+  custom: {  }
+  search: {  }
+  login:
+    method: CMS
+  generate_lead:
+    value: ''
+    currency: ''
+  sign_up:
+    method: CMS

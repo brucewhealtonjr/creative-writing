@@ -1,0 +1,23 @@
+uuid: 8588213f-2c41-489c-9b52-0fd03c5273d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.external_published_books
+  module:
+    - node
+id: pattern_for_external_books
+label: 'Pattern for External Books'
+type: 'canonical_entities:node'
+pattern: '/external-book/[node:title]'
+selection_criteria:
+  9835c802-6b38-4556-8146-4f2f53ac74af:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      external_published_books: external_published_books
+selection_logic: and
+weight: -5
+relationships: {  }

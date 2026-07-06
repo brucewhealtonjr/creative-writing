@@ -1,0 +1,10 @@
+uuid: e15e3630-674a-47fb-a095-84efeb392c8b
+langcode: en
+status: true
+dependencies: {  }
+id: chapter_section
+label: 'Chapter Section'
+icon_uuid: null
+icon_default: null
+description: 'This will be a section of a chapter. Several of these will be used together to create a chapter.'
+behavior_plugins: {  }

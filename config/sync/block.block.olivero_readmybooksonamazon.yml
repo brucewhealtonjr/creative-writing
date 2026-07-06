@@ -1,0 +1,25 @@
+uuid: 1110ea9c-75ce-4613-86c8-ef39c942473a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:868594f0-a662-4ee8-b917-467bffe89295'
+  module:
+    - block_content
+  theme:
+    - olivero
+id: olivero_readmybooksonamazon
+theme: olivero
+region: hero
+weight: -8
+provider: null
+plugin: 'block_content:868594f0-a662-4ee8-b917-467bffe89295'
+settings:
+  id: 'block_content:868594f0-a662-4ee8-b917-467bffe89295'
+  label: 'Read My Books on Amazon'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

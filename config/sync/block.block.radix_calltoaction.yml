@@ -1,0 +1,25 @@
+uuid: ca892443-7e25-48d8-b923-d2f53be35eb4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:355f0b8b-aa92-4b20-ba17-ad89302554fc'
+  module:
+    - block_content
+  theme:
+    - radix
+id: radix_calltoaction
+theme: radix
+region: navbar_branding
+weight: -5
+provider: null
+plugin: 'block_content:355f0b8b-aa92-4b20-ba17-ad89302554fc'
+settings:
+  id: 'block_content:355f0b8b-aa92-4b20-ba17-ad89302554fc'
+  label: 'Call To Action'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

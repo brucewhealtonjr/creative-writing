@@ -1,0 +1,22 @@
+uuid: e7312903-ca07-41b9-aba9-ba31c4b2af1c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: k2jfK4IlmRngqRGYr8KMkD39xFaGcFEbNtJ343awqAQ
+id: brucewhealton_breadcrumbs
+theme: brucewhealton
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

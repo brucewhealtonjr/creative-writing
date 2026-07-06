@@ -1,0 +1,22 @@
+uuid: 61912152-60ec-477a-ab87-ae7ac2847611
+langcode: en
+status: true
+dependencies:
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: UmrCDHypxrmgMvSxP8SfiLkFBdUGw0TCJ7bIzrg92UY
+id: brucewhealton_primary_local_tasks
+theme: brucewhealton
+region: content
+weight: -5
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

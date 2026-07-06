@@ -1,0 +1,25 @@
+uuid: 13b02d5a-9b57-4632-abde-efad1183b265
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:reusable_block:325ff406-00b6-40e5-9d13-cebdc643d3be'
+  module:
+    - block_content
+  theme:
+    - bootstrap_sass
+id: bootstrap_sass_moreaboutme
+theme: bootstrap_sass
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'block_content:325ff406-00b6-40e5-9d13-cebdc643d3be'
+settings:
+  id: 'block_content:325ff406-00b6-40e5-9d13-cebdc643d3be'
+  label: 'More about Me'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: default
+visibility: {  }

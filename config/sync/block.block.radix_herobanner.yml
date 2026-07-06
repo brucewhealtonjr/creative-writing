@@ -1,0 +1,25 @@
+uuid: 26ae02bd-02c8-4470-a9f3-23e6a80353b7
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:f56f5a40-6c55-436e-a148-3132dca15de9'
+  module:
+    - block_content
+  theme:
+    - radix
+id: radix_herobanner
+theme: radix
+region: navbar_branding
+weight: 0
+provider: null
+plugin: 'block_content:f56f5a40-6c55-436e-a148-3132dca15de9'
+settings:
+  id: 'block_content:f56f5a40-6c55-436e-a148-3132dca15de9'
+  label: 'Hero Banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

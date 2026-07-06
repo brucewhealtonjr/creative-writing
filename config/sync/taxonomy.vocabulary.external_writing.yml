@@ -1,0 +1,9 @@
+uuid: 18e395de-af07-4069-82bc-2da2770b94c1
+langcode: en
+status: true
+dependencies: {  }
+name: 'External Writing Content'
+vid: external_writing
+description: 'Types of External Links'
+weight: 0
+new_revision: false

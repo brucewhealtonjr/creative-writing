@@ -1,0 +1,29 @@
+uuid: 34cbf11d-7598-4a44-b633-08ff8ec5d237
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_people_or_characters
+    - node.type.book_cover_and_description
+    - taxonomy.vocabulary.people
+id: node.book_cover_and_description.field_people_or_characters
+field_name: field_people_or_characters
+entity_type: node
+bundle: book_cover_and_description
+label: 'People or characters'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      people: people
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

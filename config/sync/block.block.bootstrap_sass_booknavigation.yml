@@ -1,0 +1,32 @@
+uuid: 3d90439b-766b-47e4-ae0a-234b4c01f9cd
+langcode: en
+status: true
+dependencies:
+  module:
+    - book
+    - node
+  theme:
+    - bootstrap_sass
+id: bootstrap_sass_booknavigation
+theme: bootstrap_sass
+region: sidebar_first
+weight: -5
+provider: null
+plugin: book_navigation
+settings:
+  id: book_navigation
+  label: 'Book navigation'
+  label_display: visible
+  provider: book
+  block_mode: 'book pages'
+  show_top_item: false
+  use_top_level_title: false
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      book_chapter: book_chapter
+      book_cover_and_description: book_cover_and_description

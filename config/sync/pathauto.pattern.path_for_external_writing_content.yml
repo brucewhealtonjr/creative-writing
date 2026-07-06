@@ -1,0 +1,23 @@
+uuid: 18781027-a271-46f4-a847-37e9766b68a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.external_writing
+  module:
+    - taxonomy
+id: path_for_external_writing_content
+label: 'Path for External Writing Content'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/[term:vocabulary]/[term:name]'
+selection_criteria:
+  a964b0a7-fa9f-4e35-a2f4-beec21069755:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      external_writing: external_writing
+selection_logic: and
+weight: -5
+relationships: {  }

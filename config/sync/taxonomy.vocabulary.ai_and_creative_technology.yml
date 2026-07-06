@@ -1,0 +1,9 @@
+uuid: 54dde850-d6f4-4779-8d2b-8de05287c3ab
+langcode: en
+status: true
+dependencies: {  }
+name: 'AI and Creative Technology'
+vid: ai_and_creative_technology
+description: 'Where AI meets creativity, writing and more.'
+weight: 0
+new_revision: false

@@ -1,0 +1,29 @@
+uuid: ddd5a57d-e526-496e-b120-a538dbead5ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.test_content.body
+    - node.type.test_content
+  module:
+    - text
+    - user
+id: node.test_content.default
+targetEntityType: node
+bundle: test_content
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  addtoany: true

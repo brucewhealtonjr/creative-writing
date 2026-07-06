@@ -1,0 +1,26 @@
+uuid: 4d7b7ebc-a665-4e03-bd80-de027a3aa990
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.chapter_section
+  module:
+    - text
+id: paragraph.chapter_section.field_content
+field_name: field_content
+entity_type: paragraph
+bundle: chapter_section
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats:
+    - full_html
+field_type: text_with_summary

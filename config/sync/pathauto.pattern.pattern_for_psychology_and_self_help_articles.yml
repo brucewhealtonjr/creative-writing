@@ -1,0 +1,23 @@
+uuid: ccc05920-6565-4635-a44a-83938fccf5ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.psychology_and_self_help_article
+  module:
+    - node
+id: pattern_for_psychology_and_self_help_articles
+label: 'Pattern for Psychology and Self-Help Articles'
+type: 'canonical_entities:node'
+pattern: '/psychology-self-help/[node:title]'
+selection_criteria:
+  886378e2-d4b4-4ff4-8c12-4e2d7a114db2:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      psychology_and_self_help_article: psychology_and_self_help_article
+selection_logic: and
+weight: -5
+relationships: {  }

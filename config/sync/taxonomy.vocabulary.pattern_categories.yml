@@ -1,0 +1,11 @@
+uuid: 998076b2-a831-44ca-9c2e-a5b81e7df346
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 7JP2STsDAKOF3Ir75uJm-pAUviZAoMUB8dli-DPaqzU
+name: 'Pattern Categories'
+vid: pattern_categories
+description: 'Categories used for Gutenberg patterns.'
+weight: 0
+new_revision: false

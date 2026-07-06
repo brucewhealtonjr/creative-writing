@@ -1,0 +1,72 @@
+uuid: 117fbe6c-f73f-4484-87c2-c0c2a366e71e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.book_chapter.field_book_categories
+    - field.field.node.book_chapter.field_chapter_section
+    - field.field.node.book_chapter.field_featured_image
+    - field.field.node.book_chapter.field_people_characters_featured
+    - image.style.max_650x650
+    - node.type.book_chapter
+  module:
+    - entity_reference_revisions
+    - image
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.book_chapter.default
+targetEntityType: node
+bundle: book_chapter
+mode: default
+content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_book_categories:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_chapter_section:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_featured_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: max_650x650
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_people_characters_featured:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden: {  }

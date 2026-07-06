@@ -1,0 +1,22 @@
+uuid: dfbe41f1-fc59-4daa-8667-2c7ba0fcb9d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.external_published_books
+id: node.external_published_books.promote
+field_name: promote
+entity_type: node
+bundle: external_published_books
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

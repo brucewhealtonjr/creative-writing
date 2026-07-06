@@ -1,0 +1,30 @@
+uuid: 52ae953d-3893-485a-b56c-67f50e8f981f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:reusable_block:325ff406-00b6-40e5-9d13-cebdc643d3be'
+  module:
+    - block_content
+    - system
+  theme:
+    - radix
+id: radix_moreaboutme
+theme: radix
+region: navbar_branding
+weight: -6
+provider: null
+plugin: 'block_content:325ff406-00b6-40e5-9d13-cebdc643d3be'
+settings:
+  id: 'block_content:325ff406-00b6-40e5-9d13-cebdc643d3be'
+  label: 'More about Me'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/book/*\r\n/three-times-victim-living-under-shadow-toxic-shame/*\r\n/tell-me-i-am-not-invisible-memoir-love-loss-and-learning-live-again/*"

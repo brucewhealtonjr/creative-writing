@@ -1,0 +1,38 @@
+uuid: 14a6d72f-f0ba-4e2f-bd49-4249a3485f9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_book_cover_page
+    - node.type.book_cover_and_description
+  module:
+    - image
+id: node.book_cover_and_description.field_book_cover_page
+field_name: field_book_cover_page
+entity_type: node
+bundle: book_cover_and_description
+label: 'Book Cover Page'
+description: 'This is the cover image for a book.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg webp'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

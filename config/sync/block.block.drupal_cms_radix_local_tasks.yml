@@ -1,0 +1,20 @@
+uuid: 4bb87598-6158-45e9-9481-71ae5fb5fdc6
+langcode: en
+status: true
+dependencies:
+  theme:
+    - drupal_cms_radix
+id: drupal_cms_radix_local_tasks
+theme: drupal_cms_radix
+region: content
+weight: -20
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

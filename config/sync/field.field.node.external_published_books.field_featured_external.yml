@@ -1,0 +1,29 @@
+uuid: 5277ce5c-fb08-472d-a59e-27ff2e25f4e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_featured_external
+    - media.type.image
+    - node.type.external_published_books
+id: node.external_published_books.field_featured_external
+field_name: field_featured_external
+entity_type: node
+bundle: external_published_books
+label: 'Featured Image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

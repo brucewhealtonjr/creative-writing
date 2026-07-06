@@ -1,0 +1,29 @@
+uuid: 2add9389-21d1-4a5e-8ad1-67f742d91322
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_people_characters_featured
+    - node.type.book
+    - taxonomy.vocabulary.people
+id: node.book.field_people_characters_featured
+field_name: field_people_characters_featured
+entity_type: node
+bundle: book
+label: 'People/Characters featured'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      people: people
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

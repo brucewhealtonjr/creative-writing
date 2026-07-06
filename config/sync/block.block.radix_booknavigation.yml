@@ -1,0 +1,32 @@
+uuid: 442d36d9-019a-46c2-a48c-42464d714c39
+langcode: en
+status: true
+dependencies:
+  module:
+    - book
+    - node
+  theme:
+    - radix
+id: radix_booknavigation
+theme: radix
+region: navbar_branding
+weight: -8
+provider: null
+plugin: book_navigation
+settings:
+  id: book_navigation
+  label: 'Table of Contents'
+  label_display: visible
+  provider: book
+  block_mode: 'book pages'
+  show_top_item: false
+  use_top_level_title: false
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      book_chapter: book_chapter
+      book_cover_and_description: book_cover_and_description

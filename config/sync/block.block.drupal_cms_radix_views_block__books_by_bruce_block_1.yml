@@ -1,0 +1,61 @@
+uuid: fa883bb1-ac5a-40d7-8ea6-1e426c136c45
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.books_by_bruce
+  module:
+    - book
+    - node
+    - system
+    - views
+  theme:
+    - drupal_cms_radix
+id: drupal_cms_radix_views_block__books_by_bruce_block_1
+theme: drupal_cms_radix
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'views_block:books_by_bruce-block_1'
+settings:
+  id: 'views_block:books_by_bruce-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  book:
+    id: book
+    books:
+      46: '46'
+      64: '64'
+      79: '79'
+      92: '92'
+      102: '102'
+      131: '131'
+      198: '198'
+      285: '285'
+      327: '327'
+      329: '329'
+      359: '359'
+    negate: 0
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    negate: false
+    pages: "<front>\r\n/*"
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      article: article
+      book: book
+      book_cover_and_description: book_cover_and_description
+      external_published_books: external_published_books
+      page: page
+      people: people
+      psychology_and_self_help_article: psychology_and_self_help_article

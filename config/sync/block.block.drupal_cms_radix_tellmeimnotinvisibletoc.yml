@@ -1,0 +1,48 @@
+uuid: 44b6db05-d6e7-41fc-80fc-dd90e3c7a5f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.tell-me-i-m-not-invisible-toc
+  module:
+    - menu_block
+    - node
+    - system
+  theme:
+    - drupal_cms_radix
+id: drupal_cms_radix_tellmeimnotinvisibletoc
+theme: drupal_cms_radix
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'menu_block:tell-me-i-m-not-invisible-toc'
+settings:
+  id: 'menu_block:tell-me-i-m-not-invisible-toc'
+  label: 'Table of Contents'
+  label_display: visible
+  provider: menu_block
+  follow: true
+  follow_parent: child
+  display_empty: true
+  label_link: false
+  label_type: block
+  level: 1
+  depth: 4
+  expand_all_items: true
+  parent: 'tell-me-i-m-not-invisible-toc:'
+  render_parent: false
+  suggestion: tell_me_i_m_not_invisible_toc
+  hide_on_nonactive: true
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      book_cover_and_description: book_cover_and_description
+      book_part: book_part
+  request_path:
+    id: request_path
+    negate: false
+    pages: "\r\n"

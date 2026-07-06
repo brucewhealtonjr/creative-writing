@@ -1,0 +1,28 @@
+uuid: 27cffb38-c8c8-4403-91eb-f8a45faae12a
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_bruce
+    - field.field.contact_message.contact_bruce.field_phone
+id: contact_message.contact_bruce.default
+targetEntityType: contact_message
+bundle: contact_bruce
+mode: default
+content:
+  field_phone:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  message:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

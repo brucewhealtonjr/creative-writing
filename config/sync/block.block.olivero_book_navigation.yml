@@ -1,0 +1,25 @@
+uuid: 533381d5-8136-4fe2-81ac-5f7299857ec8
+langcode: en
+status: true
+dependencies:
+  module:
+    - book
+  theme:
+    - olivero
+_core:
+  default_config_hash: ihOiiwS6o3R7KIEOsDQ2tLrmz3MGNVRAy95rMT_T3Gs
+id: olivero_book_navigation
+theme: olivero
+region: sidebar
+weight: -9
+provider: null
+plugin: book_navigation
+settings:
+  id: book_navigation
+  label: 'Book Chapters'
+  label_display: visible
+  provider: book
+  block_mode: 'book pages'
+  show_top_item: false
+  use_top_level_title: false
+visibility: {  }

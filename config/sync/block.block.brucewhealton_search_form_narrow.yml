@@ -1,0 +1,23 @@
+uuid: fbcb7598-1e87-4c65-8d7d-e7ba3471637a
+langcode: en
+status: false
+dependencies:
+  module:
+    - search
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: XntIyCPucEPsFN3YmS2QhtUK8C3zCBki70c6JKjLVZg
+id: brucewhealton_search_form_narrow
+theme: brucewhealton
+region: sidebar_first
+weight: -4
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (narrow)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

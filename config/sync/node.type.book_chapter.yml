@@ -1,0 +1,18 @@
+uuid: 83ce87df-24a2-4824-a916-e82b2ff2e7ea
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Book Chapter'
+type: book_chapter
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

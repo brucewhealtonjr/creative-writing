@@ -1,0 +1,22 @@
+uuid: 3ad7dd72-fa8c-45c4-8dcb-f5c3bf354d53
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: sCosIJFj5kUL2ygTjK0WvpeOPCNax28jHMOXFWsyf9k
+id: brucewhealton_content
+theme: brucewhealton
+region: content
+weight: -3
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

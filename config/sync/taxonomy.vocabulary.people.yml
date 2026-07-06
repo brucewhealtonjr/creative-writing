@@ -1,0 +1,9 @@
+uuid: 5ffc7d21-bbba-4557-9e65-d814bccfddc7
+langcode: en
+status: true
+dependencies: {  }
+name: People
+vid: people
+description: 'Those individuals who appear in my true stories/memoirs'
+weight: 0
+new_revision: false

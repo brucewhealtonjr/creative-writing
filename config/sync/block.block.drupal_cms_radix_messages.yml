@@ -1,0 +1,22 @@
+uuid: 1bd3d265-5018-4a3b-bf7b-eee0c2ab7540
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - drupal_cms_radix
+_core:
+  default_config_hash: 7fIqiyJf3GCTo4JtnklLv1bz4_br0mAdjd1Vay2J-r8
+id: drupal_cms_radix_messages
+theme: drupal_cms_radix
+region: header
+weight: -3
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

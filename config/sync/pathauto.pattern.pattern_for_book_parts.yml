@@ -1,0 +1,23 @@
+uuid: c45db103-94f8-47d5-bce3-1c8ab1288004
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.book_part
+  module:
+    - node
+id: pattern_for_book_parts
+label: 'Pattern for Book Parts'
+type: 'canonical_entities:node'
+pattern: '/book/[node:book:parent]/[node:title]'
+selection_criteria:
+  6ba05526-78cc-45b2-851d-b28081b3842a:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      book_part: book_part
+selection_logic: and
+weight: -5
+relationships: {  }

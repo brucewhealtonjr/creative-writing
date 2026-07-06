@@ -1,0 +1,9 @@
+uuid: 90407922-a5d8-441b-8573-58d597df3c2f
+langcode: en
+status: true
+dependencies: {  }
+name: Categories
+vid: categories
+description: 'Story or Chapter Category topics'
+weight: 0
+new_revision: false

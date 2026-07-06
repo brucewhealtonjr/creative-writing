@@ -1,0 +1,62 @@
+uuid: ddde8d92-ab2b-49fe-ba3d-90a6a21e383f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.reusable_block
+    - field.field.block_content.reusable_block.body
+    - field.field.block_content.reusable_block.field_pattern_category
+    - field.field.block_content.reusable_block.field_pattern_sync_status
+  module:
+    - path
+    - text
+  enforced:
+    module:
+      - gutenberg
+_core:
+  default_config_hash: LMzXnAY8MqVbuuzTpfSafPS4IbJIbCo3fXQKwfyf9tY
+id: block_content.reusable_block.default
+targetEntityType: block_content
+bundle: reusable_block
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 26
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  field_pattern_category:
+    type: entity_reference_autocomplete_tags
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pattern_sync_status:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

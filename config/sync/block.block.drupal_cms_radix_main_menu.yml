@@ -1,0 +1,27 @@
+uuid: 162dbff5-418e-4921-9668-faf40b8e5fce
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - drupal_cms_radix
+_core:
+  default_config_hash: QVQOGQwwUfH5zXUml8sCL4_INlSisW3GwSYG6qxuxC8
+id: drupal_cms_radix_main_menu
+theme: drupal_cms_radix
+region: navbar_left
+weight: -5
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: true
+visibility: {  }

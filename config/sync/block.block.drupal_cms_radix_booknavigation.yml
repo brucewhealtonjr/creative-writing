@@ -1,0 +1,41 @@
+uuid: 1769e924-7487-45d3-bb8d-c976e7395528
+langcode: en
+status: true
+dependencies:
+  module:
+    - book
+  theme:
+    - drupal_cms_radix
+id: drupal_cms_radix_booknavigation
+theme: drupal_cms_radix
+region: sidebar_second
+weight: 0
+provider: null
+plugin: book_navigation
+settings:
+  id: book_navigation
+  label: 'Table of Contents'
+  label_display: visible
+  provider: book
+  block_mode: 'book pages'
+  show_top_item: false
+  use_top_level_title: false
+visibility:
+  book:
+    id: book
+    books:
+      46: '46'
+      64: '64'
+      79: '79'
+      92: '92'
+      102: '102'
+      131: '131'
+      198: '198'
+      285: '285'
+      327: '327'
+      329: '329'
+      359: '359'
+      403: '403'
+    negate: 0
+    context_mapping:
+      node: '@node.node_route_context:node'

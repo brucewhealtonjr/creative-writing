@@ -1,0 +1,23 @@
+uuid: f21ff28d-0121-4e65-a8e5-cc4207e319aa
+langcode: en
+status: false
+dependencies:
+  module:
+    - search
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: RyRcFjzy20_JTQ4PHYf81kn6WH309qIFit8J93w3B4M
+id: brucewhealton_search_form_wide
+theme: brucewhealton
+region: top_header
+weight: -6
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (wide)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

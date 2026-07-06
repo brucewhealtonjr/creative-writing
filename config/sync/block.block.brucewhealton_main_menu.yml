@@ -1,0 +1,27 @@
+uuid: b8b0022a-9ad5-4800-8da3-51b074f3f674
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: uA1FbWvYn6QmLVNrMrWCBrtC4STY3Wfu51Vy-PesLyQ
+id: brucewhealton_main_menu
+theme: brucewhealton
+region: primary_menu
+weight: -8
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: true
+visibility: {  }

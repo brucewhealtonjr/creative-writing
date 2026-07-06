@@ -1,0 +1,25 @@
+uuid: b54f870e-e830-41bd-8ccb-cbedcc627fe2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - drupal_cms_radix
+_core:
+  default_config_hash: A_3qQ7VXbAVt92AqTMcpbR3abcML6j4Ue20BzLXPVaY
+id: drupal_cms_radix_branding
+theme: drupal_cms_radix
+region: navbar_branding
+weight: -1
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

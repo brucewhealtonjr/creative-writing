@@ -1,0 +1,24 @@
+uuid: e13d5416-aa68-4f40-bce2-ca958fd39b8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_section_header
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.chapter_section
+  module:
+    - text
+id: paragraph.chapter_section.field_section_header
+field_name: field_section_header
+entity_type: paragraph
+bundle: chapter_section
+label: 'Section Header'
+description: 'If there is a header, include it here.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text

@@ -1,0 +1,19 @@
+uuid: 57d77ac8-8f56-424a-a502-b16d39115abb
+langcode: en
+status: true
+dependencies:
+  module:
+    - iframe
+    - paragraphs
+id: paragraph.field_youtube_content
+field_name: field_youtube_content
+entity_type: paragraph
+type: iframe
+settings: {  }
+module: iframe
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

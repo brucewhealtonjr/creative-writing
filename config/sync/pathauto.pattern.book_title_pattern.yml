@@ -1,0 +1,23 @@
+uuid: 42ae3ec5-d42e-4a96-9ba5-95c6dc3d0906
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.book_cover_and_description
+  module:
+    - node
+id: book_title_pattern
+label: 'Book Title Pattern'
+type: 'canonical_entities:node'
+pattern: '/book/[node:title]'
+selection_criteria:
+  5d7188a8-6546-4d75-913f-506026bc881d:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      book_cover_and_description: book_cover_and_description
+selection_logic: and
+weight: -5
+relationships: {  }

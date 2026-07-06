@@ -1,0 +1,18 @@
+uuid: c04d4c26-7cf3-4eb7-8fe9-77b9872fc85b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Book Cover and Description'
+type: book_cover_and_description
+description: null
+help: 'This will be used for any books to hold the content for the cover and description of a book. It will also be the root page for a book.'
+new_revision: true
+preview_mode: 1
+display_submitted: false

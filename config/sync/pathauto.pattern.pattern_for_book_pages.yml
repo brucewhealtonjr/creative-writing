@@ -1,0 +1,23 @@
+uuid: 44d40568-d73e-4469-8f90-19013556a835
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.book
+  module:
+    - node
+id: pattern_for_book_pages
+label: 'Pattern for Book Pages'
+type: 'canonical_entities:node'
+pattern: '/[node:book:root:title]/[node:title]'
+selection_criteria:
+  4a7606c3-441d-470c-903d-01e2d4c05ee9:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      book: book
+selection_logic: and
+weight: -5
+relationships: {  }

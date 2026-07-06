@@ -1,0 +1,29 @@
+uuid: 1a24bc76-efd0-4868-8f21-7d74826d7511
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_beginning_of_the_book
+    - node.type.book_chapter
+    - node.type.book_cover_and_description
+id: node.book_cover_and_description.field_beginning_of_the_book
+field_name: field_beginning_of_the_book
+entity_type: node
+bundle: book_cover_and_description
+label: 'Beginning of the Book'
+description: 'Link to the Introduction or first section of the book'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      book_chapter: book_chapter
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

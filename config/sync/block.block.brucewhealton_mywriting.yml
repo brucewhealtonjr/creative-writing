@@ -1,0 +1,25 @@
+uuid: 8cb5bb26-7906-4847-9bb0-80d3260eb270
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+  module:
+    - block_content
+  theme:
+    - brucewhealton
+id: brucewhealton_mywriting
+theme: brucewhealton
+region: sidebar_first
+weight: -10
+provider: null
+plugin: 'block_content:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+settings:
+  id: 'block_content:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+  label: 'About Bruce Whealton'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

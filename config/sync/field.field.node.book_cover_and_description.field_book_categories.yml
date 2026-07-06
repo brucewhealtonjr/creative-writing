@@ -1,0 +1,29 @@
+uuid: ebae14f1-2370-4e2b-a0ce-27b36596d540
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_book_categories
+    - node.type.book_cover_and_description
+    - taxonomy.vocabulary.categories
+id: node.book_cover_and_description.field_book_categories
+field_name: field_book_categories
+entity_type: node
+bundle: book_cover_and_description
+label: Categories
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      categories: categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,28 @@
+uuid: 382768b6-70a6-4090-ad81-a059b479544b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - filter.format.gutenberg
+    - node.type.book
+  module:
+    - text
+_core:
+  default_config_hash: ixtdivMIK7bLEDlPssoK_n1NdWEQjhD2EZ8th_biWJo
+id: node.book.body
+field_name: body
+entity_type: node
+bundle: book
+label: 'Contents of Book'
+description: 'Contents of Book in the form of a chapter and other content. '
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats:
+    - gutenberg
+field_type: text_with_summary

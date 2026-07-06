@@ -1,0 +1,25 @@
+uuid: b11e77e9-cc51-48f6-a0d6-02dbd4ff1002
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:b03738cc-3b87-41ae-9ff8-9349cdabecd4'
+  module:
+    - block_content
+  theme:
+    - bootstrap_sass
+id: bootstrap_sass_sitetitle
+theme: bootstrap_sass
+region: top_header
+weight: -7
+provider: null
+plugin: 'block_content:b03738cc-3b87-41ae-9ff8-9349cdabecd4'
+settings:
+  id: 'block_content:b03738cc-3b87-41ae-9ff8-9349cdabecd4'
+  label: 'Site Title'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

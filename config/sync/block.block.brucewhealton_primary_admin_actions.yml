@@ -1,0 +1,20 @@
+uuid: e2bc9d6b-98c9-47db-b2bc-19483f4729a6
+langcode: en
+status: true
+dependencies:
+  theme:
+    - brucewhealton
+_core:
+  default_config_hash: vLheuIKInsU0gcexaRZI-DKRBtZDpoDDxTjDsqIMtmI
+id: brucewhealton_primary_admin_actions
+theme: brucewhealton
+region: content
+weight: -6
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

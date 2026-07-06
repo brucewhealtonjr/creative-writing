@@ -1,0 +1,16 @@
+uuid: a29890c5-ef51-4b6e-a9a1-15d8ebdd12f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - gutenberg
+  enforced:
+    module:
+      - gutenberg
+_core:
+  default_config_hash: 6Nffs0f0augGItO21H-DDIcPxIBbB5txCgVuY_3xY8k
+id: reusable_block_delete_action
+label: 'Delete pattern'
+type: block_content
+plugin: reusable_block_delete_action
+configuration: {  }

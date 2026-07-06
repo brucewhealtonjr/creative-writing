@@ -1,0 +1,30 @@
+uuid: d896fdcd-105f-4256-93d1-2459d5388a9d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:reusable_block:325ff406-00b6-40e5-9d13-cebdc643d3be'
+  module:
+    - block_content
+    - system
+  theme:
+    - brucewhealton
+id: brucewhealton_moreaboutme
+theme: brucewhealton
+region: sidebar_first
+weight: -6
+provider: null
+plugin: 'block_content:325ff406-00b6-40e5-9d13-cebdc643d3be'
+settings:
+  id: 'block_content:325ff406-00b6-40e5-9d13-cebdc643d3be'
+  label: 'More about Me'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/book/*\r\n/three-times-victim-living-under-shadow-toxic-shame/*\r\n/tell-me-i-am-not-invisible-memoir-love-loss-and-learning-live-again/*"
