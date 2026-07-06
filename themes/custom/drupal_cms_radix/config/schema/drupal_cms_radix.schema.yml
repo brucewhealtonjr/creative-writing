@@ -1,0 +1,5 @@
+# Schema for the configuration files of the drupal_cms_radix theme.
+
+drupal_cms_radix.settings:
+  type: theme_settings
+  label: 'drupal_cms_radix settings'

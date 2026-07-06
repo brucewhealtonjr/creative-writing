@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+
+
+/* Set the dropdown background color */
+.navbar .dropdown-menu {
+background-color: #ffffff !important;
+}
+
+/* Style default and active menu items */
+.navbar .dropdown-menu .dropdown-item,
+.navbar .dropdown-menu .dropdown-item.active {
+background-color: #ffffff !important;
+color: #0c63e3 !important;
+}
+
+/* Hover/focus state for ALL dropdown items */
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus,
+.navbar .dropdown-menu .dropdown-item.active:hover,
+.navbar .dropdown-menu .dropdown-item.active:focus {
+background-color: #f8f9fa !important;
+color: #0c63e3 !important;
+}
+
+
+
+.hero-banner {
+  position: relative;
+  width: 100%;
+  max-height: 300px; /* or less if needed */
+  overflow: hidden;
+}
+
+.hero-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.hero-text {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  font-family: 'Merriweather', serif;
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  color: white;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+  text-align: center;           /* ✅ THIS IS CRITICAL */
+  line-height: 1.2;
+  padding: 1rem;
+  max-width: 95%;
+  word-break: normal;
+  white-space: normal;
+  hyphens: auto;
+  z-index: 10;
+  margin: 0 auto;
+}
+
+.hero-text p {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .hero-text {
+/*    font-size: 2.5rem; */
+    padding: 0.3rem 0.5rem;
+    max-width: 98%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    max-height: 350px;
+  }
+
+  .hero-text {
+    max-width: 98%;
+    margin: 0 auto;
+  }
+}

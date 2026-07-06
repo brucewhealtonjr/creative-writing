@@ -1,0 +1,55 @@
+# Drupal dependencies managed by Composer.
+/vendor/
+/core/
+/modules/contrib/
+/themes/contrib/
+/profiles/contrib/
+
+# User-generated and private Drupal files.
+/sites/*/files/
+/sites/*/private/
+/sites/*/settings*.php
+/sites/*/services*.yml
+/sites/simpletest/
+
+# Local database dumps, archives, and logs.
+*.sql
+*.sql.gz
+*.sql.gz.gz
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.log
+/error_log
+
+# Local Composer backup files from previous repair attempts.
+/composer.json--old
+/composer.lock--old
+/composer.json.before-*
+/composer.lock.before-*
+
+# Local/editor noise.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Local backups of nested Git metadata while flattening this clone.
+/.git-backups/
+
+# DDEV generated/local artifacts.
+/.ddev/.dbimageBuild/
+/.ddev/.homeadditions/
+/.ddev/.webimageBuild/
+/.ddev/db_snapshots/
+/.ddev/.ddev-docker-*.yaml
+/.ddev/traefik/config/*.yaml
+/.ddev/traefik/certs/
+/.ddev/config.local.yaml
+/.ddev/config.*.local.yaml
+
+# Frontend build dependencies and caches.
+node_modules/
+.npm/
+.cache/

@@ -1,0 +1,549 @@
+// Navigation, banner, sidebar, and sample-content polish.
+.navbar {
+  background: rgba($white, 0.97);
+  border-bottom: 1px solid $border-color;
+  box-shadow: 0 2px 16px rgba($dark, 0.05);
+}
+
+.navbar .container {
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.navbar-brand {
+  color: $dark;
+  font-family: $headings-font-family;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.site-logo-button {
+  gap: 0.65rem;
+  line-height: 1;
+  padding: 0.35rem 0;
+  text-decoration: none;
+}
+
+.site-logo-button__mark {
+  align-items: center;
+  background: $primary;
+  border-radius: 999px;
+  color: $white;
+  display: inline-flex;
+  font-family: $font-family-sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.site-logo-button__text {
+  color: $dark;
+  font-size: 1.15rem;
+}
+
+.navbar-nav {
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  max-width: 100%;
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+}
+
+.navbar-nav .nav-link {
+  border-radius: $border-radius-sm;
+  color: $gray-900;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 0.7rem 0.95rem;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active,
+.navbar-nav .active > .nav-link {
+  background: rgba($primary, 0.14);
+  box-shadow: inset 0 0 0 1px rgba($primary, 0.22);
+  color: darken($primary, 12%);
+  text-decoration: none;
+}
+
+.navbar-nav .dropdown-menu {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: 0 14px 34px rgba($dark, 0.12);
+  margin-top: 0;
+  min-width: 15rem;
+  padding: 0.45rem;
+}
+
+.navbar-nav .dropdown-item,
+.navbar-nav .dropdown-menu .nav-link {
+  border-radius: $border-radius-sm;
+  color: $gray-900;
+  display: block;
+  font-weight: 600;
+  padding: 0.55rem 0.7rem;
+}
+
+.navbar-nav .dropdown-item:hover,
+.navbar-nav .dropdown-item:focus,
+.navbar-nav .dropdown-menu .nav-link:hover,
+.navbar-nav .dropdown-menu .nav-link:focus {
+  background: rgba($secondary, 0.16);
+  color: $dark;
+}
+
+@include media-breakpoint-up(lg) {
+  .navbar-nav .dropdown:hover > .dropdown-menu,
+  .navbar-nav .dropdown:focus-within > .dropdown-menu {
+    display: block;
+  }
+}
+
+.site-banner {
+  background: linear-gradient(135deg, rgba($primary, 0.18), rgba($secondary, 0.18));
+  border-bottom: 1px solid $border-color;
+}
+
+.site-banner .block,
+.site-banner .region {
+  margin: 0;
+}
+
+.site-hero {
+  background-blend-mode: screen;
+  background-position: center;
+  background-size: cover;
+  color: $dark;
+  min-height: clamp(10rem, 18vw, 16rem);
+  position: relative;
+}
+
+.site-hero::before {
+  background: linear-gradient(90deg, rgba($gray-100, 0.9), rgba($gray-100, 0.72));
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.site-hero__inner {
+  max-width: 52rem;
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  position: relative;
+}
+
+.site-hero h1,
+.site-hero .h1 {
+  color: $gray-800;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 1rem;
+}
+
+.site-hero p {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  max-width: 42rem;
+}
+
+.main-content {
+  background: $body-bg;
+}
+
+.main-sidebar {
+  align-self: start;
+}
+
+.main-sidebar .block {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $card-box-shadow;
+  padding: 1.25rem;
+}
+
+.main-sidebar h2,
+.main-sidebar .block-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.main-sidebar ul,
+.book-navigation ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.main-sidebar ul ul,
+.book-navigation ul ul {
+  border-left: 2px solid $border-color;
+  margin-left: 0.5rem;
+  padding-left: 0.65rem;
+}
+
+.main-sidebar li,
+.book-navigation li {
+  margin: 0.2rem 0;
+}
+
+.main-sidebar a,
+.book-navigation a {
+  border-radius: $border-radius-sm;
+  color: $gray-900;
+  display: block;
+  padding: 0.35rem 0.45rem;
+}
+
+.main-sidebar a:hover,
+.main-sidebar a:focus,
+.book-navigation a:hover,
+.book-navigation a:focus {
+  background: rgba($primary, 0.12);
+  color: darken($primary, 12%);
+  text-decoration: none;
+}
+
+.home-section {
+  margin-bottom: 3rem;
+}
+
+.home-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.home-card {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $card-box-shadow;
+  height: 100%;
+  overflow: hidden;
+}
+
+.home-card img {
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.home-card__body {
+  padding: 1.2rem;
+}
+
+.home-card__body h2,
+.home-card__body h3 {
+  font-size: 1.35rem;
+}
+
+// Final layout containment tweaks.
+.navbar .me-auto,
+.navbar .ms-auto {
+  min-width: 0;
+}
+
+.navbar-nav > .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.main-sidebar {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.main-sidebar .block + .block {
+  margin-top: 1.25rem;
+}
+
+.main-sidebar .nav,
+.main-sidebar .menu {
+  max-width: 100%;
+}
+
+.main-sidebar .nav-link,
+.main-sidebar a {
+  hyphens: auto;
+  line-height: 1.35;
+  max-width: 100%;
+  white-space: normal;
+}
+
+.node--type-book-page .main-content__section {
+  max-width: 52rem;
+}
+
+.book-page-context {
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+.book-page-context__label {
+  color: $primary;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+}
+
+.book-page-context__trail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.book-page-context__trail li {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.55rem;
+}
+
+.book-page-context__trail li:not(:last-child)::after {
+  color: $gray-800;
+  content: "/";
+  opacity: 0.45;
+}
+
+.book-page-context__trail a {
+  color: $gray-800;
+  text-decoration: none;
+}
+
+.book-page-context__trail a:hover,
+.book-page-context__trail a:focus {
+  color: darken($primary, 12%);
+  text-decoration: underline;
+}
+
+.book-page-context__trail .is-current span {
+  color: $dark;
+  font-weight: 700;
+}
+
+.book-page-content {
+  font-size: 1.18rem;
+}
+
+.book-page-sequence {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 3rem;
+}
+
+.book-page-sequence__button {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $card-box-shadow;
+  color: $dark;
+  display: block;
+  min-height: 5rem;
+  padding: 1rem 1.15rem;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.book-page-sequence__button:hover,
+.book-page-sequence__button:focus {
+  background: rgba($primary, 0.1);
+  border-color: rgba($primary, 0.35);
+  color: $dark;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.book-page-sequence__button--next {
+  text-align: right;
+}
+
+.book-page-sequence__meta {
+  color: $primary;
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.book-page-sequence__title {
+  display: block;
+  font-family: $headings-font-family;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+@include media-breakpoint-down(lg) {
+  .navbar-nav {
+    flex-wrap: wrap;
+  }
+
+  .navbar-nav .nav-link {
+    white-space: normal;
+  }
+
+  .navbar-nav .dropdown-menu,
+  .navbar-nav .dropdown-menu.show {
+    display: block;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+// Desktop navigation should stay on one line; dropdowns carry the overflow.
+@include media-breakpoint-up(lg) {
+  .navbar-nav {
+    flex-wrap: nowrap;
+  }
+
+  .navbar-nav > .nav-item > .nav-link {
+    white-space: nowrap;
+  }
+
+  .navbar-nav .dropdown-menu {
+    box-shadow: 0 18px 44px rgba($dark, 0.14);
+    max-width: min(42rem, calc(100vw - 2rem));
+    min-width: min(24rem, calc(100vw - 2rem));
+    padding: 0.7rem;
+  }
+
+  .navbar-nav .dropdown-menu.show,
+  .navbar-nav .dropdown:hover > .dropdown-menu,
+  .navbar-nav .dropdown:focus-within > .dropdown-menu {
+    display: grid;
+    gap: 0.25rem 0.65rem;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+
+  .navbar-nav .dropdown-menu .nav-link,
+  .navbar-nav .dropdown-item {
+    line-height: 1.3;
+    white-space: normal;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .navbar-nav {
+    flex-wrap: wrap;
+  }
+
+  .navbar-nav .nav-link {
+    white-space: normal;
+  }
+
+  .navbar-nav .dropdown-menu,
+  .navbar-nav .dropdown-menu.show {
+    display: block;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+// Dropdown panels open below the navbar and overlay the page content.
+@include media-breakpoint-up(lg) {
+  .navbar {
+    position: relative;
+    z-index: 1020;
+  }
+
+  .navbar-nav > .dropdown {
+    position: relative;
+  }
+
+  .navbar-nav > .dropdown > .dropdown-menu {
+    left: 0;
+    position: absolute;
+    right: auto;
+    top: 100%;
+    transform: none;
+    z-index: 1030;
+  }
+
+  .navbar-nav > .dropdown:last-child > .dropdown-menu,
+  .navbar-nav > .dropdown:nth-last-child(2) > .dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+}
+
+.book-page-toc {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  box-shadow: $card-box-shadow;
+  margin-top: 3rem;
+  padding: 1.5rem;
+}
+
+.book-page-toc h2 {
+  font-size: 1.45rem;
+  margin-bottom: 1rem;
+}
+
+.book-page-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.book-page-toc__item {
+  margin: 0.2rem 0;
+}
+
+.book-page-toc__item a {
+  border-radius: $border-radius-sm;
+  color: $gray-900;
+  display: block;
+  padding: 0.35rem 0.5rem;
+  text-decoration: none;
+}
+
+.book-page-toc__item a:hover,
+.book-page-toc__item a:focus,
+.book-page-toc__item.is-current a {
+  background: rgba($primary, 0.12);
+  color: darken($primary, 12%);
+}
+
+.book-page-toc__item--depth-2 {
+  margin-left: 1.25rem;
+}
+
+.book-page-toc__item--depth-3 {
+  margin-left: 2.5rem;
+}
+
+.book-page-toc__item--depth-4,
+.book-page-toc__item--depth-5,
+.book-page-toc__item--depth-6,
+.book-page-toc__item--depth-7,
+.book-page-toc__item--depth-8,
+.book-page-toc__item--depth-9 {
+  margin-left: 3.75rem;
+}
+
+@include media-breakpoint-down(md) {
+  .book-page-sequence {
+    grid-template-columns: 1fr;
+  }
+
+  .book-page-sequence__button--next {
+    text-align: left;
+  }
+}

@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ */
+#}
+{% set page_attributes = attributes ?: create_attribute() %}
+{% set page_classes = ['page']|merge(page_utility_classes ?: []) %}
+{% set show_sidebar = page.sidebar_second and not is_front %}
+
+<div {{ page_attributes.addClass(page_classes) }}>
+  {% block page_navigation %}
+    {% include 'radix:page-navigation' %}
+  {% endblock %}
+
+  {% if page.banner %}
+    <section class="site-banner">
+      {{ page.banner }}
+    </section>
+  {% endif %}
+
+  <main class="main-content py-5" id="main-content">
+    <div class="container">
+      <div class="row g-5 justify-content-center">
+        <div class="main-content__section {{ show_sidebar ? 'col-lg-8 col-xl-9' : 'col-12' }}">
+          {{ page.content }}
+        </div>
+        {% if show_sidebar %}
+          <aside class="main-sidebar col-lg-4 col-xl-3">
+            {{ page.sidebar_second }}
+          </aside>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+
+  {% block page_footer %}
+    {% include 'radix:page-footer' %}
+  {% endblock %}
+</div>

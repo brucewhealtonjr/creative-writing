@@ -1,0 +1,170 @@
+/*
+Theme Name: Bootstrap 4 Sass
+Description: Bootstrap 4 with Sass
+*/
+
+// import files
+@import "import";
+
+/* GENERAL STYLES
+-------------------------------------------------*/
+
+body {
+    background: $body-bg;
+}
+
+
+/* COLORS
+--------------------------------------------------*/
+
+a {
+    color: $accent-shade;
+}
+
+.bg-inverse {
+    background: $primary-shade !important;
+}
+
+.site-footer {
+    background: $primary-shade !important;
+}
+
+.site-name-slogan a {
+    text-decoration: none;
+}
+
+.card-group img {
+    margin: 0;
+    width: 100%;
+    height: auto;
+}
+
+.card-group .field--type-image {
+    margin: 0
+}
+
+.slick {
+    width: 100%;
+}
+
+.slick>div {
+    margin: 0 15px;
+}
+
+// Home page style
+#navbar-main {
+    .container {
+        .justify-content-end {
+            justify-content: flex-start !important;
+        }
+    }
+}
+
+@media (max-width: 991.9999px) {
+    #navbar-top {
+        .container, .container-sm {
+            max-width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+            justify-content: center;
+        }
+    }
+
+    #navbar-main {
+        border-top: 1px solid rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
+        border-bottom: 1px solid rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
+        &.open {
+            background-color: #fff !important;
+            .navbar-toggler {
+                background: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
+            }
+            .nav-item {
+                .nav-link {
+                    color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+                    border-bottom: 1px solid #dee2e6 !important;
+
+                    &:hover, &:focus {
+                        color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+                    }
+                }
+                &:last-child {
+                    .nav-link {
+                        border-bottom: 0 !important;
+                    }
+                }
+            }
+        }
+        .container {
+            flex-direction: row-reverse;
+
+            .navbar-toggler-left {
+                display: none;
+            }
+
+            .offcanvas {
+                background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+            }
+        }
+    }
+    
+    
+}
+
+@media (max-width: 47.9em) {
+    .row-offcanvas-left {
+        .main-content {
+            &.sidebar-offcanvas {
+                left: 0;
+                width: 100%;
+                position: relative;
+            }
+        }
+        .sidebar_first {
+            padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+        }
+    }
+}
+
+@media (max-width: 62rem) {
+    #sidebar_first {
+        width: 100%;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+}
+
+// Menu CSS for 768 to 991
+@media (min-width: 48rem) and (max-width: 62rem) {
+    #navbar-main {
+        .navbar-toggler {
+            display: none;
+        }
+        .navbar-nav {
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .navbar-collapse {
+            display: block;
+        }
+        .nav-link {
+            font-size: 14px;
+        }
+    }
+}
+
+@media (min-width: 62rem) {
+    #navbar-main {
+        .navbar-toggler {
+            display: none;
+        }
+        .nav-link {
+            font-size: inherit;
+        }
+    }
+}

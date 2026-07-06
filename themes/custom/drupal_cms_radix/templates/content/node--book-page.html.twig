@@ -1,0 +1,76 @@
+{#
+/**
+ * @file
+ * Theme override for Book page nodes.
+ */
+#}
+{% set node_classes = [
+  'node',
+  'node--type-book-page',
+  'node--view-mode-' ~ view_mode|clean_class,
+  not node.isPublished() ? 'node--unpublished'
+] %}
+
+<article{{ attributes.addClass(node_classes) }}>
+  {{ title_prefix }}
+  {% if not page %}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if book_reading_context.trail %}
+    <nav class="book-page-context" aria-label="Book position">
+      <div class="book-page-context__label">{{ book_reading_context.depth_label }}</div>
+      <ol class="book-page-context__trail">
+        {% for item in book_reading_context.trail %}
+          <li class="{{ item.is_current ? 'is-current' }}">
+            {% if item.is_current %}
+              <span aria-current="page">{{ item.title }}</span>
+            {% else %}
+              <a href="{{ item.url }}">{{ item.title }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </nav>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content', 'book-page-content') }}>
+    {{ content }}
+  </div>
+
+  {% if book_previous_item or book_next_item %}
+    <nav class="book-page-sequence" aria-label="Book page navigation">
+      {% if book_previous_item %}
+        <a class="book-page-sequence__button book-page-sequence__button--previous" href="{{ book_previous_item.url }}">
+          <span class="book-page-sequence__meta">Previous</span>
+          <span class="book-page-sequence__title">{{ book_previous_item.title }}</span>
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+
+      {% if book_next_item %}
+        <a class="book-page-sequence__button book-page-sequence__button--next" href="{{ book_next_item.url }}">
+          <span class="book-page-sequence__meta">Next</span>
+          <span class="book-page-sequence__title">{{ book_next_item.title }}</span>
+        </a>
+      {% endif %}
+    </nav>
+  {% endif %}
+
+  {% if book_toc_items %}
+    <nav class="book-page-toc" aria-labelledby="book-page-toc-title">
+      <h2 id="book-page-toc-title">Contents</h2>
+      <ol class="book-page-toc__list">
+        {% for item in book_toc_items %}
+          <li class="book-page-toc__item book-page-toc__item--depth-{{ item.depth }}{{ item.is_current ? ' is-current' }}">
+            <a href="{{ item.url }}">{{ item.title }}</a>
+          </li>
+        {% endfor %}
+      </ol>
+    </nav>
+  {% endif %}
+</article>

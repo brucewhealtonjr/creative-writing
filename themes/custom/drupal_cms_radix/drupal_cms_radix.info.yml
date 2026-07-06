@@ -1,0 +1,29 @@
+name: drupal_cms_radix
+description: Custom
+screenshot: screenshot.png
+'alt text': 'drupal_cms_radix theme screenshot'
+core_version_requirement: ^10 || ^11
+engine: twig
+type: theme
+'base theme': radix
+'interface translation project': drupal_cms_radix
+'interface translation server pattern': themes/custom/drupal_cms_radix/translations/%language.po
+regions:
+  navbar_branding: 'Navbar branding'
+  navbar_left: 'Navbar left'
+  navbar_right: 'Navbar right'
+  banner: 'Banner'
+  header: 'Header'
+  content: 'Content'
+  sidebar_second: 'Sidebar right'
+  footer: 'Footer'
+libraries:
+  - drupal_cms_radix/style
+ckeditor5-stylesheets:
+  - build/css/main.style.css
+version: 1.0.0
+project: radix
+datestamp: 1781864350
+generator: 'radix_starterkit:6.0.8'
+
+

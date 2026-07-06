@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * Theme and preprocess functions for nodes.
+ */
+
+use Drupal\node\NodeInterface;
+
+/**
+ * Prepares reading context, sequence links, and contents for Book pages.
+ */
+function drupal_cms_radix_preprocess_node(array &$variables): void {
+  $node = $variables['node'] ?? NULL;
+  if (!$node instanceof NodeInterface || $node->bundle() !== 'book_page') {
+    return;
+  }
+
+  $book_row = \Drupal::database()
+    ->select('book', 'b')
+    ->fields('b')
+    ->condition('nid', (int) $node->id())
+    ->execute()
+    ->fetchAssoc();
+
+  if (!$book_row || empty($book_row['bid'])) {
+    return;
+  }
+
+  $rows = \Drupal::database()
+    ->select('book', 'b')
+    ->fields('b', ['nid', 'bid', 'pid', 'depth', 'weight', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9'])
+    ->condition('bid', (int) $book_row['bid'])
+    ->orderBy('p1')
+    ->orderBy('p2')
+    ->orderBy('p3')
+    ->orderBy('p4')
+    ->orderBy('p5')
+    ->orderBy('p6')
+    ->orderBy('p7')
+    ->orderBy('p8')
+    ->orderBy('p9')
+    ->orderBy('weight')
+    ->execute()
+    ->fetchAllAssoc('nid');
+
+  if (!$rows) {
+    return;
+  }
+
+  $nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadMultiple(array_keys($rows));
+
+  $items = [];
+  $item_by_nid = [];
+  $current_index = NULL;
+  foreach ($rows as $nid => $row) {
+    if (empty($nodes[$nid]) || !$nodes[$nid]->access('view')) {
+      continue;
+    }
+
+    $item = [
+      'nid' => (int) $nid,
+      'title' => $nodes[$nid]->label(),
+      'url' => $nodes[$nid]->toUrl()->toString(),
+      'depth' => max(1, min(9, (int) $row->depth)),
+      'is_current' => (int) $nid === (int) $node->id(),
+    ];
+
+    if ($item['is_current']) {
+      $current_index = count($items);
+    }
+
+    $items[] = $item;
+    $item_by_nid[(int) $nid] = $item;
+  }
+
+  $trail = [];
+  $current_row = $rows[$node->id()] ?? NULL;
+  if ($current_row) {
+    for ($level = 1; $level <= (int) $current_row->depth; $level++) {
+      $ancestor_nid = (int) ($current_row->{'p' . $level} ?? 0);
+      if ($ancestor_nid && isset($item_by_nid[$ancestor_nid])) {
+        $trail[] = $item_by_nid[$ancestor_nid];
+      }
+    }
+  }
+
+  $book = $trail[0] ?? reset($items);
+
+  $variables['book_toc_items'] = $items;
+  $variables['book_reading_context'] = [
+    'book' => $book ?: NULL,
+    'trail' => $trail,
+    'section_trail' => array_slice($trail, 1, -1),
+    'depth_label' => drupal_cms_radix_book_depth_label((int) ($current_row->depth ?? 1)),
+  ];
+
+  if ($current_index !== NULL) {
+    $variables['book_previous_item'] = $items[$current_index - 1] ?? NULL;
+    $variables['book_next_item'] = $items[$current_index + 1] ?? NULL;
+  }
+}
+
+/**
+ * Gives readable labels to the first few levels of a Book outline.
+ */
+function drupal_cms_radix_book_depth_label(int $depth): string {
+  return match ($depth) {
+    1 => 'Book',
+    2 => 'Chapter',
+    3 => 'Section',
+    4 => 'Part',
+    default => 'Page',
+  };
+}

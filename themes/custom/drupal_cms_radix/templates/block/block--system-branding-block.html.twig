@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Theme override for a branding block.
+ *
+ * Each branding element variable (logo, name, slogan) is only available if
+ * enabled in the block configuration.
+ *
+ * Available variables:
+ * - site_logo: Logo for site as defined in Appearance or theme settings.
+ * - site_name: Name for site as defined in Site information settings.
+ * - site_slogan: Slogan for site as defined in Site information settings.
+ */
+#}
+{%
+  embed 'radix:block' with {
+    block_utility_classes: [
+      'block--system-branding',
+    ],
+  }
+%}
+  {% block block_content %}
+    <a class="navbar-brand site-logo-button" href="{{ path('<front>') }}" rel="home">
+      <span class="site-logo-button__mark" aria-hidden="true">PB</span>
+      <span class="site-logo-button__text">{{ site_name ?: 'Publishing Demo' }}</span>
+    </a>
+  {% endblock %}
+{% endembed %}
