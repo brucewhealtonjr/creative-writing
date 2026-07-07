@@ -21,8 +21,11 @@
 %}
   {% block block_content %}
     <a class="navbar-brand site-logo-button" href="{{ path('<front>') }}" rel="home">
-      <span class="site-logo-button__mark" aria-hidden="true">PB</span>
-      <span class="site-logo-button__text">{{ site_name ?: 'Publishing Demo' }}</span>
+      <span class="site-logo-button__mark" aria-hidden="true">BW</span>
+      <span class="site-logo-button__text" aria-label="{{ site_name ?: 'Creative Writing By Bruce Whealton' }}">
+        <span>Creative Writing By</span>
+        <span>Bruce Whealton</span>
+      </span>
     </a>
   {% endblock %}
 {% endembed %}

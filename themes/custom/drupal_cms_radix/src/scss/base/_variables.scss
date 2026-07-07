@@ -1,5 +1,5 @@
-// Google Fonts - Lora for headings, Source Sans Pro for body
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+// Google Fonts - literary headings with readable long-form body text.
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+Pro:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
 
 // Color system - Warm + Human Palette
 $white:    #FFFFFF;
@@ -23,8 +23,9 @@ $body-color: $gray-900;
 
 // Typography
 $font-family-sans-serif: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-$font-family-base:       $font-family-sans-serif;
-$headings-font-family:   'Lora', Georgia, serif;
+$font-family-serif:      'Source Serif 4', Georgia, "Times New Roman", serif;
+$font-family-base:       $font-family-serif;
+$headings-font-family:   'Cormorant Garamond', Georgia, serif;
 $headings-color:         $gray-800;
 $font-size-base:         1.125rem; // 18px - easier reading for memoir
 $line-height-base:       1.75;

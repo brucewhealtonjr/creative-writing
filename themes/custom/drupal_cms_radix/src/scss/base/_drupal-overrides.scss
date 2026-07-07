@@ -5,3 +5,10 @@
     box-sizing: content-box;
   }
 }
+
+#toolbar-administration,
+.toolbar-bar,
+.toolbar-tray,
+.toolbar-menu-administration {
+  z-index: 1300;
+}

@@ -113,7 +113,7 @@ book_part_allowed_drupal_blocks:
   - system_breadcrumb_block
 book_part_enable_full: true
 book_part_template: ''
-book_part_template_lock: insert
+book_part_template_lock: none
 book_template: ''
 book_template_lock: none
 books_and_creative_writing_by_br_allowed_blocks:

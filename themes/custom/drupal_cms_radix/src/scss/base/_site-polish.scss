@@ -16,6 +16,8 @@
   font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: 0;
+  min-width: 0;
+  white-space: normal;
 }
 
 .site-logo-button {
@@ -41,7 +43,12 @@
 
 .site-logo-button__text {
   color: $dark;
+  display: inline-flex;
+  flex-direction: column;
   font-size: 1.15rem;
+  line-height: 1.08;
+  max-width: min(20rem, calc(100vw - 8rem));
+  white-space: normal;
 }
 
 .navbar-nav {

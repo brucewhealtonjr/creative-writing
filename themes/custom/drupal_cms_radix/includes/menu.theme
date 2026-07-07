@@ -41,6 +41,23 @@ function drupal_cms_radix_preprocess_book_tree(array &$variables): void {
 }
 
 /**
+ * Removes the redundant Home link from the main menu.
+ */
+function drupal_cms_radix_preprocess_menu(array &$variables): void {
+  if (($variables['menu_name'] ?? '') !== 'main' || empty($variables['items'])) {
+    return;
+  }
+
+  foreach ($variables['items'] as $key => $item) {
+    if (!empty($item['url']) && $item['url']->isRouted() && $item['url']->getRouteName() === '<front>') {
+      unset($variables['items'][$key]);
+    }
+  }
+
+  $variables['items'] = array_values($variables['items']);
+}
+
+/**
  * Collects node IDs from a book tree recursively.
  */
 function drupal_cms_radix_collect_book_tree_nids(array $items, array &$nids): void {

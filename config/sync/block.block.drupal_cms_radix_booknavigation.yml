@@ -20,22 +20,4 @@ settings:
   block_mode: 'book pages'
   show_top_item: false
   use_top_level_title: false
-visibility:
-  book:
-    id: book
-    books:
-      46: '46'
-      64: '64'
-      79: '79'
-      92: '92'
-      102: '102'
-      131: '131'
-      198: '198'
-      285: '285'
-      327: '327'
-      329: '329'
-      359: '359'
-      403: '403'
-    negate: 0
-    context_mapping:
-      node: '@node.node_route_context:node'
+visibility: {  }
