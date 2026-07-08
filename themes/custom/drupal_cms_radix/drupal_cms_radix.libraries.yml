@@ -4,6 +4,7 @@ style:
       build/css/main.style.css: {}
       build/css/brand-typography.css: {}
       build/css/admin-toolbar.css: {}
+      build/css/content-spacing.css: {}
       build/css/book-tree.css: {}
   js:
     build/js/main.script.js: {}

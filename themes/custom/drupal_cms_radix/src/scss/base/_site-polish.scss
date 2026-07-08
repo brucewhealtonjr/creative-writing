@@ -345,6 +345,17 @@
   font-size: 1.18rem;
 }
 
+.node .addtoany_list,
+.node .a2a_kit.addtoany_list {
+  display: inline-flex;
+  margin: 1rem 0 1.75rem;
+}
+
+.node .addtoany_list + .field,
+.node .a2a_kit.addtoany_list + .field {
+  margin-top: 0.5rem;
+}
+
 .book-page-sequence {
   display: grid;
   gap: 1rem;
