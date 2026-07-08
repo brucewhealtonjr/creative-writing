@@ -6,9 +6,24 @@
   }
 }
 
-#toolbar-administration,
-.toolbar-bar,
-.toolbar-tray,
-.toolbar-menu-administration {
-  z-index: 1300;
+#toolbar-administration {
+  position: relative;
+  z-index: 20000 !important;
+}
+
+#toolbar-administration .toolbar,
+.toolbar .toolbar-bar,
+.toolbar .toolbar-tray,
+.toolbar-oriented .toolbar-bar,
+.toolbar-oriented .toolbar-tray,
+.toolbar-tray-horizontal .menu-item--expanded.hover-intent > ul,
+.toolbar-tray-horizontal .menu-item--expanded:hover > ul,
+.toolbar-tray-horizontal .menu-item--expanded:focus-within > ul {
+  z-index: 20000 !important;
+}
+
+.toolbar-tray-horizontal .menu-item--expanded.hover-intent ul ul,
+.toolbar-tray-horizontal .menu-item--expanded:hover ul ul,
+.toolbar-tray-horizontal .menu-item--expanded:focus-within ul ul {
+  z-index: 20010 !important;
 }
