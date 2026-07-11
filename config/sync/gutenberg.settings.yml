@@ -47,7 +47,9 @@ book_allowed_drupal_blocks:
   - drupalmedia/drupal-media-entity
   - search_form_block
   - system_breadcrumb_block
-book_chapter_enable_full: false
+book_chapter_enable_full: true
+book_chapter_template: ''
+book_chapter_template_lock: none
 book_cover_and_description_enable_full: true
 book_enable_full: true
 book_part_allowed_blocks:
