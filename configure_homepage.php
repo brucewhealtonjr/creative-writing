@@ -1,35 +1,22 @@
 <?php
 /**
  * @file
- * Diagnostic tool and homepage Layout Builder configuration.
+ * Diagnostic tool to check filesystem config vs database config.
  */
 
-use Drupal\node\Entity\Node;
-
-// 1. Check if layout_builder module is enabled
-$module_handler = \Drupal::moduleHandler();
-if ($module_handler->moduleExists('layout_builder')) {
-  print "STATUS: Layout Builder module is ENABLED.\n";
+$file_path = __DIR__ . '/config/sync/core.entity_view_display.node.page.default.yml';
+if (file_exists($file_path)) {
+  print "STATUS: File exists on remote server at $file_path.\n";
+  print "STATUS: File contents (first 25 lines):\n";
+  $lines = file($file_path);
+  for ($i = 0; $i < min(25, count($lines)); $i++) {
+    print " | " . $lines[$i];
+  }
 } else {
-  print "STATUS: Layout Builder module is DISABLED.\n";
+  print "STATUS: File NOT found on remote server at $file_path.\n";
 }
 
-// 2. Check Page view display settings
-$entity_field_manager = \Drupal::service('entity_field.manager');
-$fields = $entity_field_manager->getFieldDefinitions('node', 'page');
-print "STATUS: Available fields on 'page' bundle:\n";
-foreach (array_keys($fields) as $field_name) {
-  print " - $field_name\n";
-}
-
-// 3. Check display settings
-$display = \Drupal::entityTypeManager()
-  ->getStorage('entity_view_display')
-  ->load('node.page.default');
-
-if ($display) {
-  $layout_settings = $display->getThirdPartySettings('layout_builder');
-  print "STATUS: Layout Builder third party settings: " . json_encode($layout_settings) . "\n";
-} else {
-  print "STATUS: core.entity_view_display.node.page.default not found.\n";
-}
+// Print database active config
+$active_config = \Drupal::config('core.entity_view_display.node.page.default')->getRawData();
+print "\nSTATUS: Database active configuration (third_party_settings):\n";
+print " | " . json_encode($active_config['third_party_settings'] ?? []) . "\n";
