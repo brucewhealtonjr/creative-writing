@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.book_part.body
     - field.field.node.book_part.field_featured_image
+    - field.field.node.book_part.field_people_characters_featured
     - image.style.max_650x650
     - node.type.book_part
   module:
@@ -33,6 +34,14 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_people_characters_featured:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
     region: content
   links:
     settings: {  }

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.book_part.body
     - field.field.node.book_part.field_featured_image
+    - field.field.node.book_part.field_people_characters_featured
     - image.style.thumbnail
     - node.type.book_part
   module:
@@ -39,6 +40,16 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_people_characters_featured:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   path:
     type: path
