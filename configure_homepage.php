@@ -50,7 +50,7 @@ $node->get('layout_builder__layout')->setValue([]);
 
 // 4. Create or update the Hero Banner block content entity
 $hero_body = <<<'HTML'
-<div class="hero-banner" style="background-image: url('/sites/default/files/hero_background.png'); background-size: cover; background-position: center; min-height: 480px; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 60px 20px; position: relative;">
+<div class="hero-banner" style="background-image: url('/themes/custom/drupal_cms_radix/build/assets/images/hero_background.png'); background-size: cover; background-position: center; min-height: 480px; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 60px 20px; position: relative;">
   <div class="hero-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.65); z-index: 1;"></div>
   <div class="hero-content" style="position: relative; z-index: 2; max-width: 800px;">
     <!-- Large prominent header with solid white and high-contrast text shadow -->
