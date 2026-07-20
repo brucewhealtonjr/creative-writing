@@ -7,19 +7,21 @@ dependencies:
     - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_ai_creativity_writing
+    - field.field.node.article.field_article_type
     - field.field.node.article.field_categories
     - field.field.node.article.field_embedded_content
     - field.field.node.article.field_external_link
     - field.field.node.article.field_image
     - field.field.node.article.field_related_to_the_book
     - field.field.node.article.field_tags
-    - image.style.wide
+    - image.style.max_650x650
     - node.type.article
   module:
     - comment
     - iframe
     - image
     - link
+    - options
     - text
     - user
 _core:
@@ -55,6 +57,13 @@ content:
     label: above
     settings:
       link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_article_type:
+    type: list_default
+    label: above
+    settings: {  }
     third_party_settings: {  }
     weight: 10
     region: content
@@ -101,7 +110,7 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: wide
+      image_style: max_650x650
       image_loading:
         attribute: lazy
     third_party_settings: {  }

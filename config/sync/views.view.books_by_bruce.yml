@@ -217,43 +217,15 @@ display:
           value:
             book_cover_and_description: book_cover_and_description
       style:
-        type: table
+        type: default
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
-          columns:
-            title: title
-            field_book_cover_page: field_book_cover_page
-          default: '-1'
-          info:
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: views-align-left
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_book_cover_page:
-              sortable: false
-              default_sort_order: asc
-              align: views-align-center
-              separator: ''
-              empty_column: false
-              responsive: ''
-          override: true
-          sticky: true
-          summary: ''
-          empty_table: false
-          caption: 'A List of the Books by Bruce Whealton'
-          description: ''
       row:
-        type: fields
+        type: 'entity:node'
         options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
+          view_mode: teaser
       query:
         type: views_query
         options:
@@ -369,29 +341,12 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
-      style:
-        type: html_list
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          type: ul
-          wrapper_class: item-list
-          class: ''
-      row:
-        type: fields
-        options:
-          default_field_elements: true
-          inline:
-            title: title
-          separator: ''
-          hide_empty: false
       defaults:
         title: false
         pager: false
-        style: false
-        row: false
-        fields: false
+        style: true
+        row: true
+        fields: true
       display_extenders:
         metatag_display_extender:
           metatags: {  }

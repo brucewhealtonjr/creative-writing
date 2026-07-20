@@ -9,7 +9,7 @@ dependencies:
 id: path_for_articles_and_pages
 label: 'Path for Articles'
 type: 'canonical_entities:node'
-pattern: '/blog/[node:title]'
+pattern: '/[node:title]'
 selection_criteria:
   5786d8d0-5718-4863-8dcd-b84fc7c2796c:
     id: 'entity_bundle:node'

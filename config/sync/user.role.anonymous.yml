@@ -11,7 +11,6 @@ dependencies:
     - media.type.video
     - node.type.article
     - node.type.book
-    - node.type.book_chapter
     - node.type.book_cover_and_description
     - node.type.external_published_books
     - node.type.page
@@ -54,7 +53,6 @@ permissions:
   - 'view any video media revisions'
   - 'view article revisions'
   - 'view book revisions'
-  - 'view book_chapter revisions'
   - 'view book_cover_and_description revisions'
   - 'view external_published_books revisions'
   - 'view media'

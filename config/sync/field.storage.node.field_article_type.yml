@@ -1,0 +1,30 @@
+uuid: 03d949d3-b40f-42d1-9186-f8258a644d34
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_article_type
+field_name: field_article_type
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: article
+      label: Article
+    -
+      value: blog
+      label: Blog
+    -
+      value: essay
+      label: Essay
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

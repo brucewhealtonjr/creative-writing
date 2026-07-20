@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Theme override for psychology and self help article teaser nodes.
+ */
+#}
+{% set node_classes = [
+  'node',
+  'node--type-' ~ node.bundle|clean_class,
+  'node--view-mode-' ~ view_mode|clean_class,
+  not node.isPublished() ? 'node--unpublished',
+  'card',
+  'h-100',
+  'border-0',
+  'shadow-sm',
+  'bg-white',
+  'text-dark',
+  'article-teaser-card'
+] %}
+
+<article{{ attributes.addClass(node_classes) }} style="border-radius: 8px; overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s ease;">
+  {% if content.field_image is not empty and node.field_image.entity is not null %}
+    <div class="card-img-top-wrapper p-0 d-flex align-items-center justify-content-center" style="height: 170px; overflow: hidden;">
+      {{ content.field_image }}
+    </div>
+  {% else %}
+    <!-- Fallback image styled with dark academia room background -->
+    <div class="card-img-top-wrapper p-0 d-flex align-items-center justify-content-center" style="height: 170px; overflow: hidden; position: relative;">
+      <img src="/sites/default/files/hero_background.png" alt="Fallback Cover" style="width: 100%; height: 100%; object-fit: cover;" />
+      <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); z-index: 1;"></div>
+    </div>
+  {% endif %}
+  
+  <div class="card-body d-flex flex-column p-3">
+    {# Display Psychology badge #}
+    <div class="mb-2">
+      <span class="badge text-uppercase fw-bold" style="background-color: #b83b5e; color: #ffffff; font-size: 0.75rem; padding: 4px 8px; border-radius: 3px; letter-spacing: 0.5px;">
+        Psychology
+      </span>
+    </div>
+
+    {{ title_prefix }}
+    <h3{{ title_attributes.addClass('card-title', 'h5', 'mb-2', 'fw-bold') }}>
+      <a href="{{ url }}" rel="bookmark" class="text-dark text-decoration-none hover-gold">{{ label }}</a>
+    </h3>
+    {{ title_suffix }}
+    
+    <div class="card-meta text-muted mb-2" style="font-size: 0.8rem;">
+      <span>{{ date }}</span>
+    </div>
+
+    <div class="card-text text-muted flex-grow-1 mb-3" style="font-size: 0.9rem; line-height: 1.5; opacity: 0.85;">
+      {{ content.body }}
+    </div>
+    
+    <div class="mt-auto pt-2">
+      <a href="{{ url }}" class="btn btn-outline-warning btn-sm w-100 fw-semibold text-uppercase" style="letter-spacing: 0.5px;">Read Full Content</a>
+    </div>
+  </div>
+</article>

@@ -9,7 +9,7 @@ dependencies:
 id: pattern_for_psychology_and_self_help_articles
 label: 'Pattern for Psychology and Self-Help Articles'
 type: 'canonical_entities:node'
-pattern: '/psychology-self-help/[node:title]'
+pattern: '/[node:title]'
 selection_criteria:
   886378e2-d4b4-4ff4-8c12-4e2d7a114db2:
     id: 'entity_bundle:node'

@@ -1,9 +1,7 @@
 _core:
   default_config_hash: i-_2TVi6FUEAqBgNRJkt6aaYmiw1k_LTrXzJS6wlZ4U
 allowed_types:
-  - book
-  - book_chapter
   - book_cover_and_description
   - book_part
-child_type: book
+child_type: book_cover_and_description
 book_sort: weight

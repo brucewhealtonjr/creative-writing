@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_ai_creativity_writing
+    - field.field.node.article.field_article_type
     - field.field.node.article.field_categories
     - field.field.node.article.field_embedded_content
     - field.field.node.article.field_external_link
@@ -17,6 +18,7 @@ dependencies:
     - node.type.article
   module:
     - image
+    - options
     - text
     - user
 _core:
@@ -35,9 +37,16 @@ content:
     type: text_summary_or_trimmed
     label: hidden
     settings:
-      trim_length: 600
+      trim_length: 160
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_article_type:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_categories:
     type: entity_reference_label

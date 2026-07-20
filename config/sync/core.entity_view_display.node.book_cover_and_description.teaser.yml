@@ -22,18 +22,26 @@ content:
     type: text_summary_or_trimmed
     label: hidden
     settings:
-      trim_length: 600
+      trim_length: 160
     third_party_settings: {  }
     weight: 101
+    region: content
+  field_book_cover_page:
+    type: image
+    label: hidden
+    settings:
+      image_link: content
+      image_style: medium
+    third_party_settings: {  }
+    weight: 100
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 102
     region: content
 hidden:
   addtoany: true
   field_beginning_of_the_book: true
   field_book_categories: true
-  field_book_cover_page: true
   field_people_or_characters: true

@@ -1,0 +1,21 @@
+uuid: bc7f4b5f-9269-4dfa-a9ec-9c1707d530f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_article_type
+    - node.type.article
+  module:
+    - options
+id: node.article.field_article_type
+field_name: field_article_type
+entity_type: node
+bundle: article
+label: 'Article Type'
+description: 'Select the type of article (Article, Blog, or Essay).'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

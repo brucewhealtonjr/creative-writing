@@ -1,16 +1,17 @@
-uuid: e98ab6c2-8c98-4489-a5c5-53123cc636be
 langcode: en
 status: true
 dependencies:
   config:
-    - node.type.book_chapter
+    - core.entity_view_mode.node.teaser
+    - node.type.article
+    - node.type.psychology_and_self_help_article
   module:
     - node
     - user
-id: book_chapters
-label: 'Book Chapters'
+id: recent_writing
+label: 'Recent Writing'
 module: views
-description: ''
+description: 'Recent articles, blog posts, essays, and news updates.'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -21,7 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Book Chapters'
+      title: 'Recent Writing'
       fields:
         title:
           id: title
@@ -30,35 +31,19 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
           plugin_id: field
           label: ''
           exclude: false
           alter:
             alter_text: false
-            text: ''
             make_link: false
-            path: ''
             absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            word_boundary: false
+            ellipsis: false
             strip_tags: false
             trim: false
-            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -87,24 +72,20 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
-          pagination_heading_level: h4
-          items_per_page: 100
+          items_per_page: 9
           total_pages: null
           id: 0
           tags:
-            next: ››
-            previous: ‹‹
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
+          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -161,11 +142,14 @@ display:
           entity_field: type
           plugin_id: bundle
           value:
-            book_chapter: book_chapter
+            article: article
+            psychology_and_self_help_article: psychology_and_self_help_article
       style:
         type: default
       row:
-        type: fields
+        type: 'entity:node'
+        options:
+          view_mode: teaser
       query:
         type: views_query
         options:
@@ -177,12 +161,12 @@ display:
       relationships: {  }
       header: {  }
       footer: {  }
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
@@ -190,16 +174,22 @@ display:
     id: block_1
     display_title: Block
     display_plugin: block
-    position: 2
+    position: 1
     display_options:
+      display_extenders: {  }
       pager:
         type: some
         options:
           offset: 0
-          items_per_page: 500
+          items_per_page: 9
+      use_more: true
+      use_more_always: true
+      use_more_text: 'Read Older Content'
       defaults:
         pager: false
-      display_extenders: {  }
+        use_more: false
+        use_more_always: false
+        use_more_text: false
     cache_metadata:
       max-age: -1
       contexts:
@@ -212,10 +202,10 @@ display:
     id: page_1
     display_title: Page
     display_plugin: page
-    position: 1
+    position: 2
     display_options:
       display_extenders: {  }
-      path: book-chapters
+      path: writings
     cache_metadata:
       max-age: -1
       contexts:

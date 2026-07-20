@@ -565,3 +565,278 @@
     text-align: left;
   }
 }
+
+// Custom Carousel / Slider Wrapper for Books and Articles
+.carousel-view-wrapper {
+  position: relative;
+  margin: 1.5rem 0;
+  
+  // Custom navigation buttons
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    background: rgba(#111, 0.85);
+    border: 2px solid #d4af37;
+    border-radius: 50%;
+    color: #d4af37;
+    font-size: 1.75rem;
+    font-weight: bold;
+    display: none; // Managed by JS (flex when shown)
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    padding: 0;
+    
+    &:hover {
+      background: #d4af37;
+      color: #111;
+      box-shadow: 0 0 15px rgba(#d4af37, 0.4);
+      transform: translateY(-50%) scale(1.08);
+    }
+    
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+    
+    &.prev-btn {
+      left: -23px;
+      padding-right: 2px;
+    }
+    
+    &.next-btn {
+      right: -23px;
+      padding-left: 2px;
+    }
+  }
+}
+
+// Convert Views unformatted list container into a horizontal slider
+.view-books-by-bruce,
+.view-recent-writing {
+  .view-content {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; // Hide scrollbar in Firefox
+    padding: 1.5rem 0;
+    gap: 1.75rem;
+    
+    &::-webkit-scrollbar {
+      display: none; // Hide scrollbar in Chrome/Safari
+    }
+    
+    // Each item (books/articles) inside the carousel
+    > * {
+      flex: 0 0 100%; // 1 item on mobile
+      scroll-snap-align: start;
+      max-width: 100%;
+      margin: 0 !important; // clear default margins
+    }
+    
+    @media (min-width: 768px) {
+      > * {
+        flex: 0 0 calc(50% - 0.875rem); // 2 items on tablet
+      }
+    }
+    
+    @media (min-width: 992px) {
+      > * {
+        flex: 0 0 calc(33.333% - 1.167rem); // 3 items on desktop
+      }
+    }
+  }
+}
+
+// Style overrides for Article Teaser Cards (Gold & Light Theme)
+.article-teaser-card {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(#d4af37, 0.18) !important; // light gold border to match button
+  background-color: #ffffff !important; // light card background
+  color: #333333 !important;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(#d4af37, 0.12) !important;
+    border-color: rgba(#d4af37, 0.5) !important;
+  }
+
+  .hover-gold {
+    transition: color 0.2s ease;
+    color: #1a1012;
+    &:hover {
+      color: #c59b27 !important;
+    }
+  }
+
+  .card-img-top-wrapper {
+    background-color: #faf9f6 !important; // soft warm white background for thumbnails
+    height: 170px !important; // shorter layout
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+  }
+  
+  &:hover .card-img-top-wrapper img {
+    transform: scale(1.04);
+  }
+
+  .btn-outline-warning {
+    border: 2px solid #d4af37;
+    color: #c59b27;
+    background-color: transparent;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    
+    &:hover {
+      background-color: #d4af37;
+      color: #111111;
+      box-shadow: 0 4px 12px rgba(#d4af37, 0.25);
+    }
+  }
+  
+  .card-meta {
+    color: #777777 !important;
+  }
+  
+  .card-text {
+    color: #555555 !important;
+  }
+}
+
+// styling for the view "Read Older Content" more-link button
+.view-recent-writing .more-link {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  
+  a {
+    display: inline-block;
+    background-color: #d4af37;
+    color: #111111;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
+    
+    &:hover {
+      background-color: #f3cf58;
+      box-shadow: 0 6px 15px rgba(#d4af37, 0.25);
+      transform: translateY(-1px);
+      color: #111111;
+    }
+  }
+}
+
+// Style overrides for Book Teaser Cards (Gold & Light Theme)
+.book-teaser-card {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(#d4af37, 0.2) !important; // light gold border
+  background-color: #ffffff !important; // light card background
+  color: #333333 !important;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(#d4af37, 0.15) !important;
+    border-color: rgba(#d4af37, 0.6) !important;
+  }
+
+  .hover-gold {
+    transition: color 0.2s ease;
+    color: #1a1512;
+    &:hover {
+      color: #c59b27 !important;
+    }
+  }
+
+  .card-img-top-wrapper {
+    background-color: #faf9f6 !important; // soft warm white background for book covers
+    height: 170px !important; // shorter layout
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem; // reduced padding for taller presentation inside 170px height
+    
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 3px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); // soft book shadow on white wrapper
+    }
+  }
+  
+  .card-text {
+    color: #555555 !important;
+  }
+  
+  .btn-outline-warning {
+    border: 2px solid #d4af37;
+    color: #c59b27;
+    background-color: transparent;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    
+    &:hover {
+      background-color: #d4af37;
+      color: #111111;
+      box-shadow: 0 4px 12px rgba(#d4af37, 0.25);
+    }
+  }
+}
+
+// Hero Actions Hover Transitions
+.hero-actions {
+  .btn-hero-primary {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    &:hover {
+      background-color: #f3cf58 !important;
+      transform: translateY(-2px) scale(1.03) !important;
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.45) !important;
+    }
+    &:active {
+      transform: translateY(0) scale(0.98) !important;
+    }
+  }
+  
+  .btn-hero-secondary {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    &:hover {
+      background-color: #ffffff !important;
+      color: #111111 !important;
+      transform: translateY(-2px) scale(1.03) !important;
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3) !important;
+    }
+    &:active {
+      transform: translateY(0) scale(0.98) !important;
+    }
+  }
+}
