@@ -790,12 +790,12 @@
 
   .card-img-top-wrapper {
     background-color: #faf9f6 !important; // soft warm white background for book covers
-    height: 170px !important; // shorter layout
+    height: 220px !important; // taller layout for book covers
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem; // reduced padding for taller presentation inside 170px height
+    padding: 0.75rem; // padding around book covers
     
     .field,
     .field__items,
