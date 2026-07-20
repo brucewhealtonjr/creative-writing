@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Programmatically configures the homepage Layout Builder layout.
+ * Programmatically configures the homepage Layout Builder layout safely.
  */
 
 use Drupal\layout_builder\Section;
@@ -9,29 +9,41 @@ use Drupal\layout_builder\SectionComponent;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\node\Entity\Node;
 
-// 1. Force the front page setting to /node/413 for consistency with configuration
-print "Setting site front page path to /node/413...\n";
-\Drupal::configFactory()->getEditable('system.site')
-  ->set('page.front', '/node/413')
-  ->save();
+// 1. Get the current front page path
+$front_uri = \Drupal::config('system.site')->get('page.front');
+$node = NULL;
 
-// 2. Load node 413 or create it if it doesn't exist
-$nid = 413;
-$node = Node::load($nid);
+if (preg_match('/\/node\/(\d+)/', $front_uri, $matches)) {
+  $nid = $matches[1];
+  $temp_node = Node::load($nid);
+  // Verify the loaded node is a Basic Page ('page')
+  if ($temp_node && $temp_node->bundle() === 'page') {
+    $node = $temp_node;
+    print "Found existing homepage Basic Page (node ID $nid).\n";
+  }
+}
+
+// 2. If no valid Basic Page is set as the homepage, create a new one
 if (!$node) {
-  print "Node 413 not found. Re-creating homepage node with ID 413...\n";
+  print "No Basic Page homepage node found. Creating a new Basic Page for the homepage...\n";
   $node = Node::create([
-    'nid' => $nid,
     'type' => 'page',
     'title' => 'Home',
     'status' => 1,
-    'uid' => 1, // Admin user
+    'uid' => 1,
   ]);
   $node->save();
-  print "Created homepage node ID 413.\n";
+  $nid = $node->id();
+  print "Created new homepage node (ID $nid).\n";
+  
+  // Set this new node as the front page
+  \Drupal::configFactory()->getEditable('system.site')
+    ->set('page.front', "/node/$nid")
+    ->save();
+  print "Updated front page path to /node/$nid.\n";
 }
 
-print "Configuring Layout Builder on homepage node ID 413...\n";
+print "Configuring Layout Builder on homepage node ID " . $node->id() . "...\n";
 
 // 3. Clear old layout builder sections to start fresh
 $node->get('layout_builder__layout')->setValue([]);
