@@ -1,16 +1,16 @@
-uuid: 03aa3e10-8c15-4e71-977f-acfb53262018
+uuid: d759ddbc-2295-4608-a4a3-bc16433ce184
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_mother
-    - node.type.people
-id: node.people.field_mother
+    - node.type.person
+id: node.person.field_mother
 field_name: field_mother
 entity_type: node
-bundle: people
+bundle: person
 label: Mother
-description: ''
+description: "The person's mother. Hopefully a name listed already. "
 required: false
 translatable: false
 default_value: {  }
@@ -19,10 +19,10 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      people: people
+      person: person
     sort:
-      field: _none
+      field: title
       direction: ASC
-    auto_create: false
+    auto_create: true
     auto_create_bundle: ''
 field_type: entity_reference

@@ -1,14 +1,14 @@
-uuid: 79a425f7-645a-4c10-87d0-09341cf81dbd
+uuid: d5527188-75fb-4e25-b212-f9909c27aa1a
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_father
-    - node.type.people
-id: node.people.field_father
+    - node.type.person
+id: node.person.field_father
 field_name: field_father
 entity_type: node
-bundle: people
+bundle: person
 label: Father
 description: ''
 required: false
@@ -19,10 +19,10 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      people: people
+      person: person
     sort:
       field: _none
       direction: ASC
-    auto_create: false
+    auto_create: true
     auto_create_bundle: ''
 field_type: entity_reference
