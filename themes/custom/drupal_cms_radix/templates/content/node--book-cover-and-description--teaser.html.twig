@@ -2,7 +2,7 @@
 /**
  * @file
  * Theme override for book cover and description teaser nodes.
- * Showcase layout: large cover left, details right on desktop.
+ * Showcase layout: vertical card for grid display with centered cover image.
  */
 #}
 {% set node_classes = [
@@ -10,7 +10,8 @@
   'node--type-' ~ node.bundle|clean_class,
   'node--view-mode-' ~ view_mode|clean_class,
   not node.isPublished() ? 'node--unpublished',
-  'book-showcase-card'
+  'book-showcase-card',
+  'h-100'
 ] %}
 
 <article{{ attributes.addClass(node_classes) }}>
@@ -37,6 +38,8 @@
       {{ content.body }}
     </div>
 
-    <a href="{{ url }}" class="book-showcase-card__btn">Read Book Details</a>
+    <div class="mt-auto pt-2">
+      <a href="{{ url }}" class="book-showcase-card__btn">Read Book Details</a>
+    </div>
   </div>
 </article>

@@ -87,24 +87,8 @@ if (!empty($existing_blocks)) {
   print "Created new Hero Banner block.\n";
 }
 
-// 5. Create Section 1 (Hero Banner inline block component)
-$section1 = new Section('layout_onecol');
-$component1 = new SectionComponent(
-  \Drupal::service('uuid')->generate(),
-  'content',
-  [
-    'id' => 'inline_block:basic',
-    'label' => 'Hero Banner',
-    'label_display' => '0',
-    'provider' => 'layout_builder',
-    'view_mode' => 'full',
-    'block_id' => $block->id(),
-    'block_revision_id' => $block->getRevisionId(),
-    'context_mapping' => [],
-  ]
-);
-$section1->appendComponent($component1);
-$node->get('layout_builder__layout')->appendItem($section1);
+// The top full-width Hero Banner is rendered directly in page--front.html.twig.
+// Layout Builder only holds the page body sections (Books and Recent Writing).
 
 // 6. Create Section 2 (Books by Bruce views block component)
 $section2 = new Section('layout_onecol');
