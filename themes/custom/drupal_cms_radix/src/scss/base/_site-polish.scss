@@ -792,45 +792,52 @@
   }
 
   &__cover {
-    background: linear-gradient(145deg, #2b1f1d, #1c1412);
+    background: #f8f6f0;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 380px;
-    height: 380px;
-    padding: 1.25rem;
+    min-height: 420px;
+    height: 420px;
+    padding: 0.75rem;
     position: relative;
     overflow: hidden;
 
-    // Drupal field wrappers – fill space cleanly and center contents
+    // Strip Radix field wrappers white boxes and let image center
+    [data-component-id],
     .field,
     .field__items,
     .field__item,
     a {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       height: 100% !important;
       width: 100% !important;
       max-width: 100% !important;
-      margin: 0 auto !important;
     }
 
-    img {
-      height: 100% !important;
-      max-height: 350px !important;
+    img,
+    .book-cover-img {
+      height: 95% !important;
+      max-height: 95% !important;
       width: auto !important;
-      max-width: 100% !important;
+      max-width: 95% !important;
       object-fit: contain !important;
-      border-radius: 6px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+      border-radius: 4px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
       transition: transform 0.35s ease;
       display: block !important;
       margin: 0 auto !important;
     }
   }
 
-  &:hover &__cover img {
+  &:hover &__cover img,
+  &:hover &__cover .book-cover-img {
     transform: scale(1.03);
   }
 

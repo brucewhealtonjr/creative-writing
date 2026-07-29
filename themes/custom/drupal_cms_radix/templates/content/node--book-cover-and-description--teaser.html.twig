@@ -17,7 +17,9 @@
 <article{{ attributes.addClass(node_classes) }}>
   <a href="{{ url }}" rel="bookmark" class="book-showcase-card__cover-link" aria-label="{{ label }}">
     <div class="book-showcase-card__cover">
-      {% if content.field_book_cover_page is not empty %}
+      {% if node.field_book_cover_page.entity is not null %}
+        <img src="{{ file_url(node.field_book_cover_page.entity.uri.value) }}" alt="{{ node.field_book_cover_page.alt ?: label }}" class="book-cover-img" />
+      {% elseif content.field_book_cover_page is not empty %}
         {{ content.field_book_cover_page }}
       {% else %}
         <div class="book-showcase-card__cover-placeholder">
