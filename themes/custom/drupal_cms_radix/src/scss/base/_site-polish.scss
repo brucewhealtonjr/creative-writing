@@ -616,21 +616,8 @@
   }
 }
 
-// Books showcase – 2-column grid on desktop, stacked on mobile
-.view-books-by-bruce {
-  .view-content {
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding: 1.5rem 0;
-
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-}
-
-// Articles – keep the horizontal carousel
+// Single-row horizontal carousel for Books and Articles
+.view-books-by-bruce,
 .view-recent-writing {
   .view-content {
     display: flex !important;
