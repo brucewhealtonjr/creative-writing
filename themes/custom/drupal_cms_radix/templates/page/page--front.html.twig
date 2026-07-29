@@ -2,22 +2,31 @@
 /**
  * @file
  * Theme override to display a single page.
+ * Hero banner is embedded here so it deploys via git on all environments.
  */
 #}
 {% set page_attributes = attributes ?: create_attribute() %}
 {% set page_classes = ['page']|merge(page_utility_classes ?: []) %}
 {% set show_sidebar = page.sidebar_second and not is_front %}
+{% set hero_bg = base_path ~ directory ~ '/build/assets/images/hero_background.png' %}
 
 <div {{ page_attributes.addClass(page_classes) }}>
   {% block page_navigation %}
     {% include 'radix:page-navigation' %}
   {% endblock %}
 
-  {% if page.banner %}
-    <section class="site-banner">
-      {{ page.banner }}
-    </section>
-  {% endif %}
+  {# ── Hero banner – git-tracked, works on every server ── #}
+  <section class="front-hero" style="background-image: url('{{ hero_bg }}'); background-size: cover; background-position: center; min-height: 480px; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 60px 20px; position: relative;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.65); z-index: 1;"></div>
+    <div style="position: relative; z-index: 2; max-width: 800px;">
+      <h1 style="font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 20px; font-weight: 800; line-height: 1.25; color: #ffffff; text-shadow: 0px 4px 12px rgba(0,0,0,0.95), 0px 1px 2px rgba(0,0,0,0.85); letter-spacing: -0.5px;">Exploring the Depths of the Human Condition</h1>
+      <p style="font-size: clamp(1.1rem, 2.5vw, 1.6rem); margin-bottom: 40px; font-weight: 400; font-style: italic; color: #e6dfc3; text-shadow: 0px 3px 8px rgba(0,0,0,0.95);">through Stories, Essays, and Poetry</p>
+      <div class="hero-actions" style="display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;">
+        <a href="#books-section" class="btn-hero-primary" style="display: inline-block; background-color: #d4af37; color: #111111; padding: 15px 35px; font-size: 1.15rem; font-weight: 700; text-decoration: none; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 0.5px;">Explore My Books</a>
+        <a href="#writings-section" class="btn-hero-secondary" style="display: inline-block; background-color: transparent; color: #ffffff; border: 2px solid #ffffff; padding: 13px 33px; font-size: 1.15rem; font-weight: 700; text-decoration: none; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); text-transform: uppercase; letter-spacing: 0.5px;">Updates &amp; Articles</a>
+      </div>
+    </div>
+  </section>
 
   <main class="main-content py-5" id="main-content">
     <div class="container">

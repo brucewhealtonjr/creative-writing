@@ -616,8 +616,21 @@
   }
 }
 
-// Convert Views unformatted list container into a horizontal slider
-.view-books-by-bruce,
+// Books showcase – 2-column grid on desktop, stacked on mobile
+.view-books-by-bruce {
+  .view-content {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 1.5rem 0;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// Articles – keep the horizontal carousel
 .view-recent-writing {
   .view-content {
     display: flex !important;
@@ -627,32 +640,25 @@
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; // Hide scrollbar in Firefox
+    scrollbar-width: none;
     padding: 1.5rem 0;
     gap: 1.75rem;
-    
-    &::-webkit-scrollbar {
-      display: none; // Hide scrollbar in Chrome/Safari
-    }
-    
-    // Each item (books/articles) inside the carousel
+
+    &::-webkit-scrollbar { display: none; }
+
     > * {
-      flex: 0 0 100%; // 1 item on mobile
+      flex: 0 0 100%;
       scroll-snap-align: start;
       max-width: 100%;
-      margin: 0 !important; // clear default margins
+      margin: 0 !important;
     }
-    
+
     @media (min-width: 768px) {
-      > * {
-        flex: 0 0 calc(50% - 0.875rem); // 2 items on tablet
-      }
+      > * { flex: 0 0 calc(50% - 0.875rem); }
     }
-    
+
     @media (min-width: 992px) {
-      > * {
-        flex: 0 0 calc(33.333% - 1.167rem); // 3 items on desktop
-      }
+      > * { flex: 0 0 calc(33.333% - 1.167rem); }
     }
   }
 }
@@ -766,37 +772,56 @@
   }
 }
 
-// Style overrides for Book Teaser Cards (Gold & Light Theme)
-.book-teaser-card {
+// Book Showcase Card – large cover + side-by-side info panel
+.book-showcase-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(#d4af37, 0.22);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-  border: 1px solid rgba(#d4af37, 0.2) !important; // light gold border
-  background-color: #ffffff !important; // light card background
-  color: #333333 !important;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(#d4af37, 0.15) !important;
-    border-color: rgba(#d4af37, 0.6) !important;
+
+  @media (min-width: 576px) {
+    flex-direction: row;
   }
 
-  .hover-gold {
-    transition: color 0.2s ease;
-    color: #1a1512;
-    &:hover {
-      color: #c59b27 !important;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(#d4af37, 0.18);
+    border-color: rgba(#d4af37, 0.55);
+  }
+
+  // Cover column
+  &__cover-link {
+    display: block;
+    flex-shrink: 0;
+    text-decoration: none;
+
+    @media (min-width: 576px) {
+      width: 200px;
+    }
+
+    @media (min-width: 768px) {
+      width: 240px;
     }
   }
 
-  .card-img-top-wrapper {
-    background-color: #faf9f6 !important; // soft warm white background for book covers
-    height: 220px !important; // taller layout for book covers
-    width: 100%;
+  &__cover {
+    background: #f5f1ea;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem; // padding around book covers
-    
+    height: 300px;
+    padding: 1.25rem;
+
+    @media (min-width: 576px) {
+      height: 100%;
+      min-height: 340px;
+    }
+
+    // Drupal field wrappers – let them fill the space
     .field,
     .field__items,
     .field__item,
@@ -806,34 +831,93 @@
       justify-content: center;
       height: 100%;
       width: 100%;
-      max-height: 100%;
-      max-width: 100%;
     }
-    
+
     img {
       max-height: 100%;
       max-width: 100%;
       object-fit: contain;
-      border-radius: 3px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); // soft book shadow on white wrapper
+      border-radius: 4px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+      transition: transform 0.35s ease;
     }
   }
-  
-  .card-text {
-    color: #555555 !important;
+
+  &:hover &__cover img {
+    transform: scale(1.04);
   }
-  
-  .btn-outline-warning {
+
+  &__cover-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: rgba(#d4af37, 0.12);
+    border-radius: 4px;
+    color: #a08030;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  // Info column
+  &__info {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 1rem;
+  }
+
+  &__title-link {
+    color: #1a1512;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #c59b27;
+    }
+  }
+
+  &__body {
+    color: #555555;
+    font-size: 1rem;
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.5rem;
+
+    // Trim long summaries gracefully
+    p { margin-bottom: 0.5rem; }
+  }
+
+  &__btn {
+    display: inline-block;
+    align-self: flex-start;
     border: 2px solid #d4af37;
     color: #c59b27;
-    background-color: transparent;
+    background: transparent;
+    padding: 10px 24px;
+    font-size: 0.9rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    text-decoration: none;
     transition: all 0.25s ease;
-    
+
     &:hover {
-      background-color: #d4af37;
+      background: #d4af37;
       color: #111111;
-      box-shadow: 0 4px 12px rgba(#d4af37, 0.25);
+      box-shadow: 0 4px 12px rgba(#d4af37, 0.3);
     }
   }
 }

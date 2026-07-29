@@ -26,7 +26,7 @@
   {% else %}
     <!-- Fallback image styled with dark academia room background -->
     <div class="card-img-top-wrapper p-0 d-flex align-items-center justify-content-center" style="height: 170px; overflow: hidden; position: relative;">
-      <img src="/sites/default/files/hero_background.png" alt="Fallback Cover" style="width: 100%; height: 100%; object-fit: cover;" />
+      <img src="{{ base_path ~ directory ~ '/build/assets/images/hero_background.png' }}" alt="Fallback Cover" style="width: 100%; height: 100%; object-fit: cover;" />
       <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); z-index: 1;"></div>
     </div>
   {% endif %}
