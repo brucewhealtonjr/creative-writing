@@ -759,21 +759,29 @@
   }
 }
 
+// Hide "Home" title on frontpage
+.path-frontpage .page-title,
+.path-frontpage h1.page-title,
+.path-frontpage #block-drupal-cms-radix-page-title,
+.path-frontpage .block-page-title-block {
+  display: none !important;
+}
+
 // Book Showcase Card – elegant vertical card for grid display
 .book-showcase-card {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 1px solid rgba(#d4af37, 0.22);
-  border-radius: 10px;
+  border: 1px solid rgba(#d4af37, 0.25);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 36px rgba(#d4af37, 0.18);
-    border-color: rgba(#d4af37, 0.55);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(#d4af37, 0.22);
+    border-color: rgba(#d4af37, 0.6);
   }
 
   // Cover section
@@ -784,67 +792,94 @@
   }
 
   &__cover {
-    background: #f8f6f0;
+    background: linear-gradient(145deg, #2b1f1d, #1c1412);
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 380px;
     height: 380px;
-    padding: 1rem;
+    padding: 1.25rem;
     position: relative;
+    overflow: hidden;
 
     // Drupal field wrappers – fill space cleanly and center contents
     .field,
     .field__items,
     .field__item,
     a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      width: 100%;
-      margin: 0 auto;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 100% !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 auto !important;
     }
 
     img {
-      height: 100%;
-      max-height: 100%;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      border-radius: 4px;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+      height: 100% !important;
+      max-height: 350px !important;
+      width: auto !important;
+      max-width: 100% !important;
+      object-fit: contain !important;
+      border-radius: 6px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
       transition: transform 0.35s ease;
-      display: block;
-      margin: 0 auto;
+      display: block !important;
+      margin: 0 auto !important;
     }
   }
 
   &:hover &__cover img {
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
 
+  // Brownish-orange book cover styling
   &__cover-placeholder {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
     width: 100%;
-    background: rgba(#d4af37, 0.12);
-    border-radius: 4px;
-    color: #a08030;
+    max-width: 240px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #a65126 0%, #8c3b17 50%, #6e2a0d 100%);
+    border: 3px double #d4af37;
+    border-radius: 6px;
+    color: #fff6e5;
+    font-family: 'Merriweather', 'Georgia', serif;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
     text-align: center;
-    padding: 1rem;
+    padding: 2rem 1.25rem;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.35);
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(#d4af37, 0.5);
+      pointer-events: none;
+    }
+
+    span {
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
   }
 
   // Info section
   &__info {
     display: flex;
     flex-direction: column;
-    padding: 1.25rem;
+    padding: 1.5rem;
     flex: 1;
     min-width: 0;
+    background: #ffffff;
   }
 
   &__title {
