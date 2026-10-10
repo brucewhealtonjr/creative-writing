@@ -13,6 +13,7 @@
 /sites/simpletest/
 
 # Local database dumps, archives, and logs.
+/backups/
 *.sql
 *.sql.gz
 *.sql.gz.gz

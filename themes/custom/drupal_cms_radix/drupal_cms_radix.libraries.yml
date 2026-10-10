@@ -7,6 +7,7 @@ style:
       build/css/content-spacing.css: {}
       build/css/book-tree.css: {}
       build/css/book-part.css: {}
+      build/assets/css/hero-banner.css: {}
   js:
     build/js/main.script.js: {}
   dependencies:
