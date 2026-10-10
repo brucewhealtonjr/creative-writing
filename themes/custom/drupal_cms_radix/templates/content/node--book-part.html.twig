@@ -1,0 +1,61 @@
+{#
+/**
+ * @file
+ * Displays a Book Part with optional manuscript structure headings.
+ */
+#}
+{% set node_classes = [
+  'node',
+  'node--type-book-part',
+  'node--view-mode-' ~ view_mode|clean_class,
+  not node.isPublished() ? 'node--unpublished'
+] %}
+
+<article{{ attributes.addClass(node_classes) }}>
+  {{ title_prefix }}
+
+  {% if page and book_reading_context.book %}
+    <div class="book-part-book-title">
+      <a href="{{ book_reading_context.book.url }}">{{ book_reading_context.book.title }}</a>
+    </div>
+  {% endif %}
+
+  {% if node.field_part.value %}
+    <div class="book-part-structure book-part-structure--part">{{ node.field_part.value }}</div>
+  {% endif %}
+  {% if node.field_section.value %}
+    <div class="book-part-structure book-part-structure--section">{{ node.field_section.value }}</div>
+  {% endif %}
+
+  {% if page %}
+    <h1{{ title_attributes.addClass('book-part-title') }}>{{ label }}</h1>
+  {% else %}
+    <h2{{ title_attributes.addClass('book-part-title') }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  <div{{ content_attributes.addClass('node__content', 'book-page-content') }}>
+    {{ content|without('field_part', 'field_section') }}
+  </div>
+
+  {% if book_previous_item or book_next_item %}
+    <nav class="book-page-sequence" aria-label="Book page navigation">
+      {% if book_previous_item %}
+        <a class="book-page-sequence__button book-page-sequence__button--previous" href="{{ book_previous_item.url }}">
+          <span class="book-page-sequence__meta">Previous</span>
+          <span class="book-page-sequence__title">{{ book_previous_item.title }}</span>
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+      {% if book_next_item %}
+        <a class="book-page-sequence__button book-page-sequence__button--next" href="{{ book_next_item.url }}">
+          <span class="book-page-sequence__meta">Next</span>
+          <span class="book-page-sequence__title">{{ book_next_item.title }}</span>
+        </a>
+      {% endif %}
+    </nav>
+  {% endif %}
+</article>

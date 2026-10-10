@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.book_part.body
     - field.field.node.book_part.field_featured_image
+    - field.field.node.book_part.field_part
     - field.field.node.book_part.field_people_characters_featured
+    - field.field.node.book_part.field_section
     - image.style.thumbnail
     - node.type.book_part
   module:
@@ -41,6 +43,14 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
+  field_part:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: 'PART I'
+    third_party_settings: {  }
   field_people_characters_featured:
     type: entity_reference_autocomplete
     weight: 12
@@ -50,6 +60,14 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_section:
+    type: string_textfield
+    weight: -3
+    region: content
+    settings:
+      size: 60
+      placeholder: 'Section One — Where the Silence Began'
     third_party_settings: {  }
   path:
     type: path

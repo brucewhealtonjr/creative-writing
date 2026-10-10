@@ -1,0 +1,23 @@
+uuid: 34ea0a92-e6ed-427c-b81c-1cf036effaf7
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.gutenberg
+    - node.type.book_part
+  module:
+    - filter
+    - node
+    - system
+id: content_creator
+label: 'Content Creator'
+weight: 4
+is_admin: null
+permissions:
+  - 'access content'
+  - 'create book_part content'
+  - 'edit own book_part content'
+  - 'use text format basic_html'
+  - 'use text format gutenberg'
+  - 'view own unpublished content'

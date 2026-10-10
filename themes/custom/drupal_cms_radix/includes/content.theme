@@ -12,7 +12,7 @@ use Drupal\node\NodeInterface;
  */
 function drupal_cms_radix_preprocess_node(array &$variables): void {
   $node = $variables['node'] ?? NULL;
-  if (!$node instanceof NodeInterface || $node->bundle() !== 'book_page') {
+  if (!$node instanceof NodeInterface || !in_array($node->bundle(), ['book_page', 'book_part'], TRUE)) {
     return;
   }
 
@@ -100,6 +100,16 @@ function drupal_cms_radix_preprocess_node(array &$variables): void {
   if ($current_index !== NULL) {
     $variables['book_previous_item'] = $items[$current_index - 1] ?? NULL;
     $variables['book_next_item'] = $items[$current_index + 1] ?? NULL;
+  }
+}
+
+/**
+ * Lets the Book Part template place its title after Part and Section headings.
+ */
+function drupal_cms_radix_preprocess_page_title(array &$variables): void {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface && $node->bundle() === 'book_part') {
+    $variables['title'] = '';
   }
 }
 

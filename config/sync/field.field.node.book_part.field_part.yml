@@ -1,0 +1,19 @@
+uuid: 045af4b9-d85d-4e46-8afe-5e04c252e9d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_part
+    - node.type.book_part
+id: node.book_part.field_part
+field_name: field_part
+entity_type: node
+bundle: book_part
+label: Part
+description: 'Optional complete part heading, for example PART I.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

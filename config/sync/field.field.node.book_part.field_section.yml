@@ -1,0 +1,19 @@
+uuid: 5417fbc5-be05-4ece-8ab7-82a20af38d42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_section
+    - node.type.book_part
+id: node.book_part.field_section
+field_name: field_section
+entity_type: node
+bundle: book_part
+label: Section
+description: 'Optional complete section heading, for example Section One — Where the Silence Began.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

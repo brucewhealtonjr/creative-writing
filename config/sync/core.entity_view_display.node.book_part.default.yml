@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.book_part.body
     - field.field.node.book_part.field_featured_image
+    - field.field.node.book_part.field_part
     - field.field.node.book_part.field_people_characters_featured
+    - field.field.node.book_part.field_section
     - image.style.max_650x650
     - node.type.book_part
   module:
@@ -35,6 +37,14 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_part:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -2
+    region: content
   field_people_characters_featured:
     type: entity_reference_label
     label: above
@@ -43,6 +53,14 @@ content:
     third_party_settings: {  }
     weight: 102
     region: content
+  field_section:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -1
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -50,3 +68,4 @@ content:
     region: content
 hidden:
   addtoany: true
+  book_navigation: true

@@ -6,6 +6,7 @@ style:
       build/css/admin-toolbar.css: {}
       build/css/content-spacing.css: {}
       build/css/book-tree.css: {}
+      build/css/book-part.css: {}
   js:
     build/js/main.script.js: {}
   dependencies:
