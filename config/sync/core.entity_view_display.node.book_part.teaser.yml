@@ -6,6 +6,10 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.book_part.body
     - field.field.node.book_part.field_featured_image
+    - field.field.node.book_part.field_part
+    - field.field.node.book_part.field_people_characters_featured
+    - field.field.node.book_part.field_second_image
+    - field.field.node.book_part.field_section
     - node.type.book_part
   module:
     - image
@@ -42,3 +46,8 @@ content:
     region: content
 hidden:
   addtoany: true
+  book_navigation: true
+  field_part: true
+  field_people_characters_featured: true
+  field_second_image: true
+  field_section: true

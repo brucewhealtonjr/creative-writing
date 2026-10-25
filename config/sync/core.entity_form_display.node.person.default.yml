@@ -1,3 +1,4 @@
+uuid: 4766448f-2b52-4311-8e25-3b880998cfe0
 langcode: en
 status: true
 dependencies:
@@ -44,14 +45,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_person_featured_image:
-    type: image_image
-    weight: 11
-    region: content
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
   field_mother:
     type: entity_reference_autocomplete
     weight: 132
@@ -71,6 +64,14 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_person_featured_image:
+    type: image_image
+    weight: 11
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   path:
     type: path

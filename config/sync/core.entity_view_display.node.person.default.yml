@@ -1,3 +1,4 @@
+uuid: 314589dc-9e3d-4f3b-8ec1-10b1c8718f68
 langcode: en
 status: true
 dependencies:
@@ -33,17 +34,6 @@ content:
     third_party_settings: {  }
     weight: 103
     region: content
-  field_person_featured_image:
-    type: image
-    label: hidden
-    settings:
-      image_link: ''
-      image_style: max_650x650
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_mother:
     type: entity_reference_label
     label: above
@@ -59,6 +49,17 @@ content:
       link: true
     third_party_settings: {  }
     weight: 104
+    region: content
+  field_person_featured_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: max_650x650
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 3
     region: content
   links:
     settings: {  }

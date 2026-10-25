@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.book_part.field_featured_image
     - field.field.node.book_part.field_part
     - field.field.node.book_part.field_people_characters_featured
+    - field.field.node.book_part.field_second_image
     - field.field.node.book_part.field_section
     - image.style.thumbnail
     - node.type.book_part
   module:
     - image
+    - media_library
     - path
     - text
 id: node.book_part.default
@@ -60,6 +62,13 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_second_image:
+    type: media_library_widget
+    weight: 132
+    region: content
+    settings:
+      media_types: {  }
     third_party_settings: {  }
   field_section:
     type: string_textfield

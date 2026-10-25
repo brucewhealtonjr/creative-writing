@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.book_part.field_featured_image
     - field.field.node.book_part.field_part
     - field.field.node.book_part.field_people_characters_featured
+    - field.field.node.book_part.field_second_image
     - field.field.node.book_part.field_section
     - image.style.max_650x650
     - node.type.book_part
@@ -19,12 +20,17 @@ targetEntityType: node
 bundle: book_part
 mode: default
 content:
+  addtoany:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
   body:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 5
     region: content
   field_featured_image:
     type: image
@@ -35,7 +41,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_part:
     type: string
@@ -43,7 +49,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: -2
+    weight: 0
     region: content
   field_people_characters_featured:
     type: entity_reference_label
@@ -51,7 +57,16 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 102
+    weight: 7
+    region: content
+  field_second_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_section:
     type: string
@@ -59,13 +74,12 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: -1
+    weight: 1
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 3
     region: content
 hidden:
-  addtoany: true
   book_navigation: true

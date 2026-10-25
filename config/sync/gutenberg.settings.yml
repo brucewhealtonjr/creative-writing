@@ -26,6 +26,7 @@ book_allowed_blocks:
   - core/html
   - core/image
   - core/media-text
+  - core/missing
   - core/preformatted
   - core/pullquote
   - core/quote
@@ -48,6 +49,7 @@ book_allowed_drupal_blocks:
   - search_form_block
   - system_breadcrumb_block
 book_chapter_enable_full: true
+book_chapter_template_lock: none
 book_cover_and_description_allowed_blocks:
   - core-embed/all
   - core-embed/amazon-kindle
@@ -101,6 +103,7 @@ book_cover_and_description_allowed_blocks:
   - core/html
   - core/image
   - core/media-text
+  - core/missing
   - core/preformatted
   - core/pullquote
   - core/quote
@@ -158,6 +161,7 @@ book_part_allowed_blocks:
   - core/html
   - core/image
   - core/media-text
+  - core/missing
   - core/preformatted
   - core/pullquote
   - core/quote
@@ -225,6 +229,7 @@ books_and_creative_writing_by_br_allowed_blocks:
   - core/image
   - core/list
   - core/media-text
+  - core/missing
   - core/paragraph
   - core/preformatted
   - core/pullquote
@@ -270,6 +275,7 @@ people_allowed_blocks:
   - core/html
   - core/image
   - core/media-text
+  - core/missing
   - core/preformatted
   - core/pullquote
   - core/quote
@@ -320,6 +326,7 @@ test_content_allowed_blocks:
   - core/html
   - core/image
   - core/media-text
+  - core/missing
   - core/preformatted
   - core/pullquote
   - core/quote
@@ -336,92 +343,91 @@ test_content_allowed_drupal_blocks:
 test_content_enable_full: true
 test_content_template: ''
 test_content_template_lock: none
-books_and_creative_writing_by_br_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
-test_content_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
 article_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
-psychology_and_self_help_article_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide
 book_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
-people_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
-book_part_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide
 book_cover_and_description_allowed_image_styles:
-  full: full
-  large: large
-  max_1300x1300: max_1300x1300
-  max_2600x2600: max_2600x2600
-  max_325x325: max_325x325
-  max_650x650: max_650x650
-  media_library: media_library
-  medium: medium
-  thumbnail: thumbnail
-  wide: wide
-book_chapter_template_lock: none
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide
+book_part_allowed_image_styles:
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide
+books_and_creative_writing_by_br_allowed_image_styles:
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide
+people_allowed_image_styles:
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide
+psychology_and_self_help_article_allowed_image_styles:
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide
+test_content_allowed_image_styles:
+  - full
+  - large
+  - max_1300x1300
+  - max_2600x2600
+  - max_325x325
+  - max_650x650
+  - media_library
+  - medium
+  - thumbnail
+  - wide

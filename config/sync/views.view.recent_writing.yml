@@ -1,3 +1,4 @@
+uuid: 2697eccf-eabc-4d0d-96f2-faa2be938239
 langcode: en
 status: true
 dependencies:
@@ -75,6 +76,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 9
           total_pages: null
           id: 0
@@ -176,20 +178,20 @@ display:
     display_plugin: block
     position: 1
     display_options:
-      display_extenders: {  }
       pager:
         type: some
         options:
           offset: 0
           items_per_page: 9
-      use_more: true
-      use_more_always: true
-      use_more_text: 'Read Older Content'
       defaults:
         pager: false
         use_more: false
         use_more_always: false
         use_more_text: false
+      use_more: true
+      use_more_always: true
+      use_more_text: 'Read Older Content'
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
