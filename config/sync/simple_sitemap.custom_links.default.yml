@@ -5,3 +5,15 @@ links:
     path: /
     priority: '1.0'
     changefreq: daily
+  -
+    path: /books-by-bruce-whealton
+    priority: '0.8'
+    changefreq: weekly
+  -
+    path: /psychology-and-self-help
+    priority: '0.8'
+    changefreq: weekly
+  -
+    path: /external-books-view
+    priority: '0.7'
+    changefreq: monthly
