@@ -29,10 +29,10 @@ final class BookContentWorkerCommands extends DrushCommands {
   #[CLI\Command(name: 'book-content:sync', aliases: ['book-worker:sync'])]
   #[CLI\Argument(name: 'manifest', description: 'Absolute path to a JSON manifest on the server.')]
   #[CLI\Option(name: 'apply', description: 'Create or update drafts. Without this option, no content is changed.')]
-  #[CLI\Option(name: 'author', description: 'Drupal user ID that owns the drafts; the user must have the content_creator role.')]
-  #[CLI\Usage(name: 'drush book-content:sync /secure/path/book.json --author=123', description: 'Validate without writing.')]
-  #[CLI\Usage(name: 'drush book-content:sync /secure/path/book.json --author=123 --apply', description: 'Create or update unpublished Book Parts.')]
-  public function sync(string $manifest, array $options = ['apply' => FALSE, 'author' => 0]): void {
+  #[CLI\Option(name: 'author', description: 'Drupal user ID that owns the drafts; defaults to 1 (site administrator) or a user with the content_creator/administrator role.')]
+  #[CLI\Usage(name: 'drush book-content:sync /secure/path/book.json --author=1', description: 'Validate without writing.')]
+  #[CLI\Usage(name: 'drush book-content:sync /secure/path/book.json --author=1 --apply', description: 'Create or update unpublished Book Parts.')]
+  public function sync(string $manifest, array $options = ['apply' => FALSE, 'author' => 1]): void {
     if (!is_file($manifest) || !is_readable($manifest)) {
       throw new \InvalidArgumentException("Manifest is not readable: $manifest");
     }
@@ -42,10 +42,10 @@ final class BookContentWorkerCommands extends DrushCommands {
       throw new \InvalidArgumentException('Manifest must target book_nid 403 and contain an items array.');
     }
 
-    $author_id = (int) $options['author'];
+    $author_id = (int) ($options['author'] ?: 1);
     $author = User::load($author_id);
-    if (!$author || !in_array('content_creator', $author->getRoles(), TRUE)) {
-      throw new \InvalidArgumentException('The --author user must exist and have the content_creator role.');
+    if (!$author || ($author_id !== 1 && !array_intersect(['content_creator', 'administrator'], $author->getRoles()))) {
+      throw new \InvalidArgumentException('The --author user must exist and have the content_creator or administrator role.');
     }
 
     $apply = (bool) $options['apply'];
