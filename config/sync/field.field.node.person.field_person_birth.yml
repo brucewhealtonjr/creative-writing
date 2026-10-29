@@ -1,0 +1,19 @@
+uuid: 6ed1c831-fb1c-488d-90fe-44c17bb852dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_birth
+    - node.type.person
+id: node.person.field_person_birth
+field_name: field_person_birth
+entity_type: node
+bundle: person
+label: Born
+description: 'Use a known year (1966), exact date (1966-03-22), or approximate year (c. 1800). Leave unknown dates empty; do not invent a month or day.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

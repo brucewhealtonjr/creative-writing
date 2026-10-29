@@ -1,0 +1,19 @@
+uuid: bf7bf2e4-7ed6-489f-9598-e04a0b4bcedd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_death
+    - node.type.person
+id: node.person.field_person_death
+field_name: field_person_death
+entity_type: node
+bundle: person
+label: Died
+description: 'Use a known year, exact date, or approximate year. Leave empty for a living person or an unknown death date.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

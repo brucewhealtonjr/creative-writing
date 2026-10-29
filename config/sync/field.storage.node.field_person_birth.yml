@@ -1,0 +1,21 @@
+uuid: 239bdd77-c075-4c9b-ab00-0e41719beae4
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_person_birth
+field_name: field_person_birth
+entity_type: node
+type: string
+settings:
+  max_length: 32
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

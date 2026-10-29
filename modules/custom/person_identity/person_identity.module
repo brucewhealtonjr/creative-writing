@@ -1,0 +1,227 @@
+<?php
+
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\person_identity\Identity;
+
+/** Implements hook_node_presave(). */
+function person_identity_node_presave(NodeInterface $node): void {
+  Identity::normalize($node);
+}
+
+/** Implements hook_form_BASE_FORM_ID_alter(). */
+function person_identity_form_node_form_alter(array &$form, FormStateInterface $form_state): void {
+  $node = $form_state->getFormObject()->getEntity();
+  if ($node->bundle() !== 'person' || !$node->hasField('field_person_name')) {
+    return;
+  }
+  $form['title']['#access'] = FALSE;
+  $form['field_person_name']['widget'][0]['value']['#required'] = TRUE;
+  $form['#entity_builders'][] = 'person_identity_build_entity';
+}
+
+/** Build the generated title before entity validation runs. */
+function person_identity_build_entity($entity_type, NodeInterface $entity, array &$form, FormStateInterface $form_state): void {
+  Identity::normalize($entity);
+}
+
+/** Implements hook_pathauto_alias_alter(). */
+function person_identity_pathauto_alias_alter(&$alias, array &$context): void {
+  $node = $context['data']['node'] ?? NULL;
+  if ($node instanceof NodeInterface && $node->bundle() === 'person' && $node->hasField('field_person_name')) {
+    $alias = Identity::alias(
+      (string) $node->get('field_person_name')->value,
+      (string) $node->get('field_person_birth')->value,
+      (string) $node->get('field_person_death')->value,
+    );
+  }
+}
+
+/** Implements hook_metatags_alter(). */
+function person_identity_metatags_alter(array &$metatags, array &$context): void {
+  $node = $context['entity'] ?? NULL;
+  if ($node instanceof NodeInterface && $node->bundle() === 'person') {
+    // This module supplies one complete Person object, including family links.
+    foreach (array_keys($metatags) as $key) {
+      if (str_starts_with($key, 'schema_person_')) {
+        unset($metatags[$key]);
+      }
+    }
+  }
+  if ($node instanceof NodeInterface && in_array($node->bundle(), ['book_cover_and_description', 'external_published_books'], TRUE) && $node->hasField('field_book_authors') && !$node->get('field_book_authors')->isEmpty()) {
+    foreach (array_keys($metatags) as $key) {
+      if (str_starts_with($key, 'schema_book_')) {
+        unset($metatags[$key]);
+      }
+    }
+  }
+}
+
+/** Implements hook_node_view(). */
+function person_identity_node_view(array &$build, NodeInterface $node, EntityViewDisplayInterface $display, $view_mode): void {
+  if (in_array($node->bundle(), ['book_cover_and_description', 'external_published_books'], TRUE) && in_array($view_mode, ['full', 'default'], TRUE)) {
+    person_identity_book_view($build, $node);
+    return;
+  }
+  if ($node->bundle() !== 'person' || !in_array($view_mode, ['full', 'default']) || !$node->hasField('field_person_name')) {
+    return;
+  }
+  // Keep portrait and life facts together, ahead of the biography.
+  $header = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary']], '#weight' => -100];
+  if (!empty($build['field_person_featured_image']) && !$node->get('field_person_featured_image')->isEmpty()) {
+    $header['portrait'] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__portrait']], 'image' => $build['field_person_featured_image']];
+  }
+  else {
+    $header['#attributes']['class'][] = 'person-identity-summary--no-portrait';
+  }
+  $header['facts'] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__facts']]];
+  foreach (['birth' => t('Born'), 'death' => t('Died')] as $field => $label) {
+    $date = trim((string) $node->get('field_person_' . $field)->value);
+    if ($date !== '') {
+      if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $date, $parts) && checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1])) {
+        $date = \Drupal::service('date.formatter')->format(gmmktime(12, 0, 0, (int) $parts[2], (int) $parts[3], (int) $parts[1]), 'custom', 'F j, Y', 'UTC');
+      }
+      $header['facts'][$field] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__fact']],
+        'label' => ['#type' => 'html_tag', '#tag' => 'strong', '#value' => $label . ': '],
+        'date' => ['#plain_text' => $date],
+      ];
+    }
+  }
+  if ($node->get('field_person_life_status')->value === 'living' && $node->get('field_person_death')->isEmpty()) {
+    $header['facts']['living'] = ['#type' => 'html_tag', '#tag' => 'p', '#value' => t('Living'), '#attributes' => ['class' => ['person-identity-summary__living']]];
+  }
+  foreach (['field_person_birth_name' => t('Birth name'), 'field_person_other_names' => t('Also known as')] as $field => $label) {
+    if ($node->hasField($field) && !$node->get($field)->isEmpty()) {
+      $header['facts'][$field] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__fact']],
+        'label' => ['#type' => 'html_tag', '#tag' => 'strong', '#value' => $label . ': '],
+        'names' => ['#plain_text' => implode(', ', array_column($node->get($field)->getValue(), 'value'))],
+      ];
+    }
+  }
+  foreach (['field_person_name', 'field_person_birth', 'field_person_death', 'field_person_life_status', 'field_person_featured_image', 'field_person_birth_name', 'field_person_other_names'] as $field) {
+    unset($build[$field]);
+  }
+  $build['person_identity_header'] = $header;
+  $build['#attached']['library'][] = 'person_identity/profile';
+  $url = $node->toUrl('canonical', ['absolute' => TRUE])->toString();
+  $name = (string) ($node->get('field_person_name')->value ?: $node->label());
+  $person = ['@type' => 'Person', '@id' => 'urn:uuid:' . $node->uuid(), 'name' => $name, 'url' => $url, 'mainEntityOfPage' => ['@id' => $url . '#profile']];
+  foreach (['field_person_birth_name', 'field_person_other_names'] as $field) {
+    if ($node->hasField($field)) {
+      foreach ($node->get($field) as $item) {
+        if (trim((string) $item->value) !== '' && $item->value !== $name) {
+          $person['alternateName'][] = $item->value;
+        }
+      }
+    }
+  }
+  if (isset($person['alternateName'])) {
+    $person['alternateName'] = array_values(array_unique($person['alternateName']));
+  }
+  foreach (['field_person_given_name' => 'givenName', 'field_person_additional_name' => 'additionalName', 'field_person_family_name' => 'familyName'] as $field => $property) {
+    if (!$node->get($field)->isEmpty()) {
+      $person[$property] = $node->get($field)->value;
+    }
+  }
+  $summary = $node->get('body')->summary;
+  if ($summary) {
+    $person['description'] = trim(strip_tags($summary));
+  }
+  $cache = CacheableMetadata::createFromObject($node);
+  if (\Drupal\field\Entity\FieldStorageConfig::loadByName('node', 'field_book_subjects')) {
+    $cache->addCacheTags(['node_list:book_cover_and_description', 'node_list:external_published_books']);
+    $ids = \Drupal::entityQuery('node')->accessCheck(TRUE)->condition('status', 1)
+      ->condition('type', ['book_cover_and_description', 'external_published_books'], 'IN')
+      ->condition('field_book_subjects.target_id', $node->id())->execute();
+    foreach (\Drupal\node\Entity\Node::loadMultiple($ids) as $work) {
+      $access = $work->access('view', NULL, TRUE);
+      $cache->addCacheableDependency($work)->addCacheableDependency($access);
+      if ($access->isAllowed()) {
+        $person['subjectOf'][] = ['@type' => 'Book', '@id' => 'urn:uuid:' . $work->uuid(), 'name' => $work->label(), 'url' => $work->toUrl('canonical', ['absolute' => TRUE])->toString()];
+      }
+    }
+  }
+  if ($node->hasField('field_person_featured_image') && !$node->get('field_person_featured_image')->isEmpty()) {
+    $image = $node->get('field_person_featured_image')->entity;
+    if ($image) {
+      $person['image'] = \Drupal::service('file_url_generator')->generateAbsoluteString($image->getFileUri());
+      $cache->addCacheableDependency($image);
+    }
+  }
+  if ($node->get('field_person_life_status')->value === 'living') {
+    $person['disambiguatingDescription'] = $name . ' is living. ' . ($person['description'] ?? '');
+  }
+  foreach (['birth' => 'birthDate', 'death' => 'deathDate'] as $field => $property) {
+    $date = (string) $node->get('field_person_' . $field)->value;
+    // Year-only/approximate dates remain visible without fabricated month/day.
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $date, $parts) && checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1])) {
+      $person[$property] = $date;
+    }
+  }
+  if ($node->hasField('field_identity_profiles')) {
+    foreach ($node->get('field_identity_profiles') as $item) {
+      if (preg_match('#^https?://#i', $item->uri ?? '')) {
+        $person['sameAs'][] = $item->uri;
+      }
+    }
+  }
+  foreach (['field_mother' => 'parent', 'field_father' => 'parent', 'field_person_siblings' => 'sibling', 'field_motherof' => 'children'] as $field => $property) {
+    if (!$node->hasField($field)) {
+      continue;
+    }
+    foreach ($node->get($field)->referencedEntities() as $relative) {
+      $access = $relative->access('view', NULL, TRUE);
+      $cache->addCacheableDependency($relative)->addCacheableDependency($access);
+      if ($access->isAllowed()) {
+        $person[$property][] = ['@type' => 'Person', '@id' => 'urn:uuid:' . $relative->uuid(), 'name' => $relative->get('field_person_name')->value ?: $relative->label(), 'url' => $relative->toUrl('canonical', ['absolute' => TRUE])->toString()];
+      }
+    }
+  }
+  $json = ['@context' => 'https://schema.org', '@graph' => [
+    ['@type' => 'ProfilePage', '@id' => $url . '#profile', 'url' => $url, 'name' => $node->label(), 'mainEntity' => ['@id' => $person['@id']]],
+    $person,
+  ]];
+  $build['#attached']['html_head'][] = [[
+    '#tag' => 'script',
+    '#attributes' => ['type' => 'application/ld+json'],
+    '#value' => json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
+  ], 'person_identity_' . $node->id()];
+  CacheableMetadata::createFromRenderArray($build)->merge($cache)->applyTo($build);
+}
+
+/** Attach Book data with explicit author and subject Person references. */
+function person_identity_book_view(array &$build, NodeInterface $node): void {
+  if (!$node->hasField('field_book_authors') || $node->get('field_book_authors')->isEmpty()) {
+    return;
+  }
+  $cache = CacheableMetadata::createFromObject($node);
+  $book = ['@context' => 'https://schema.org', '@type' => 'Book', '@id' => 'urn:uuid:' . $node->uuid(), 'name' => $node->label(), 'url' => $node->toUrl('canonical', ['absolute' => TRUE])->toString()];
+  foreach (['field_book_authors' => 'author', 'field_book_subjects' => 'about'] as $field => $property) {
+    if (!$node->hasField($field)) {
+      continue;
+    }
+    foreach ($node->get($field)->referencedEntities() as $person) {
+      $access = $person->access('view', NULL, TRUE);
+      $cache->addCacheableDependency($person)->addCacheableDependency($access);
+      if ($access->isAllowed()) {
+        $book[$property][] = ['@type' => 'Person', '@id' => 'urn:uuid:' . $person->uuid(), 'name' => $person->get('field_person_name')->value ?: $person->label(), 'url' => $person->toUrl('canonical', ['absolute' => TRUE])->toString()];
+      }
+    }
+  }
+  if ($node->hasField('body') && $node->get('body')->summary) {
+    $book['description'] = trim(strip_tags($node->get('body')->summary));
+  }
+  if ($node->hasField('field_book_cover_page') && ($cover = $node->get('field_book_cover_page')->entity)) {
+    $book['image'] = \Drupal::service('file_url_generator')->generateAbsoluteString($cover->getFileUri());
+    $cache->addCacheableDependency($cover);
+  }
+  if (!empty($book['author'])) {
+    $build['#attached']['html_head'][] = [[
+      '#tag' => 'script', '#attributes' => ['type' => 'application/ld+json'],
+      '#value' => json_encode($book, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
+    ], 'person_identity_book_' . $node->id()];
+  }
+  CacheableMetadata::createFromRenderArray($build)->merge($cache)->applyTo($build);
+}

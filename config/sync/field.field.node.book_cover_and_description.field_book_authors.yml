@@ -1,0 +1,28 @@
+uuid: b1bff566-f6fb-46fb-8255-03d02ce3fa6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_book_authors
+    - node.type.book_cover_and_description
+    - node.type.person
+id: node.book_cover_and_description.field_book_authors
+field_name: field_book_authors
+entity_type: node
+bundle: book_cover_and_description
+label: Author(s)
+description: 'Who wrote this work? Select a Person by name and dates. This is separate from the Drupal account that posted the page.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      person: person
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

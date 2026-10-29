@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.external_published_books.body
+    - field.field.node.external_published_books.field_book_authors
+    - field.field.node.external_published_books.field_book_subjects
     - field.field.node.external_published_books.field_featured_external
     - field.field.node.external_published_books.field_link_to_content
     - node.type.external_published_books
@@ -33,6 +35,26 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_book_authors:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Search Person names and dates'
+    third_party_settings: {  }
+  field_book_subjects:
+    type: entity_reference_autocomplete
+    weight: 16
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Search Person names and dates'
+    third_party_settings: {  }
   field_featured_external:
     type: media_library_widget
     weight: 10
@@ -60,6 +82,16 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap_index_now:
+    weight: 130
+    region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox

@@ -1,0 +1,30 @@
+uuid: f09ca924-9058-43ff-8db9-f78ce2f9f94f
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_person_life_status
+field_name: field_person_life_status
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: unknown
+      label: 'Not established'
+    -
+      value: living
+      label: Living
+    -
+      value: deceased
+      label: Deceased
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

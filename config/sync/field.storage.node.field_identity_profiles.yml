@@ -1,0 +1,19 @@
+uuid: 696ea45f-afa8-40bb-99be-2351521bc6f7
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_identity_profiles
+field_name: field_identity_profiles
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

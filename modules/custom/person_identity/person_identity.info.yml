@@ -1,0 +1,11 @@
+name: Person identity
+type: module
+description: 'Names, approximate life dates, family references and structured data for Person biographies.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:field
+  - drupal:link
+  - drupal:options
+  - pathauto:pathauto

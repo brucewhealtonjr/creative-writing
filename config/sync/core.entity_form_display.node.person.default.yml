@@ -5,13 +5,26 @@ dependencies:
   config:
     - field.field.node.person.body
     - field.field.node.person.field_father
-    - field.field.node.person.field_person_featured_image
+    - field.field.node.person.field_identity_profiles
     - field.field.node.person.field_mother
     - field.field.node.person.field_motherof
+    - field.field.node.person.field_person_additional_name
+    - field.field.node.person.field_person_birth
+    - field.field.node.person.field_person_birth_name
+    - field.field.node.person.field_person_death
+    - field.field.node.person.field_person_family_name
+    - field.field.node.person.field_person_featured_image
+    - field.field.node.person.field_person_given_name
+    - field.field.node.person.field_person_life_status
+    - field.field.node.person.field_person_name
+    - field.field.node.person.field_person_other_names
+    - field.field.node.person.field_person_siblings
+    - field.field.node.person.field_related_links
     - image.style.thumbnail
     - node.type.person
   module:
     - image
+    - link
     - path
     - text
 id: node.person.default
@@ -37,31 +50,79 @@ content:
     third_party_settings: {  }
   field_father:
     type: entity_reference_autocomplete
-    weight: 133
+    weight: 141
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Name (birth year-death year)'
+    third_party_settings: {  }
+  field_identity_profiles:
+    type: link_default
+    weight: 135
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   field_mother:
     type: entity_reference_autocomplete
-    weight: 132
+    weight: 140
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Name (birth year-death year)'
     third_party_settings: {  }
   field_motherof:
     type: entity_reference_autocomplete
-    weight: 134
+    weight: 143
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: 'Name (birth year-death year)'
+    third_party_settings: {  }
+  field_person_additional_name:
+    type: string_textfield
+    weight: -18
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_person_birth:
+    type: string_textfield
+    weight: -16
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_person_birth_name:
+    type: string_textfield
+    weight: -14
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_person_death:
+    type: string_textfield
+    weight: -15
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_person_family_name:
+    type: string_textfield
+    weight: -17
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -72,6 +133,54 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_person_given_name:
+    type: string_textfield
+    weight: -19
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_person_life_status:
+    type: options_select
+    weight: -10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_person_name:
+    type: string_textfield
+    weight: -20
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_person_other_names:
+    type: string_textfield
+    weight: -13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_person_siblings:
+    type: entity_reference_autocomplete
+    weight: 142
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Name (birth year-death year)'
+    third_party_settings: {  }
+  field_related_links:
+    type: link_default
+    weight: 136
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   path:
     type: path

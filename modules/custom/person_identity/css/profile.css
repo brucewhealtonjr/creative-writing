@@ -1,0 +1,43 @@
+.person-identity-summary {
+  display: grid;
+  grid-template-columns: minmax(120px, 220px) minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+  margin: 0.5rem 0 2rem;
+}
+.person-identity-summary--no-portrait {
+  grid-template-columns: minmax(0, 1fr);
+}
+.person-identity-summary__portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  object-position: left center;
+}
+.person-identity-summary__portrait .field,
+.person-identity-summary__portrait figure {
+  margin: 0;
+}
+.person-identity-summary__fact {
+  margin: 0 0 0.65rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.person-identity-summary__fact strong {
+  margin-right: 0.3em;
+}
+.person-identity-summary__living {
+  margin: 0.25rem 0 0;
+}
+@media (max-width: 480px) {
+  .person-identity-summary {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+  }
+  .person-identity-summary--no-portrait {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

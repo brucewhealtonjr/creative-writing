@@ -5,8 +5,10 @@ dependencies:
   config:
     - field.field.node.book_cover_and_description.body
     - field.field.node.book_cover_and_description.field_beginning_of_the_book
+    - field.field.node.book_cover_and_description.field_book_authors
     - field.field.node.book_cover_and_description.field_book_categories
     - field.field.node.book_cover_and_description.field_book_cover_page
+    - field.field.node.book_cover_and_description.field_book_subjects
     - field.field.node.book_cover_and_description.field_people_or_characters
     - image.style.max_650x650
     - node.type.book_cover_and_description
@@ -39,6 +41,14 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_book_authors:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_book_categories:
     type: entity_reference_label
     label: above
@@ -58,6 +68,14 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  field_book_subjects:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
   field_people_or_characters:
     type: entity_reference_label
     label: above
@@ -71,4 +89,5 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-hidden: {  }
+hidden:
+  book_navigation: true

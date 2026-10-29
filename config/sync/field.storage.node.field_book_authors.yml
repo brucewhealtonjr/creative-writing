@@ -1,0 +1,19 @@
+uuid: f09ac6dd-5a02-41c6-b87e-3b1b8d3de82c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_book_authors
+field_name: field_book_authors
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

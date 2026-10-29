@@ -1,0 +1,21 @@
+uuid: 7a3bf12f-fc75-4268-84f3-1f9c92ef041d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_person_death
+field_name: field_person_death
+entity_type: node
+type: string
+settings:
+  max_length: 32
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

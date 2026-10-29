@@ -1,0 +1,23 @@
+uuid: bfbc035d-98e9-41ca-9509-80a80bfdb952
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.person
+  module:
+    - node
+id: person_identity
+label: 'Person name and life dates'
+type: 'canonical_entities:node'
+pattern: '/person/[node:title]'
+selection_criteria:
+  person_bundle:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      person: person
+selection_logic: and
+weight: -20
+relationships: {  }

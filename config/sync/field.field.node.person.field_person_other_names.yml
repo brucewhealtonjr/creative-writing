@@ -1,0 +1,19 @@
+uuid: 2bf09155-f03d-4b5a-807b-a090eb9eb45e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_other_names
+    - node.type.person
+id: node.person.field_person_other_names
+field_name: field_person_other_names
+entity_type: node
+bundle: person
+label: 'Other names'
+description: 'Other married, former, pen, or commonly used names. Keep the preferred public name in Full name.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

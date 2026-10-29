@@ -1,0 +1,23 @@
+uuid: 74a39b4c-e563-4271-a1f3-7610a6e443c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_life_status
+    - node.type.person
+  module:
+    - options
+id: node.person.field_person_life_status
+field_name: field_person_life_status
+entity_type: node
+bundle: person
+label: 'Life status'
+description: 'A missing death date alone does not establish that a person is living.'
+required: false
+translatable: true
+default_value:
+  -
+    value: unknown
+default_value_callback: ''
+settings: {  }
+field_type: list_string

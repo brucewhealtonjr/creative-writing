@@ -6,9 +6,21 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.person.body
     - field.field.node.person.field_father
-    - field.field.node.person.field_person_featured_image
+    - field.field.node.person.field_identity_profiles
     - field.field.node.person.field_mother
     - field.field.node.person.field_motherof
+    - field.field.node.person.field_person_additional_name
+    - field.field.node.person.field_person_birth
+    - field.field.node.person.field_person_birth_name
+    - field.field.node.person.field_person_death
+    - field.field.node.person.field_person_family_name
+    - field.field.node.person.field_person_featured_image
+    - field.field.node.person.field_person_given_name
+    - field.field.node.person.field_person_life_status
+    - field.field.node.person.field_person_name
+    - field.field.node.person.field_person_other_names
+    - field.field.node.person.field_person_siblings
+    - field.field.node.person.field_related_links
     - node.type.person
   module:
     - image
@@ -46,5 +58,17 @@ content:
 hidden:
   addtoany: true
   field_father: true
+  field_identity_profiles: true
   field_mother: true
   field_motherof: true
+  field_person_additional_name: true
+  field_person_birth: true
+  field_person_birth_name: true
+  field_person_death: true
+  field_person_family_name: true
+  field_person_given_name: true
+  field_person_life_status: true
+  field_person_name: true
+  field_person_other_names: true
+  field_person_siblings: true
+  field_related_links: true

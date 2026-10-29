@@ -1,0 +1,12 @@
+uuid: fa392443-d55a-40a0-bf5d-1193218470d1
+langcode: en
+status: true
+dependencies: {  }
+id: node__person
+label: 'Content: Person'
+tags:
+  schema_person_id: '[node:url]#person'
+  schema_person_name: '[node:title]'
+  schema_person_same_as: '[node:field_identity_profiles]'
+  schema_person_type: Person
+  schema_person_url: '[node:url]'

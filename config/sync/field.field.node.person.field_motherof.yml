@@ -9,8 +9,8 @@ id: node.person.field_motherof
 field_name: field_motherof
 entity_type: node
 bundle: person
-label: 'Mother of'
-description: 'Children of this person.'
+label: Children
+description: 'Select an existing Person by name and life dates. If none matches, type a new name, optionally followed by years, for example Jane Whealton (c. 1800-1870). A new linked Person is created when you save. Check matches first to avoid duplicates.'
 required: false
 translatable: false
 default_value: {  }
@@ -23,6 +23,6 @@ settings:
     sort:
       field: title
       direction: ASC
-    auto_create: false
-    auto_create_bundle: ''
+    auto_create: true
+    auto_create_bundle: person
 field_type: entity_reference

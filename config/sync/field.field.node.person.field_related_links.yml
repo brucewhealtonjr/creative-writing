@@ -1,0 +1,23 @@
+uuid: 280c5de3-6048-4e8a-a320-8d954299c3b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_links
+    - node.type.person
+  module:
+    - link
+id: node.person.field_related_links
+field_name: field_related_links
+entity_type: node
+bundle: person
+label: 'Related links'
+description: 'Books, articles, projects, and websites created by or related to this person. Use descriptive link text. These links are not automatically identity matches (sameAs).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 2
+  link_type: 17
+field_type: link

@@ -1,0 +1,76 @@
+<?php
+
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\pathauto\Entity\PathautoPattern;
+
+/** Implements hook_install(). */
+function person_identity_install(): void {
+  require_once __DIR__ . '/person_identity.post_update.php';
+  person_identity_post_update_add_other_names();
+  person_identity_post_update_add_book_people();
+  $fields = [
+    'field_person_name' => ['Full name', 160, 'Public name, including middle name and suffix if used. The title and autocomplete label are generated from this name and the life dates.'],
+    'field_person_given_name' => ['Given name', 80, 'Optional first/given name for structured data.'],
+    'field_person_additional_name' => ['Middle or additional name', 80, 'Optional middle name or initial.'],
+    'field_person_family_name' => ['Family name', 80, 'Optional surname for structured data.'],
+    'field_person_birth' => ['Born', 32, 'Use a known year (1966), exact date (1966-03-22), or approximate year (c. 1800). Leave unknown dates empty; do not invent a month or day.'],
+    'field_person_death' => ['Died', 32, 'Use a known year, exact date, or approximate year. Leave empty for a living person or an unknown death date.'],
+  ];
+  $form = EntityFormDisplay::load('node.person.default');
+  $view = EntityViewDisplay::load('node.person.default');
+  $weight = -20;
+  foreach ($fields as $name => [$label, $length, $help]) {
+    if (!FieldStorageConfig::loadByName('node', $name)) {
+      FieldStorageConfig::create(['entity_type' => 'node', 'field_name' => $name, 'type' => 'string', 'cardinality' => 1, 'settings' => ['max_length' => $length]])->save();
+    }
+    if (!FieldConfig::load('node.person.' . $name)) {
+      FieldConfig::create(['entity_type' => 'node', 'bundle' => 'person', 'field_name' => $name, 'label' => $label, 'description' => $help])->save();
+    }
+    $form->setComponent($name, ['type' => 'string_textfield', 'weight' => $weight++, 'settings' => ['size' => 60, 'placeholder' => '']]);
+    if (in_array($name, ['field_person_name', 'field_person_birth', 'field_person_death'])) {
+      $view->setComponent($name, ['type' => 'string', 'label' => 'above', 'weight' => $weight]);
+    }
+    else {
+      $view->removeComponent($name);
+    }
+  }
+  if (!FieldStorageConfig::loadByName('node', 'field_person_life_status')) {
+    FieldStorageConfig::create(['entity_type' => 'node', 'field_name' => 'field_person_life_status', 'type' => 'list_string', 'settings' => ['allowed_values' => ['unknown' => 'Not established', 'living' => 'Living', 'deceased' => 'Deceased']]])->save();
+  }
+  if (!FieldConfig::load('node.person.field_person_life_status')) {
+    FieldConfig::create(['entity_type' => 'node', 'bundle' => 'person', 'field_name' => 'field_person_life_status', 'label' => 'Life status', 'description' => 'A missing death date alone does not establish that a person is living.', 'default_value' => [['value' => 'unknown']]])->save();
+  }
+  $form->setComponent('field_person_life_status', ['type' => 'options_select', 'weight' => -10]);
+  $view->setComponent('field_person_life_status', ['type' => 'list_default', 'label' => 'above', 'weight' => -9]);
+  if (!FieldStorageConfig::loadByName('node', 'field_person_siblings')) {
+    FieldStorageConfig::create(['entity_type' => 'node', 'field_name' => 'field_person_siblings', 'type' => 'entity_reference', 'cardinality' => -1, 'settings' => ['target_type' => 'node']])->save();
+  }
+  if (!FieldConfig::load('node.person.field_person_siblings')) {
+    FieldConfig::create(['entity_type' => 'node', 'bundle' => 'person', 'field_name' => 'field_person_siblings', 'label' => 'Siblings'])->save();
+  }
+  foreach (['field_mother', 'field_father', 'field_person_siblings', 'field_motherof'] as $name) {
+    $field = FieldConfig::load('node.person.' . $name);
+    $field->setSetting('handler', 'default:node')->setSetting('handler_settings', [
+      'target_bundles' => ['person' => 'person'], 'sort' => ['field' => 'title', 'direction' => 'ASC'], 'auto_create' => TRUE, 'auto_create_bundle' => 'person',
+    ]);
+    $field->setDescription('Select an existing Person by name and life dates. If none matches, type a new name, optionally followed by years, for example Jane Whealton (c. 1800-1870). A new linked Person is created when you save. Check matches first to avoid duplicates.');
+    if ($name === 'field_motherof') {
+      $field->setLabel('Children');
+    }
+    $field->save();
+    $form->setComponent($name, ['type' => 'entity_reference_autocomplete', 'weight' => 140 + array_search($name, ['field_mother', 'field_father', 'field_person_siblings', 'field_motherof']), 'settings' => ['match_operator' => 'CONTAINS', 'match_limit' => 10, 'size' => 60, 'placeholder' => 'Name (birth year-death year)']]);
+    $view->setComponent($name, ['type' => 'entity_reference_label', 'label' => 'above', 'weight' => 140 + array_search($name, ['field_mother', 'field_father', 'field_person_siblings', 'field_motherof']), 'settings' => ['link' => TRUE]]);
+  }
+  $form->save();
+  $view->save();
+  if (!PathautoPattern::load('person_identity')) {
+    PathautoPattern::create([
+      'id' => 'person_identity', 'label' => 'Person name and life dates', 'type' => 'canonical_entities:node', 'pattern' => '/person/[node:title]',
+      'selection_criteria' => ['person_bundle' => ['id' => 'entity_bundle:node', 'negate' => FALSE, 'context_mapping' => ['node' => 'node'], 'bundles' => ['person' => 'person']]],
+      'selection_logic' => 'and', 'weight' => -20, 'status' => TRUE,
+    ])->save();
+  }
+}

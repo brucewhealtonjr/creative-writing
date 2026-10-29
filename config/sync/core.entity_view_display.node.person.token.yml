@@ -1,0 +1,123 @@
+uuid: c0e8c025-2798-471e-8109-697f27555828
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.person.body
+    - field.field.node.person.field_father
+    - field.field.node.person.field_identity_profiles
+    - field.field.node.person.field_mother
+    - field.field.node.person.field_motherof
+    - field.field.node.person.field_person_additional_name
+    - field.field.node.person.field_person_birth
+    - field.field.node.person.field_person_birth_name
+    - field.field.node.person.field_person_death
+    - field.field.node.person.field_person_family_name
+    - field.field.node.person.field_person_featured_image
+    - field.field.node.person.field_person_given_name
+    - field.field.node.person.field_person_life_status
+    - field.field.node.person.field_person_name
+    - field.field.node.person.field_person_other_names
+    - field.field.node.person.field_person_siblings
+    - field.field.node.person.field_related_links
+    - image.style.max_650x650
+    - node.type.person
+  module:
+    - image
+    - layout_builder
+    - link
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.person.token
+targetEntityType: node
+bundle: person
+mode: token
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_father:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_identity_profiles:
+    type: link
+    label: above
+    settings:
+      trim_length: null
+      url_only: true
+      url_plain: true
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_mother:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_motherof:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_person_featured_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: max_650x650
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_related_links:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  addtoany: true
+  field_person_additional_name: true
+  field_person_birth: true
+  field_person_birth_name: true
+  field_person_death: true
+  field_person_family_name: true
+  field_person_given_name: true
+  field_person_life_status: true
+  field_person_name: true
+  field_person_other_names: true
+  field_person_siblings: true

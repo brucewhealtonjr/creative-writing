@@ -1,6 +1,8 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  metatag_verification: 0
+  person_identity: 0
   addtoany: 0
   admin_toolbar: 0
   admin_toolbar_search: 0

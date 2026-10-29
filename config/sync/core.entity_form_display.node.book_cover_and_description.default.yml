@@ -5,8 +5,10 @@ dependencies:
   config:
     - field.field.node.book_cover_and_description.body
     - field.field.node.book_cover_and_description.field_beginning_of_the_book
+    - field.field.node.book_cover_and_description.field_book_authors
     - field.field.node.book_cover_and_description.field_book_categories
     - field.field.node.book_cover_and_description.field_book_cover_page
+    - field.field.node.book_cover_and_description.field_book_subjects
     - field.field.node.book_cover_and_description.field_people_or_characters
     - image.style.thumbnail
     - node.type.book_cover_and_description
@@ -45,6 +47,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_book_authors:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Search Person names and dates'
+    third_party_settings: {  }
   field_book_categories:
     type: options_buttons
     weight: 123
@@ -58,6 +70,16 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_book_subjects:
+    type: entity_reference_autocomplete
+    weight: 16
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: 'Search Person names and dates'
     third_party_settings: {  }
   field_people_or_characters:
     type: options_buttons
@@ -77,6 +99,16 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap_index_now:
+    weight: 130
+    region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox

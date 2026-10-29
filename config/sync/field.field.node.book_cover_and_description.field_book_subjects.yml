@@ -1,0 +1,28 @@
+uuid: f17b78d4-8243-4bef-b72c-97b33f732a12
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_book_subjects
+    - node.type.book_cover_and_description
+    - node.type.person
+id: node.book_cover_and_description.field_book_subjects
+field_name: field_book_subjects
+entity_type: node
+bundle: book_cover_and_description
+label: Subject(s)
+description: 'Who is this work about? Select a Person only when that person is a subject of this particular work. Authorship alone does not establish subject matter.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      person: person
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

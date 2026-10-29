@@ -1,0 +1,19 @@
+uuid: 39e4615a-0ee5-4fd9-8be4-f7e520676925
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_person_family_name
+    - node.type.person
+id: node.person.field_person_family_name
+field_name: field_person_family_name
+entity_type: node
+bundle: person
+label: 'Family name'
+description: 'Optional surname for structured data.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

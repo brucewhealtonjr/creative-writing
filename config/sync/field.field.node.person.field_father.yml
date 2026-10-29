@@ -10,7 +10,7 @@ field_name: field_father
 entity_type: node
 bundle: person
 label: Father
-description: ''
+description: 'Select an existing Person by name and life dates. If none matches, type a new name, optionally followed by years, for example Jane Whealton (c. 1800-1870). A new linked Person is created when you save. Check matches first to avoid duplicates.'
 required: false
 translatable: false
 default_value: {  }
@@ -21,8 +21,8 @@ settings:
     target_bundles:
       person: person
     sort:
-      field: _none
+      field: title
       direction: ASC
     auto_create: true
-    auto_create_bundle: ''
+    auto_create_bundle: person
 field_type: entity_reference

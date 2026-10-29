@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.external_published_books.body
+    - field.field.node.external_published_books.field_book_authors
+    - field.field.node.external_published_books.field_book_subjects
     - field.field.node.external_published_books.field_featured_external
     - field.field.node.external_published_books.field_link_to_content
     - node.type.external_published_books
@@ -27,6 +29,22 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_book_authors:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_book_subjects:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_featured_external:
     type: entity_reference_entity_view

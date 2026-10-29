@@ -1,0 +1,5 @@
+services:
+  person_identity.route_subscriber:
+    class: Drupal\person_identity\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
