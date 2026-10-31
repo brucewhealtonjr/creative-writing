@@ -9,7 +9,7 @@ id: node.person.field_person_birth_name
 field_name: field_person_birth_name
 entity_type: node
 bundle: person
-label: 'Birth name'
+label: 'Birth name: '
 description: 'Name at birth, if different from the public Full name. Optional for any person, regardless of gender.'
 required: false
 translatable: true
@@ -17,3 +17,4 @@ default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: string
+

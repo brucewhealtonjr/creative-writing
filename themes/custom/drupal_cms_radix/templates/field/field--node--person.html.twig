@@ -1,0 +1,9 @@
+{# Inline Person fields use a consistent label separator. #}
+{% if label_display == 'inline' and not label_hidden %}
+  {% set attributes = attributes.addClass('person-inline-field') %}
+  {% set label_text = label|render|trim %}
+  {% if label_text|slice(-1) != ':' %}
+    {% set label = label_text ~ ':' %}
+  {% endif %}
+{% endif %}
+{% include 'radix:field' %}

@@ -22,12 +22,231 @@ dependencies:
     - field.field.node.person.field_related_links
     - image.style.max_650x650
     - node.type.person
+  content:
+    - 'block_content:basic:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
   module:
+    - addtoany
+    - block_content
     - image
+    - layout_builder
     - link
     - options
     - text
     - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: 'Top section'
+          context_mapping: {  }
+          column_widths: 50-50
+        components:
+          6f098660-30f1-40eb-bdf4-9adb89896982:
+            uuid: 6f098660-30f1-40eb-bdf4-9adb89896982
+            region: first
+            configuration:
+              id: addtoany_block
+              label: 'AddToAny share buttons'
+              label_display: '0'
+              provider: addtoany
+              context_mapping: {  }
+              buttons_size: null
+              addtoany_html: ''
+              link_url: ''
+              link_title: ''
+            weight: 1
+            additional: {  }
+          f9dd7322-d5ca-4c1b-9272-115fc1cf55d5:
+            uuid: f9dd7322-d5ca-4c1b-9272-115fc1cf55d5
+            region: first
+            configuration:
+              id: 'field_block:node:person:body'
+              label: Biography
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          d92ddaef-1d6f-4061-b8d4-42e83d065b5a:
+            uuid: d92ddaef-1d6f-4061-b8d4-42e83d065b5a
+            region: second
+            configuration:
+              id: 'block_content:3311f899-8b9e-40e2-a9c9-cf9b6126c2bb'
+              label: 'About Me'
+              label_display: visible
+              provider: block_content
+              status: true
+              info: ''
+              view_mode: full
+              context_mapping: {  }
+            weight: 1
+            additional: {  }
+          99cfc3e3-86a2-47a6-ba49-ad1af3a981c5:
+            uuid: 99cfc3e3-86a2-47a6-ba49-ad1af3a981c5
+            region: second
+            configuration:
+              id: 'field_block:node:person:field_person_birth'
+              label: 'Born: '
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: inline
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          3ea2d832-8feb-4359-8211-f36a704b331e:
+            uuid: 3ea2d832-8feb-4359-8211-f36a704b331e
+            region: second
+            configuration:
+              id: 'field_block:node:person:field_person_featured_image'
+              label: 'Featured Image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: max_1300x1300
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: -1
+            additional: {  }
+          693844ac-fb70-4d4e-8847-0e6f93938c11:
+            uuid: 693844ac-fb70-4d4e-8847-0e6f93938c11
+            region: second
+            configuration:
+              id: 'field_block:node:person:field_person_life_status'
+              label: 'Life status:'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: list_default
+                label: inline
+                settings: {  }
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          99532728-1e50-4778-98cc-47d910a93ecf:
+            uuid: 99532728-1e50-4778-98cc-47d910a93ecf
+            region: second
+            configuration:
+              id: 'field_block:node:person:field_person_death'
+              label: Died
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: inline
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          a83913e6-23a2-4340-b29a-e8ac7a8da43a:
+            uuid: a83913e6-23a2-4340-b29a-e8ac7a8da43a
+            region: first
+            configuration:
+              id: 'field_block:node:person:field_person_name'
+              label: 'Full name'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: -1
+            additional: {  }
+          40cfbc32-066a-4652-8df7-c9dc979fe07a:
+            uuid: 40cfbc32-066a-4652-8df7-c9dc979fe07a
+            region: second
+            configuration:
+              id: 'field_block:node:person:field_father'
+              label: Father
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+          f70c25d7-ce43-4cca-956f-58f2b8da6b3b:
+            uuid: f70c25d7-ce43-4cca-956f-58f2b8da6b3b
+            region: second
+            configuration:
+              id: 'field_block:node:person:field_mother'
+              label: Mother
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: inline
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 6
+            additional: {  }
+          e7212d14-d955-4ea5-963e-11bf2ae39cdd:
+            uuid: e7212d14-d955-4ea5-963e-11bf2ae39cdd
+            region: second
+            configuration:
+              id: 'field_block:node:person:field_person_siblings'
+              label: Siblings
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 7
+            additional: {  }
+        third_party_settings: {  }
 id: node.person.default
 targetEntityType: node
 bundle: person
@@ -154,3 +373,4 @@ hidden:
   field_person_family_name: true
   field_person_given_name: true
   field_person_other_names: true
+

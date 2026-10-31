@@ -1,0 +1,18 @@
+/* Separate inline Person field labels from their values. */
+.person-inline-field > .field__label {
+  margin-right: 0.35em;
+}
+
+/* The label text already contains the separator, including in older previews. */
+.person-inline-field > .field__label::after {
+  content: none !important;
+}
+
+/* Keep adjacent inline facts compact in both the page and layout editor. */
+.block:has(.person-inline-field) {
+  margin-block: 0.1rem;
+}
+
+.layout-builder .layout-builder-block:has(.person-inline-field) {
+  padding-block: 0.15rem;
+}

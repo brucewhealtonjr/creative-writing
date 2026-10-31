@@ -27,3 +27,9 @@ outside this repository. Restore those separately from private site backups.
 Drupal configuration exports and custom module code do not contain the complete
 live content database. Reconcile the current live configuration before importing
 the repository's export; the checkout may contain unrelated historical drift.
+
+The saved Person default display uses Layout Builder and references the existing
+About Me content block. That block and Person records come from the database,
+not the configuration export. A local DDEV settings override disables automatic
+IndexNow submissions; runtime settings are ignored by Git and must be configured
+separately on another local installation.
