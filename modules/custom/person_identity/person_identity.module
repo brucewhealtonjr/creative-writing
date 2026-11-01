@@ -65,6 +65,22 @@ function person_identity_build_entity($entity_type, NodeInterface $entity, array
   Identity::normalize($entity);
 }
 
+/** Format complete Person dates in field displays without inventing precision. */
+function person_identity_preprocess_field(array &$variables): void {
+  $element = $variables['element'];
+  if (($element['#entity_type'] ?? '') !== 'node' || ($element['#bundle'] ?? '') !== 'person'
+    || !in_array($element['#field_name'] ?? '', ['field_person_birth', 'field_person_death'], TRUE)) {
+    return;
+  }
+  foreach ($variables['items'] as $delta => &$item) {
+    $value = (string) ($element['#items'][$delta]->value ?? '');
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value, $parts)
+      && checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1])) {
+      $item['content'] = ['#plain_text' => \Drupal::service('date.formatter')->format(gmmktime(12, 0, 0, (int) $parts[2], (int) $parts[3], (int) $parts[1]), 'custom', 'F j, Y', 'UTC')];
+    }
+  }
+}
+
 /** Implements hook_pathauto_alias_alter(). */
 function person_identity_pathauto_alias_alter(&$alias, array &$context): void {
   $node = $context['data']['node'] ?? NULL;
@@ -111,43 +127,46 @@ function person_identity_node_view(array &$build, NodeInterface $node, EntityVie
   if ($node->bundle() !== 'person' || !in_array($view_mode, ['full', 'default']) || !$node->hasField('field_person_name')) {
     return;
   }
-  // Keep portrait and life facts together, ahead of the biography.
-  $header = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary']], '#weight' => -100];
-  if (!empty($build['field_person_featured_image']) && !$node->get('field_person_featured_image')->isEmpty()) {
-    $header['portrait'] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__portrait']], 'image' => $build['field_person_featured_image']];
-  }
-  else {
-    $header['#attributes']['class'][] = 'person-identity-summary--no-portrait';
-  }
-  $header['facts'] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__facts']]];
-  foreach (['birth' => t('Born'), 'death' => t('Died')] as $field => $label) {
-    $date = trim((string) $node->get('field_person_' . $field)->value);
-    if ($date !== '') {
-      if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $date, $parts) && checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1])) {
-        $date = \Drupal::service('date.formatter')->format(gmmktime(12, 0, 0, (int) $parts[2], (int) $parts[3], (int) $parts[1]), 'custom', 'F j, Y', 'UTC');
+  // The legacy summary is only used when Layout Builder is not in control.
+  if (!$display->getThirdPartySetting('layout_builder', 'enabled', FALSE)) {
+    // Keep portrait and life facts together, ahead of the biography.
+    $header = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary']], '#weight' => -100];
+    if (!empty($build['field_person_featured_image']) && !$node->get('field_person_featured_image')->isEmpty()) {
+      $header['portrait'] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__portrait']], 'image' => $build['field_person_featured_image']];
+    }
+    else {
+      $header['#attributes']['class'][] = 'person-identity-summary--no-portrait';
+    }
+    $header['facts'] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__facts']]];
+    foreach (['birth' => t('Born'), 'death' => t('Died')] as $field => $label) {
+      $date = trim((string) $node->get('field_person_' . $field)->value);
+      if ($date !== '') {
+        if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $date, $parts) && checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1])) {
+          $date = \Drupal::service('date.formatter')->format(gmmktime(12, 0, 0, (int) $parts[2], (int) $parts[3], (int) $parts[1]), 'custom', 'F j, Y', 'UTC');
+        }
+        $header['facts'][$field] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__fact']],
+          'label' => ['#type' => 'html_tag', '#tag' => 'strong', '#value' => $label . ': '],
+          'date' => ['#plain_text' => $date],
+        ];
       }
-      $header['facts'][$field] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__fact']],
-        'label' => ['#type' => 'html_tag', '#tag' => 'strong', '#value' => $label . ': '],
-        'date' => ['#plain_text' => $date],
-      ];
     }
-  }
-  if ($node->get('field_person_life_status')->value === 'living' && $node->get('field_person_death')->isEmpty()) {
-    $header['facts']['living'] = ['#type' => 'html_tag', '#tag' => 'p', '#value' => t('Living'), '#attributes' => ['class' => ['person-identity-summary__living']]];
-  }
-  foreach (['field_person_birth_name' => t('Birth name'), 'field_person_other_names' => t('Also known as')] as $field => $label) {
-    if ($node->hasField($field) && !$node->get($field)->isEmpty()) {
-      $header['facts'][$field] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__fact']],
-        'label' => ['#type' => 'html_tag', '#tag' => 'strong', '#value' => $label . ': '],
-        'names' => ['#plain_text' => implode(', ', array_column($node->get($field)->getValue(), 'value'))],
-      ];
+    if ($node->get('field_person_life_status')->value === 'living' && $node->get('field_person_death')->isEmpty()) {
+      $header['facts']['living'] = ['#type' => 'html_tag', '#tag' => 'p', '#value' => t('Living'), '#attributes' => ['class' => ['person-identity-summary__living']]];
     }
+    foreach (['field_person_birth_name' => t('Birth name'), 'field_person_other_names' => t('Also known as')] as $field => $label) {
+      if ($node->hasField($field) && !$node->get($field)->isEmpty()) {
+        $header['facts'][$field] = ['#type' => 'container', '#attributes' => ['class' => ['person-identity-summary__fact']],
+          'label' => ['#type' => 'html_tag', '#tag' => 'strong', '#value' => $label . ': '],
+          'names' => ['#plain_text' => implode(', ', array_column($node->get($field)->getValue(), 'value'))],
+        ];
+      }
+    }
+    foreach (['field_person_name', 'field_person_birth', 'field_person_death', 'field_person_life_status', 'field_person_featured_image', 'field_person_birth_name', 'field_person_other_names'] as $field) {
+      unset($build[$field]);
+    }
+    $build['person_identity_header'] = $header;
+    $build['#attached']['library'][] = 'person_identity/profile';
   }
-  foreach (['field_person_name', 'field_person_birth', 'field_person_death', 'field_person_life_status', 'field_person_featured_image', 'field_person_birth_name', 'field_person_other_names'] as $field) {
-    unset($build[$field]);
-  }
-  $build['person_identity_header'] = $header;
-  $build['#attached']['library'][] = 'person_identity/profile';
   $url = $node->toUrl('canonical', ['absolute' => TRUE])->toString();
   $name = (string) ($node->get('field_person_name')->value ?: $node->label());
   $person = ['@type' => 'Person', '@id' => 'urn:uuid:' . $node->uuid(), 'name' => $name, 'url' => $url, 'mainEntityOfPage' => ['@id' => $url . '#profile']];
