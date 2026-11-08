@@ -12,6 +12,45 @@ use Drupal\node\NodeInterface;
  */
 function drupal_cms_radix_preprocess_node(array &$variables): void {
   $node = $variables['node'] ?? NULL;
+  if ($node instanceof NodeInterface && $node->bundle() === 'book_cover_and_description' && ($variables['view_mode'] ?? '') === 'full' && !$node->isNew()) {
+    $manager = \Drupal::service('book.manager');
+    $link = $manager->loadBookLink((int) $node->id());
+    if ($link && (int) $link['bid'] === (int) $node->id()) {
+      $cache = new \Drupal\Core\Cache\CacheableMetadata();
+      $cache->addCacheTags(['config:system.book.' . $node->id(), 'node_list']);
+      foreach ($manager->bookTreeGetFlat($link) as $item) {
+        $part = \Drupal::entityTypeManager()->getStorage('node')->load($item['nid']);
+        if (!$part || (int) $part->id() === (int) $node->id()) {
+          continue;
+        }
+        $access = $part->access('view', NULL, TRUE);
+        $cache->addCacheableDependency($part)->addCacheableDependency($access);
+        if ($access->isAllowed()) {
+          $variables['content']['start_reading'] = [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['book-start-reading', 'my-3']],
+            '#weight' => -10,
+            'label' => ['#type' => 'html_tag', '#tag' => 'p', '#value' => t('New to this book?')],
+            'start' => [
+              '#type' => 'link',
+              '#title' => t('Start Reading'),
+              '#url' => $part->toUrl(),
+              '#attributes' => ['class' => ['btn', 'btn-primary']],
+            ],
+            'returning' => [
+              '#type' => 'link',
+              '#title' => t('Returning? Jump to the Table of Contents'),
+              '#url' => \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'book-table-of-contents']),
+              '#prefix' => '<p class="mt-3 mb-0">',
+              '#suffix' => '</p>',
+            ],
+          ];
+          break;
+        }
+      }
+      $cache->applyTo($variables['content']);
+    }
+  }
   if (!$node instanceof NodeInterface || !in_array($node->bundle(), ['book_page', 'book_part'], TRUE)) {
     return;
   }

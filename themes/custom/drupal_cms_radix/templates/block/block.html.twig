@@ -26,4 +26,10 @@
  * @see template_preprocess_block()
  */
 #}
-{% include 'radix:block' %}
+{% if configuration.id == 'book_navigation' %}
+  <div id="book-table-of-contents">
+    {% include 'radix:block' %}
+  </div>
+{% else %}
+  {% include 'radix:block' %}
+{% endif %}
