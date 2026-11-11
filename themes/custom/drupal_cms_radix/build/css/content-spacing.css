@@ -8,3 +8,53 @@
 .node .a2a_kit.addtoany_list + .field {
   margin-top: 0.5rem;
 }
+
+.node.node--book-cover-and-description--full .a2a_kit.addtoany_list {
+  margin-bottom: 0.5rem;
+}
+
+.node.node--book-cover-and-description--full .addtoany_list + .field--name-field-book-authors {
+  column-gap: 0.35em;
+  margin: 0 0 1.25rem;
+}
+
+.book-part-byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.35rem 0 1.25rem;
+  font-size: 0.98rem;
+  color: #555;
+}
+
+.book-part-byline a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.book-part-byline a:hover,
+.book-part-byline a:focus {
+  text-decoration: underline;
+}
+
+.person-authored-books {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.person-authored-books__list {
+  columns: 1;
+  padding-left: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .person-authored-books__list {
+    columns: 2;
+    column-gap: 2rem;
+  }
+}
+
+.person-authored-books__list li {
+  margin-bottom: 0.45rem;
+  break-inside: avoid;
+}

@@ -29,7 +29,7 @@ function drupal_cms_radix_preprocess_node(array &$variables): void {
           $variables['content']['start_reading'] = [
             '#type' => 'container',
             '#attributes' => ['class' => ['book-start-reading', 'my-3']],
-            '#weight' => -10,
+            '#weight' => ($variables['content']['body']['#weight'] ?? 2) + 0.5,
             'label' => ['#type' => 'html_tag', '#tag' => 'p', '#value' => t('New to this book?')],
             'start' => [
               '#type' => 'link',
@@ -37,13 +37,14 @@ function drupal_cms_radix_preprocess_node(array &$variables): void {
               '#url' => $part->toUrl(),
               '#attributes' => ['class' => ['btn', 'btn-primary']],
             ],
-            'returning' => [
-              '#type' => 'link',
-              '#title' => t('Returning? Jump to the Table of Contents'),
-              '#url' => \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'book-table-of-contents']),
-              '#prefix' => '<p class="mt-3 mb-0">',
-              '#suffix' => '</p>',
-            ],
+          ];
+          $variables['content']['returning_reader'] = [
+            '#type' => 'link',
+            '#title' => t('Returning? Jump to the Table of Contents'),
+            '#url' => \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'book-table-of-contents']),
+            '#weight' => -10,
+            '#prefix' => '<p class="book-returning-reader">',
+            '#suffix' => '</p>',
           ];
           break;
         }
@@ -51,7 +52,60 @@ function drupal_cms_radix_preprocess_node(array &$variables): void {
       $cache->applyTo($variables['content']);
     }
   }
-  if (!$node instanceof NodeInterface || !in_array($node->bundle(), ['book_page', 'book_part'], TRUE)) {
+  if ($node instanceof NodeInterface && $node->bundle() === 'person' && ($variables['view_mode'] ?? '') === 'full' && !$node->isNew()) {
+    $cache = new \Drupal\Core\Cache\CacheableMetadata();
+    $cache->addCacheTags(['node_list:book_cover_and_description']);
+    $book_ids = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
+      ->condition('status', 1)
+      ->condition('type', 'book_cover_and_description')
+      ->condition('field_book_authors.target_id', (int) $node->id())
+      ->sort('created', 'DESC')
+      ->execute();
+    if ($book_ids) {
+      $items = [];
+      foreach (\Drupal::entityTypeManager()->getStorage('node')->loadMultiple($book_ids) as $authored_book) {
+        $access = $authored_book->access('view', NULL, TRUE);
+        $cache->addCacheableDependency($authored_book)->addCacheableDependency($access);
+        if ($access->isAllowed()) {
+          $items[] = [
+            '#type' => 'link',
+            '#title' => $authored_book->label(),
+            '#url' => $authored_book->toUrl(),
+          ];
+        }
+      }
+      if ($items) {
+        $display_name = $node->uuid() === 'd3db7e7d-45ee-4f9f-a5eb-959582aae5d6'
+          ? 'Bruce Whealton'
+          : (string) ($node->get('field_person_name')->value ?: $node->label());
+        $variables['content']['person_authored_books'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['person-authored-books', 'mt-4', 'pt-3']],
+          '#weight' => 100,
+          'heading' => [
+            '#type' => 'html_tag',
+            '#tag' => 'h2',
+            '#value' => t('Books by @name', ['@name' => $display_name]),
+            '#attributes' => ['class' => ['person-authored-books__title', 'h4', 'mb-3']],
+          ],
+          'list' => [
+            '#theme' => 'item_list',
+            '#items' => $items,
+            '#attributes' => ['class' => ['person-authored-books__list', 'mb-3']],
+          ],
+          'all_books' => [
+            '#type' => 'link',
+            '#title' => t('Browse All Books with Covers & Descriptions'),
+            '#url' => \Drupal\Core\Url::fromUserInput('/books-by-bruce-whealton'),
+            '#attributes' => ['class' => ['btn', 'btn-outline-primary', 'btn-sm']],
+          ],
+        ];
+        $cache->applyTo($variables['content']);
+      }
+    }
+  }
+  if (!$node instanceof NodeInterface || !in_array($node->bundle(), ['book', 'book_page', 'book_part'], TRUE)) {
     return;
   }
 
@@ -127,6 +181,24 @@ function drupal_cms_radix_preprocess_node(array &$variables): void {
   }
 
   $book = $trail[0] ?? reset($items);
+
+  $authors = [];
+  $root_book = $nodes[(int) $book_row['bid']] ?? \Drupal::entityTypeManager()->getStorage('node')->load((int) $book_row['bid']);
+  if ($root_book instanceof NodeInterface && $root_book->hasField('field_book_authors')) {
+    foreach ($root_book->get('field_book_authors')->referencedEntities() as $person) {
+      if ($person instanceof NodeInterface && $person->access('view')) {
+        $name = $person->uuid() === 'd3db7e7d-45ee-4f9f-a5eb-959582aae5d6'
+          ? 'Bruce Whealton'
+          : (string) ($person->get('field_person_name')->value ?: $person->label());
+        $authors[] = [
+          'name' => $name,
+          'url' => $person->toUrl()->toString(),
+        ];
+      }
+    }
+  }
+  $variables['book_authors'] = $authors;
+  $variables['books_list_url'] = \Drupal\Core\Url::fromUserInput('/books-by-bruce-whealton')->toString();
 
   $variables['book_toc_items'] = $items;
   $variables['book_reading_context'] = [

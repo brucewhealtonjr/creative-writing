@@ -72,6 +72,13 @@ foreach ($pages as $key => $spec) {
   }
   if ($key === 'book_part') {
     assert_seo(($matched_obj['isPartOf']['@type'] ?? '') === 'Book' && ($matched_obj['author'][0]['@id'] ?? '') === $bruce_uuid, "$key Chapter schema has isPartOf Book and Bruce Person author @id");
+    $meta_author = $xp->evaluate('string(//head/meta[@name="author"]/@content)');
+    assert_seo($meta_author === 'Bruce M. Whealton Jr.', "$key has <meta name=\"author\" content=\"Bruce M. Whealton Jr.\">");
+    assert_seo($xp->query('//div[contains(@class,"book-part-byline")]//a[contains(@href,"/person/Bruce_Whealton_Jr_")]')->length > 0, "$key has visible author byline link to Person page");
+    assert_seo($xp->query('//div[contains(@class,"book-part-byline")]//a[contains(@href,"/books-by-bruce-whealton")]')->length > 0, "$key has visible link to All Books by Bruce Whealton");
+  }
+  if ($key === 'person') {
+    assert_seo($xp->query('//div[contains(@class,"person-authored-books")]//a[contains(@href,"/book/")]')->length >= 10, "$key displays organized list of authored books");
   }
 }
 

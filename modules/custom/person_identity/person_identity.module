@@ -68,6 +68,23 @@ function person_identity_build_entity($entity_type, NodeInterface $entity, array
 /** Format complete Person dates in field displays without inventing precision. */
 function person_identity_preprocess_field(array &$variables): void {
   $element = $variables['element'];
+  if (($element['#field_name'] ?? '') === 'field_book_authors') {
+    if (($variables['label_display'] ?? '') === 'inline') {
+      $variables['label'] = rtrim((string) $variables['label'], ': ') . ':';
+    }
+    foreach ($variables['items'] as &$item) {
+      $person = $item['content']['#entity'] ?? NULL;
+      if ($person instanceof NodeInterface && $person->uuid() === 'd3db7e7d-45ee-4f9f-a5eb-959582aae5d6') {
+        if (isset($item['content']['#title'])) {
+          $item['content']['#title'] = 'Bruce Whealton';
+        }
+        elseif (isset($item['content']['#plain_text'])) {
+          $item['content']['#plain_text'] = 'Bruce Whealton';
+        }
+      }
+    }
+    return;
+  }
   if (($element['#entity_type'] ?? '') !== 'node' || ($element['#bundle'] ?? '') !== 'person'
     || !in_array($element['#field_name'] ?? '', ['field_person_birth', 'field_person_death'], TRUE)) {
     return;
@@ -390,6 +407,10 @@ function person_identity_book_view(array &$build, NodeInterface $node): void {
   }
   if (!empty($book['author'])) {
     $build['#attached']['html_head'][] = [[
+      '#tag' => 'meta',
+      '#attributes' => ['name' => 'author', 'content' => implode(', ', array_column($book['author'], 'name'))],
+    ], 'person_identity_author_' . $node->id()];
+    $build['#attached']['html_head'][] = [[
       '#tag' => 'script', '#attributes' => ['type' => 'application/ld+json'],
       '#value' => json_encode($book, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
     ], 'person_identity_book_' . $node->id()];
@@ -489,6 +510,10 @@ function person_identity_book_part_view(array &$build, NodeInterface $node): voi
   }
   if ($authors) {
     $chapter['author'] = $authors;
+    $build['#attached']['html_head'][] = [[
+      '#tag' => 'meta',
+      '#attributes' => ['name' => 'author', 'content' => implode(', ', array_column($authors, 'name'))],
+    ], 'person_identity_author_' . $node->id()];
   }
   $image_url = person_identity_node_image_url($node, $cache);
   if ($image_url !== '') {
@@ -532,6 +557,10 @@ function person_identity_article_view(array &$build, NodeInterface $node): void 
       ];
       $article['author'] = [$person_ref];
       $article['publisher'] = $person_ref;
+      $build['#attached']['html_head'][] = [[
+        '#tag' => 'meta',
+        '#attributes' => ['name' => 'author', 'content' => $person_ref['name']],
+      ], 'person_identity_author_' . $node->id()];
     }
   }
   if ($node->hasField('field_related_to_the_book') && !$node->get('field_related_to_the_book')->isEmpty()) {

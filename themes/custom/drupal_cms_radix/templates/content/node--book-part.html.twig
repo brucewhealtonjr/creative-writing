@@ -36,6 +36,29 @@
   {% endif %}
   {{ title_suffix }}
 
+  {% if page and (book_authors or book_reading_context.book) %}
+    <div class="book-part-byline">
+      {% if book_authors %}
+        <span class="book-part-byline__author">
+          By
+          {% for author in book_authors %}
+            <a href="{{ author.url }}" rel="author">{{ author.name }}</a>{{ not loop.last ? ', ' }}
+          {% endfor %}
+        </span>
+      {% endif %}
+      {% if book_reading_context.book %}
+        {% if book_authors %}<span class="book-part-byline__sep" aria-hidden="true">&middot;</span>{% endif %}
+        <span class="book-part-byline__book">
+          From <a href="{{ book_reading_context.book.url }}">{{ book_reading_context.book.title }}</a>
+        </span>
+      {% endif %}
+      {% if books_list_url %}
+        <span class="book-part-byline__sep" aria-hidden="true">&middot;</span>
+        <a class="book-part-byline__more-books" href="{{ books_list_url }}">All Books by Bruce Whealton</a>
+      {% endif %}
+    </div>
+  {% endif %}
+
   <div{{ content_attributes.addClass('node__content', 'book-page-content') }}>
     {{ content|without('field_part', 'field_section') }}
   </div>
