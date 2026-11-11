@@ -7,6 +7,18 @@ _core:
 id: front
 label: 'Front page'
 tags:
+  title: 'Creative Writing By Bruce Whealton | Memoirs, Poetry & Psychology'
+  description: 'Books, memoirs, poetry collections, and psychology articles by Bruce M. Whealton Jr., author and former clinical social worker.'
   canonical_url: '[site:url]'
   shortlink: '[site:url]'
   bing: F8120FF758A15942F8A89026760FBFC2
+  og_site_name: '[site:name]'
+  og_type: website
+  og_url: '[site:url]'
+  og_title: 'Creative Writing By Bruce Whealton | Memoirs, Poetry & Psychology'
+  og_description: 'Books, memoirs, poetry collections, and psychology articles by Bruce M. Whealton Jr., author and former clinical social worker.'
+  og_image: 'https://brucewhealton.com/creative-writing/sites/default/files/2026-10/glasses-wearingwithmicrophone.png'
+  twitter_cards_type: summary_large_image
+  twitter_cards_title: 'Creative Writing By Bruce Whealton | Memoirs, Poetry & Psychology'
+  twitter_cards_description: 'Books, memoirs, poetry collections, and psychology articles by Bruce M. Whealton Jr., author and former clinical social worker.'
+  twitter_cards_image: 'https://brucewhealton.com/creative-writing/sites/default/files/2026-10/glasses-wearingwithmicrophone.png'

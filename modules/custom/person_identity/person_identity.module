@@ -96,21 +96,115 @@ function person_identity_pathauto_alias_alter(&$alias, array &$context): void {
 /** Implements hook_metatags_alter(). */
 function person_identity_metatags_alter(array &$metatags, array &$context): void {
   $node = $context['entity'] ?? NULL;
-  if ($node instanceof NodeInterface && $node->bundle() === 'person') {
+  if (!$node instanceof NodeInterface) {
+    return;
+  }
+  if ($node->bundle() === 'person') {
     // This module supplies one complete Person object, including family links.
     foreach (array_keys($metatags) as $key) {
       if (str_starts_with($key, 'schema_person_')) {
         unset($metatags[$key]);
       }
     }
+    $metatags['og_type'] = 'profile';
   }
-  if ($node instanceof NodeInterface && in_array($node->bundle(), ['book_cover_and_description', 'external_published_books'], TRUE) && $node->hasField('field_book_authors') && !$node->get('field_book_authors')->isEmpty()) {
+  if (in_array($node->bundle(), ['book_cover_and_description', 'external_published_books'], TRUE) && $node->hasField('field_book_authors') && !$node->get('field_book_authors')->isEmpty()) {
     foreach (array_keys($metatags) as $key) {
       if (str_starts_with($key, 'schema_book_')) {
         unset($metatags[$key]);
       }
     }
+    $metatags['og_type'] = 'book';
   }
+  if (in_array($node->bundle(), ['article', 'psychology_and_self_help_article', 'book_part', 'book'], TRUE)) {
+    foreach (array_keys($metatags) as $key) {
+      if (str_starts_with($key, 'schema_article_') || str_starts_with($key, 'schema_book_')) {
+        unset($metatags[$key]);
+      }
+    }
+  }
+  if (empty($metatags['og_image'])) {
+    $image_url = person_identity_node_image_url($node);
+    if ($image_url !== '') {
+      $metatags['og_image'] = $image_url;
+      if (empty($metatags['twitter_cards_image'])) {
+        $metatags['twitter_cards_image'] = $image_url;
+      }
+    }
+  }
+}
+
+/** Extract a clean plain-text summary or excerpt from a node body. */
+function person_identity_node_summary(NodeInterface $node, int $max_length = 240): string {
+  if (!$node->hasField('body') || $node->get('body')->isEmpty()) {
+    return '';
+  }
+  $summary = trim(strip_tags((string) $node->get('body')->summary));
+  if ($summary !== '') {
+    return preg_replace('/\s+/u', ' ', $summary);
+  }
+  $raw = (string) $node->get('body')->value;
+  $raw = preg_replace('/<!--.*?-->/s', ' ', $raw);
+  $text = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($raw), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+  if ($text === '' || mb_strlen($text) <= $max_length) {
+    return $text;
+  }
+  $cut = mb_substr($text, 0, $max_length);
+  $space = mb_strrpos($cut, ' ');
+  return ($space !== FALSE && $space > (int) ($max_length * 0.6) ? mb_substr($cut, 0, $space) : $cut) . '…';
+}
+
+/** Resolve an absolute image URL for a node (with parent book or author fallback). */
+function person_identity_node_image_url(NodeInterface $node, ?CacheableMetadata $cache = NULL): string {
+  $generator = \Drupal::service('file_url_generator');
+  foreach (['field_person_featured_image', 'field_book_cover_page', 'field_featured_image', 'field_image'] as $field) {
+    if ($node->hasField($field) && !$node->get($field)->isEmpty() && ($file = $node->get($field)->entity)) {
+      if ($cache) {
+        $cache->addCacheableDependency($file);
+      }
+      return $generator->generateAbsoluteString($file->getFileUri());
+    }
+  }
+  if (in_array($node->bundle(), ['book_part', 'book'], TRUE) && ($book = person_identity_parent_book($node, $cache))) {
+    if ($book->hasField('field_book_cover_page') && !$book->get('field_book_cover_page')->isEmpty() && ($cover = $book->get('field_book_cover_page')->entity)) {
+      if ($cache) {
+        $cache->addCacheableDependency($cover);
+      }
+      return $generator->generateAbsoluteString($cover->getFileUri());
+    }
+  }
+  if (in_array($node->bundle(), ['article', 'psychology_and_self_help_article'], TRUE) && ($author = \Drupal\node\Entity\Node::load(558))) {
+    if ($cache) {
+      $cache->addCacheableDependency($author);
+    }
+    if ($author->hasField('field_person_featured_image') && !$author->get('field_person_featured_image')->isEmpty() && ($portrait = $author->get('field_person_featured_image')->entity)) {
+      if ($cache) {
+        $cache->addCacheableDependency($portrait);
+      }
+      return $generator->generateAbsoluteString($portrait->getFileUri());
+    }
+  }
+  return '';
+}
+
+/** Load the root Book node for a Book Part or Book page when accessible. */
+function person_identity_parent_book(NodeInterface $node, ?CacheableMetadata $cache = NULL): ?NodeInterface {
+  if ($node->isNew()) {
+    return NULL;
+  }
+  $bid = (int) (\Drupal::database()->select('book', 'b')->fields('b', ['bid'])->condition('nid', (int) $node->id())->execute()->fetchField() ?: 0);
+  if ($bid <= 0 || $bid === (int) $node->id()) {
+    return NULL;
+  }
+  $book = \Drupal\node\Entity\Node::load($bid);
+  if (!$book instanceof NodeInterface) {
+    return NULL;
+  }
+  $access = $book->access('view', NULL, TRUE);
+  if ($cache) {
+    $cache->addCacheableDependency($book)->addCacheableDependency($access);
+  }
+  return $access->isAllowed() ? $book : NULL;
 }
 
 /** Implements hook_node_view(). */
@@ -120,9 +214,23 @@ function person_identity_node_view(array &$build, NodeInterface $node, EntityVie
   if ($node->isNew()) {
     return;
   }
-  if (in_array($node->bundle(), ['book_cover_and_description', 'external_published_books'], TRUE) && in_array($view_mode, ['full', 'default'], TRUE)) {
-    person_identity_book_view($build, $node);
-    return;
+  if (in_array($view_mode, ['full', 'default'], TRUE)) {
+    if ((int) $node->id() === 440 || \Drupal::service('path.matcher')->isFrontPage()) {
+      person_identity_front_view($build, $node);
+      return;
+    }
+    if (in_array($node->bundle(), ['book_cover_and_description', 'external_published_books'], TRUE)) {
+      person_identity_book_view($build, $node);
+      return;
+    }
+    if (in_array($node->bundle(), ['book_part', 'book'], TRUE)) {
+      person_identity_book_part_view($build, $node);
+      return;
+    }
+    if (in_array($node->bundle(), ['article', 'psychology_and_self_help_article'], TRUE)) {
+      person_identity_article_view($build, $node);
+      return;
+    }
   }
   if ($node->bundle() !== 'person' || !in_array($view_mode, ['full', 'default']) || !$node->hasField('field_person_name')) {
     return;
@@ -272,8 +380,9 @@ function person_identity_book_view(array &$build, NodeInterface $node): void {
       }
     }
   }
-  if ($node->hasField('body') && $node->get('body')->summary) {
-    $book['description'] = trim(strip_tags($node->get('body')->summary));
+  $summary = person_identity_node_summary($node);
+  if ($summary !== '') {
+    $book['description'] = $summary;
   }
   if ($node->hasField('field_book_cover_page') && ($cover = $node->get('field_book_cover_page')->entity)) {
     $book['image'] = \Drupal::service('file_url_generator')->generateAbsoluteString($cover->getFileUri());
@@ -285,5 +394,169 @@ function person_identity_book_view(array &$build, NodeInterface $node): void {
       '#value' => json_encode($book, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
     ], 'person_identity_book_' . $node->id()];
   }
+  CacheableMetadata::createFromRenderArray($build)->merge($cache)->applyTo($build);
+}
+
+/** Attach WebSite structured data on the front page. */
+function person_identity_front_view(array &$build, NodeInterface $node): void {
+  $cache = CacheableMetadata::createFromObject($node);
+  $site_url = \Drupal\Core\Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+  $site_name = (string) (\Drupal::config('system.site')->get('name') ?: 'Creative Writing By Bruce Whealton');
+  $website = [
+    '@context' => 'https://schema.org',
+    '@type' => 'WebSite',
+    '@id' => rtrim($site_url, '/') . '/#website',
+    'name' => $site_name,
+    'url' => $site_url,
+    'description' => 'Books, memoirs, poetry collections, and psychology articles by Bruce M. Whealton Jr., author and former clinical social worker.',
+  ];
+  if ($author = \Drupal\node\Entity\Node::load(558)) {
+    $access = $author->access('view', NULL, TRUE);
+    $cache->addCacheableDependency($author)->addCacheableDependency($access);
+    if ($access->isAllowed()) {
+      $person_ref = [
+        '@type' => 'Person',
+        '@id' => 'urn:uuid:' . $author->uuid(),
+        'name' => (string) ($author->get('field_person_name')->value ?: $author->label()),
+        'url' => $author->toUrl('canonical', ['absolute' => TRUE])->toString(),
+      ];
+      $website['author'] = $person_ref;
+      $website['publisher'] = $person_ref;
+    }
+  }
+  $build['#attached']['html_head'][] = [[
+    '#tag' => 'script', '#attributes' => ['type' => 'application/ld+json'],
+    '#value' => json_encode($website, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
+  ], 'person_identity_front'];
+  CacheableMetadata::createFromRenderArray($build)->merge($cache)->applyTo($build);
+}
+
+/** Attach Chapter structured data on Book Part and Book pages linked to parent Book. */
+function person_identity_book_part_view(array &$build, NodeInterface $node): void {
+  $cache = CacheableMetadata::createFromObject($node);
+  $url = $node->toUrl('canonical', ['absolute' => TRUE])->toString();
+  $chapter = [
+    '@context' => 'https://schema.org',
+    '@type' => 'Chapter',
+    '@id' => 'urn:uuid:' . $node->uuid(),
+    'name' => $node->label(),
+    'headline' => $node->label(),
+    'url' => $url,
+    'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $url],
+  ];
+  $summary = person_identity_node_summary($node);
+  if ($summary !== '') {
+    $chapter['description'] = $summary;
+  }
+  $authors = [];
+  if ($book = person_identity_parent_book($node, $cache)) {
+    $book_ref = [
+      '@type' => 'Book',
+      '@id' => 'urn:uuid:' . $book->uuid(),
+      'name' => $book->label(),
+      'url' => $book->toUrl('canonical', ['absolute' => TRUE])->toString(),
+    ];
+    if ($book->hasField('field_book_authors')) {
+      foreach ($book->get('field_book_authors')->referencedEntities() as $person) {
+        $access = $person->access('view', NULL, TRUE);
+        $cache->addCacheableDependency($person)->addCacheableDependency($access);
+        if ($access->isAllowed()) {
+          $authors[] = [
+            '@type' => 'Person',
+            '@id' => 'urn:uuid:' . $person->uuid(),
+            'name' => (string) ($person->get('field_person_name')->value ?: $person->label()),
+            'url' => $person->toUrl('canonical', ['absolute' => TRUE])->toString(),
+          ];
+        }
+      }
+    }
+    if ($authors) {
+      $book_ref['author'] = $authors;
+    }
+    $chapter['isPartOf'] = $book_ref;
+  }
+  if (!$authors && ($author = \Drupal\node\Entity\Node::load(558))) {
+    $access = $author->access('view', NULL, TRUE);
+    $cache->addCacheableDependency($author)->addCacheableDependency($access);
+    if ($access->isAllowed()) {
+      $authors[] = [
+        '@type' => 'Person',
+        '@id' => 'urn:uuid:' . $author->uuid(),
+        'name' => (string) ($author->get('field_person_name')->value ?: $author->label()),
+        'url' => $author->toUrl('canonical', ['absolute' => TRUE])->toString(),
+      ];
+    }
+  }
+  if ($authors) {
+    $chapter['author'] = $authors;
+  }
+  $image_url = person_identity_node_image_url($node, $cache);
+  if ($image_url !== '') {
+    $chapter['image'] = $image_url;
+  }
+  $build['#attached']['html_head'][] = [[
+    '#tag' => 'script', '#attributes' => ['type' => 'application/ld+json'],
+    '#value' => json_encode($chapter, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
+  ], 'person_identity_book_part_' . $node->id()];
+  CacheableMetadata::createFromRenderArray($build)->merge($cache)->applyTo($build);
+}
+
+/** Attach Article structured data on Article and Psychology/Self-Help Article nodes. */
+function person_identity_article_view(array &$build, NodeInterface $node): void {
+  $cache = CacheableMetadata::createFromObject($node);
+  $url = $node->toUrl('canonical', ['absolute' => TRUE])->toString();
+  $article = [
+    '@context' => 'https://schema.org',
+    '@type' => 'Article',
+    '@id' => 'urn:uuid:' . $node->uuid(),
+    'headline' => $node->label(),
+    'name' => $node->label(),
+    'url' => $url,
+    'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $url],
+    'datePublished' => date('c', $node->getCreatedTime()),
+    'dateModified' => date('c', $node->getChangedTime()),
+  ];
+  $summary = person_identity_node_summary($node);
+  if ($summary !== '') {
+    $article['description'] = $summary;
+  }
+  if ($author = \Drupal\node\Entity\Node::load(558)) {
+    $access = $author->access('view', NULL, TRUE);
+    $cache->addCacheableDependency($author)->addCacheableDependency($access);
+    if ($access->isAllowed()) {
+      $person_ref = [
+        '@type' => 'Person',
+        '@id' => 'urn:uuid:' . $author->uuid(),
+        'name' => (string) ($author->get('field_person_name')->value ?: $author->label()),
+        'url' => $author->toUrl('canonical', ['absolute' => TRUE])->toString(),
+      ];
+      $article['author'] = [$person_ref];
+      $article['publisher'] = $person_ref;
+    }
+  }
+  if ($node->hasField('field_related_to_the_book') && !$node->get('field_related_to_the_book')->isEmpty()) {
+    foreach ($node->get('field_related_to_the_book')->referencedEntities() as $related) {
+      if ($related instanceof NodeInterface) {
+        $access = $related->access('view', NULL, TRUE);
+        $cache->addCacheableDependency($related)->addCacheableDependency($access);
+        if ($access->isAllowed()) {
+          $article['about'][] = [
+            '@type' => 'Book',
+            '@id' => 'urn:uuid:' . $related->uuid(),
+            'name' => $related->label(),
+            'url' => $related->toUrl('canonical', ['absolute' => TRUE])->toString(),
+          ];
+        }
+      }
+    }
+  }
+  $image_url = person_identity_node_image_url($node, $cache);
+  if ($image_url !== '') {
+    $article['image'] = $image_url;
+  }
+  $build['#attached']['html_head'][] = [[
+    '#tag' => 'script', '#attributes' => ['type' => 'application/ld+json'],
+    '#value' => json_encode($article, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
+  ], 'person_identity_article_' . $node->id()];
   CacheableMetadata::createFromRenderArray($build)->merge($cache)->applyTo($build);
 }

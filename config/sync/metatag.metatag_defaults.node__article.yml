@@ -5,5 +5,4 @@ dependencies: {  }
 id: node__article
 label: 'Content: Article'
 tags:
-  schema_article_type: Article
-  schema_book_type: Book
+  og_type: article
