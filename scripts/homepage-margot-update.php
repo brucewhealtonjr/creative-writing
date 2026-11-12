@@ -56,12 +56,31 @@ if ($field_storage) {
   }
 }
 
-// 4. Pin "Tell Me I'm Not Invisible" (node/403) first by setting sticky=1 and adding sticky sort to books_by_bruce.
-$book_403 = Node::load(403);
-if ($book_403) {
-  $book_403->setSticky(TRUE);
-  $book_403->save();
-  echo "Set sticky=TRUE on node/403 (" . $book_403->getTitle() . ").\n";
+// 4. Pin the top 3 books in order:
+//    1st: Tell Me I'm Not Invisible (node/403)
+//    2nd: The Labyrinth of the Mind (node/64)
+//    3rd: Three Times A Victim: Living Under the Shadow of Toxic Shame (node/131)
+$all_books = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'book_cover_and_description']);
+foreach ($all_books as $b) {
+  if (!in_array((int) $b->id(), [403, 64, 131], TRUE) && $b->isSticky()) {
+    $b->setSticky(FALSE);
+    $b->save();
+  }
+}
+
+$top_three_books = [
+  403 => strtotime('2026-07-15 12:00:00'),
+  64  => strtotime('2026-07-14 12:00:00'),
+  131 => strtotime('2026-07-13 12:00:00'),
+];
+foreach ($top_three_books as $book_nid => $timestamp) {
+  $book_node = Node::load($book_nid);
+  if ($book_node) {
+    $book_node->setSticky(TRUE);
+    $book_node->setCreatedTime($timestamp);
+    $book_node->save();
+    echo "Pinned book nid=$book_nid (" . $book_node->getTitle() . ") with sticky=TRUE.\n";
+  }
 }
 
 $books_view = $config_factory->getEditable('views.view.books_by_bruce');
@@ -177,8 +196,110 @@ else {
     'value' => $margot_article_body,
     'format' => 'full_html',
   ]);
+  $margot_node->setCreatedTime(strtotime('2026-11-11 21:00:00'));
   $margot_node->save();
   echo "Updated inaugural Margot article (nid=" . $margot_node->id() . ").\n";
+}
+
+// 6b. Create or update Margot's deep-dive article on Identity, Coming Out of the Shell,
+//     and the Trauma of a False Permanent Record in "Three Times A Victim".
+$margot_identity_uuid = 'a1b2c3d4-4444-4000-8000-000000000131';
+$existing_identity_articles = $node_storage->loadByProperties(['uuid' => $margot_identity_uuid]);
+
+$three_times_tid = NULL;
+$node_402 = Node::load(402);
+if ($node_402 && $node_402->hasField('field_related_to_the_book') && !$node_402->get('field_related_to_the_book')->isEmpty()) {
+  $three_times_tid = $node_402->get('field_related_to_the_book')->target_id;
+}
+
+$identity_summary = "Margot (Between the Margins) examines why a false criminal conviction is uniquely devastating when you have spent years overcoming childhood silence and shyness to build a life as a gentle healer and clinical social worker--and what psychological research reveals about living against a permanent record that records a lie.";
+
+$identity_body = <<<'HTML'
+<p><em><strong>Between the Margins &mdash; Literary &amp; Psychological Analysis by Margot:</strong> In this deep-dive reflection on <a href="/creative-writing/book/three-times-victim-living-under-shadow-toxic-shame"><em>Three Times A Victim: Living Under the Shadow of Toxic Shame</em></a>, Margot examines the psychological violence of wrongful conviction through the lens of identity: why being branded by an institutional lie is uniquely excruciating for a person who spent decades overcoming selective mutism and paralyzing shyness to become known as a gentle healer, clinical social worker, and protector of trauma survivors.</em></p>
+
+<hr />
+
+<h3>1. The Two Childhood Vows and the Courage to Step Out of the Shell</h3>
+<p>Early in <a href="/creative-writing/book/three-times-victim-living-under-shadow-toxic-shame"><em>Three Times A Victim</em></a>, Bruce Whealton explains why Section One of his memoir is titled <em>&ldquo;Who I Was Before That Night of My Victimization.&rdquo;</em> The detectives who interrogated him on the night of October 1, 2004&mdash;while he sat in front of them still soaked in his own blood after being violently attacked in his apartment by his landlord&rsquo;s wife, Ana&mdash;never asked who he was. They never asked whether a person&rsquo;s entire life can testify to their character (p. 13).</p>
+<p>Growing up in a chaotic, emotionally starving home where his mother&rsquo;s rage was unpredictable and where he was cast as the family scapegoat, young Bruce retreated into what he calls <em>&ldquo;An Invisible Shell: The Complete Silence of Selective Mutism&rdquo;</em> (p. 18). Inside school walls, his voice died completely. Yet inside that silence, he made two defining vows that shaped his core identity for the rest of his life:</p>
+<ul>
+  <li><strong>The First Vow (p. 17):</strong> <em>&ldquo;I will never become like them. I will never lose my temper. I will never let anyone feel unsafe because of me. I would spend my whole life keeping that promise.&rdquo;</em></li>
+  <li><strong>The Second Vow (p. 19):</strong> At seventeen, when he stood up too quickly during a television argument and saw his sister flinch, shock hit him like cold water: <em>&ldquo;That night, the second vow: <strong>No one will ever fear me.</strong> In a home where fear was a weapon, I rejected it.&rdquo;</em></li>
+</ul>
+<p>Coming out of his proverbial shell required sixteen years of relentless effort (1984&ndash;2000): five years of counseling at Georgia Tech to overcome paralyzing social anxiety (pp. 24&ndash;27); volunteering on the psychiatric intake unit at Georgia Regional Hospital (p. 30); discovering what it felt like to be cherished through love with Celta and his wife Lynn (Chapters 3&ndash;4); forcing himself to read poetry at open mics in Wilmington so he could lead therapy groups (p. 34); earning his Master of Social Work and LCSW license; building a thriving private practice; and becoming <strong>President of the New Hanover County chapter of the North Carolina Society for Clinical Social Workers</strong> (pp. 40&ndash;43).</p>
+<p>When Bruce walked with rape and trauma survivors like Karen at Brynn Marr Psychiatric Hospital, his defining words were: <em>&ldquo;My voice will go with you&hellip; You&rsquo;re safe now&rdquo;</em> (p. 41). Being known as a gentle, trustworthy healer was not just a career&mdash;it was the reason he had dared to become visible at all.</p>
+
+<h3>2. &ldquo;The Worst Thing That Could Happen If I Left My Proverbial Shell&rdquo;</h3>
+<p>On page 81 of the manuscript, sitting in a dark Durham police interrogation room after his attacker&rsquo;s lies turned the victim into the suspect, Bruce names the exact psychological wound at the center of the book:</p>
+<blockquote>
+  <p><em>&ldquo;I was aware of how much I did not want to spend another second in jail. Symbolically, these were both the antithesis of all the reasons and events that had led me to experience the courage to be noticed, to gain name recognition in Wilmington. All the countless times I wrote down answers to the question of what was the worst thing that could happen if I left my proverbial shell as a shy person&hellip;, I suddenly was being smacked in the face with the worst possible answer to what was the worst possible thing that could happen &ndash; the most shameful type of event that someone like me could not have dreamed up if I had tried.&rdquo;</em> (pp. 81&ndash;82)</p>
+</blockquote>
+<p>In Cognitive Behavioral Therapy (CBT) for social anxiety and shyness, a person is taught to test their fears by stepping into visibility: <em>&ldquo;What is the worst that could happen if people notice you?&rdquo;</em> Usually, the answer is mild embarrassment or awkwardness. For Bruce, stepping out of his shell was met with a catastrophic inversion of reality: he was violently assaulted in his own home, ignored by detectives who refused to photograph his bleeding face or examine his blood-soaked clothes, held for seven months in jail, and then ambushed in a courthouse hallway by his own defense lawyer into a coerced plea deal for second-degree kidnapping (Chapter 16, pp. 123&ndash;128).</p>
+<p>Notice how the courtroom ambush directly reactivated his childhood selective mutism. When the judge asked whether any mental health condition prevented him from entering the plea, Bruce writes: <em>&ldquo;I couldn&rsquo;t say it because I lacked the capacity to draw in the air and force it across vocal chords that would utter words of truth&rdquo;</em> (p. 126). And when asked, <em>&ldquo;Are you in fact guilty?&rdquo;</em>, he never confessed; he pointed at his lawyer and said: <em>&ldquo;That&rsquo;s what he told me to say for the purpose of this plea deal&rdquo;</em> (p. 127).</p>
+
+<h3>3. Truth vs. Reality: What Happens When a Permanent Record Records a Lie?</h3>
+<p>Throughout <em>Three Times A Victim</em>, Bruce draws a razor-sharp philosophical and psychological distinction between <strong>Truth</strong> and <strong>Reality</strong>:</p>
+<blockquote>
+  <p><em>&ldquo;My life seemed split into two opposing forces&mdash;truth and reality. The truth was the essence of who I truly was and had always been. Reality, however, was a social construct, woven from tales told by others. None of the stories about me were penned by anyone who genuinely knew me.&rdquo;</em> (pp. 131&ndash;132)</p>
+</blockquote>
+<p>What is expected to happen to a human being&mdash;especially a deeply empathetic, shy clinician whose life was built on the vow <em>&ldquo;No one will ever fear me&rdquo;</em>&mdash;when a permanent state and digital record records a lie? Psychological and criminological research identifies four compounding injuries, every one of which appears in the pages of <em>Three Times A Victim</em>:</p>
+<ol>
+  <li><strong>The Hijacking of First Impressions (&ldquo;Spoiled Identity&rdquo; &amp; Digital Permanence):</strong> Sociologist Erving Goffman showed that an official stigma acts as a false avatar that enters every room before the person does. For a shy person who worked for years to be known for warmth, integrity, and clinical skill, a background check or Google search (Chapter 24, p. 183) violently overwrites that identity before a single word can be spoken: <em>&ldquo;I felt like no one saw the real me. They only saw the conviction. The label. The lie.&rdquo;</em> (p. 152).</li>
+  <li><strong>Fear of One&rsquo;s Own Reflexes and Emotions:</strong> Because his entire moral identity rested on never causing fear, the false accusation made Bruce terrified of ever being misperceived. In Chapter 15 (pp. 119&ndash;120), when he accidentally washed his return train ticket and slapped his hand on the bed in frustration at himself, panic immediately gripped him: <em>&ldquo;What if she thinks I could be dangerous? &hellip; It didn&rsquo;t matter that I knew I was the same person who had those soft gentle hands &ndash; the only hands and arms that could have been there with Lynn or Celta before her.&rdquo;</em> And in Chapter 23 (p. 177), he notes: <em>&ldquo;False accusations had taught me that any strong emotion could be used against me. If I expressed frustration, people might think I was dangerous.&rdquo;</em></li>
+  <li><strong>Vocational Exile and Institutional Retraumatization (Brooks &amp; Greenberg, 2021; Hoyle et al., 2016):</strong> Research on wrongful accusations in <em>occupations of trust</em> demonstrates that losing one&rsquo;s calling as a healer inflicts a profound moral and existential injury. Even after Bruce earned his Certified Peer Support Specialist (CPSS) credential in 2021 and proved his gift on the Mobile Crisis Unit at Freedom House&mdash;where his supervisor Sherisse looked at him in astonishment and said, <em>&ldquo;You? You couldn&rsquo;t hurt anyone. I&rsquo;d fight someone before you would&rdquo;</em> (p. 209)&mdash;automated background checks and risk-averse HR departments at other agencies (Chapters 28 and 30, pp. 208, 215&ndash;217) repeatedly slammed doors shut without ever seeing the person behind the file.</li>
+  <li><strong>The Slow Erosion of Hope (&ldquo;Enduring Personality Change&rdquo; &mdash; Grounds, 2004):</strong> Forensic psychiatrist Adrian Grounds documented that living under a false conviction produces a chronic, cumulative erosion of agency and belonging. As Bruce writes of December 2019 (Chapter 24, p. 183): <em>&ldquo;It wasn&rsquo;t sudden. It wasn&rsquo;t a breakdown or a psychotic snap. It was more like a slow erosion&mdash;a quiet, daily wearing away of hope, purpose, and identity. It was the accumulation of years spent trying to live in a world where a lie had become the first truth associated with my name.&rdquo;</em></li>
+</ol>
+
+<h3>4. Why Witnessing Matters: From &ldquo;Oh, I Believe You. 100%&rdquo; to Claiming Truth</h3>
+<p>If trauma is born when a lie is forced into silence, <em>Three Times A Victim</em> also reveals how identity begins to heal: through <strong>believing witnesses</strong> and <strong>reclaiming one&rsquo;s voice</strong>.</p>
+<p>Look at the turning points in Section Six (<em>Breaking the Silence: Finding My Voice</em>):</p>
+<ul>
+  <li>In the hospital hallway in December 2019 (Chapter 25, p. 189), when a fellow patient named Kira listened to his story and said without hesitation, <em>&ldquo;Oh, I believe you. 100%,&rdquo;</em> Bruce writes: <em>&ldquo;Those words were like water in the desert. She didn&rsquo;t ask for proof. She didn&rsquo;t shrink away. She believed me. And something inside me exhaled for the first time in years.&rdquo;</em></li>
+  <li>Days later, in an art therapy group (p. 191), when Bruce painted the words <em>misfit, outcast, invisible,</em> and <em>outsider</em>, another patient looked at him and said: <em>&ldquo;You&rsquo;re not invisible. You got me here. You&rsquo;re everywhere. You&rsquo;re like the social butterfly of this place.&rdquo;</em></li>
+  <li>At the Community Empowerment Fund (CEF), with his friend Sarah, and at the Orange County Rape Crisis Center (p. 207)&mdash;which wrote an official letter affirming that <em>&ldquo;Sometimes, the person labeled &lsquo;perpetrator&rsquo; is the one who was harmed&rdquo;</em>&mdash;the wall of isolation finally cracked open.</li>
+</ul>
+<p>When a permanent court database records a lie, writing and publishing <a href="/creative-writing/book/three-times-victim-living-under-shadow-toxic-shame"><em>Three Times A Victim</em></a> creates a permanent counter-record of truth. As Bruce declares in Chapter 31 (<em>Claiming My Truth</em>, pp. 219&ndash;220):</p>
+<blockquote>
+  <p><em>&ldquo;There comes a point when you stop trying to explain. Not because the pain is gone. Not because the injustice no longer matters. But because you know who you are. I am not what they said I was. I don&rsquo;t have to win back trust&mdash;because I never broke it. I&rsquo;ve lived my life by the highest morals: With gentleness. With integrity. With compassion for those who suffer.&rdquo;</em></p>
+</blockquote>
+HTML;
+
+$identity_values = [
+  'uuid' => $margot_identity_uuid,
+  'type' => 'article',
+  'title' => 'Between the Margins: When a Permanent Record Records a Lie - Identity, Shyness, and the Wounded Healer in "Three Times A Victim"',
+  'uid' => $margot_user->id(),
+  'status' => 1,
+  'promote' => 1,
+  'field_article_type' => 'margot',
+  'created' => strtotime('2026-11-11 23:00:00'),
+  'body' => [
+    'summary' => $identity_summary,
+    'value' => $identity_body,
+    'format' => 'full_html',
+  ],
+];
+if ($three_times_tid) {
+  $identity_values['field_related_to_the_book'] = ['target_id' => $three_times_tid];
+}
+
+if (empty($existing_identity_articles)) {
+  $identity_node = Node::create($identity_values);
+  $identity_node->save();
+  echo "Created Margot identity analysis article (nid=" . $identity_node->id() . ").\n";
+}
+else {
+  $identity_node = reset($existing_identity_articles);
+  $identity_node->setTitle($identity_values['title']);
+  $identity_node->setOwnerId($margot_user->id());
+  $identity_node->set('field_article_type', 'margot');
+  $identity_node->setCreatedTime($identity_values['created']);
+  if ($three_times_tid) {
+    $identity_node->set('field_related_to_the_book', ['target_id' => $three_times_tid]);
+  }
+  $identity_node->set('body', $identity_values['body']);
+  $identity_node->save();
+  echo "Updated Margot identity analysis article (nid=" . $identity_node->id() . ").\n";
 }
 
 // 7. Create or update the two homepage custom blocks (Author Welcome + Meet Margot).
