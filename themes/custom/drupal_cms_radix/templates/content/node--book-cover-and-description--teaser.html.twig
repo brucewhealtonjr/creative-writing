@@ -10,6 +10,7 @@
   'node--type-' ~ node.bundle|clean_class,
   'node--view-mode-' ~ view_mode|clean_class,
   not node.isPublished() ? 'node--unpublished',
+  node.isSticky() ? 'node--sticky',
   'book-showcase-card',
   'h-100'
 ] %}
@@ -17,10 +18,11 @@
 <article{{ attributes.addClass(node_classes) }}>
   <a href="{{ url }}" rel="bookmark" class="book-showcase-card__cover-link" aria-label="{{ label }}">
     <div class="book-showcase-card__cover">
-      {% if node.field_book_cover_page.entity is not null %}
-        <img src="{{ file_url(node.field_book_cover_page.entity.uri.value) }}" alt="{{ node.field_book_cover_page.alt ?: label }}" class="book-cover-img" />
-      {% elseif content.field_book_cover_page is not empty %}
-        {{ content.field_book_cover_page }}
+      {% if node.isSticky() %}
+        <span class="book-showcase-card__featured-badge">★ Featured Work</span>
+      {% endif %}
+      {% if node.hasField('field_book_cover_page') and not node.get('field_book_cover_page').isEmpty() and node.field_book_cover_page.0.entity is not null %}
+        <img src="{{ file_url(node.field_book_cover_page.0.entity.uri.value) }}" alt="{{ node.field_book_cover_page.0.alt ?: label }}" class="book-cover-img" />
       {% else %}
         <div class="book-showcase-card__cover-placeholder">
           <span>{{ label }}</span>
@@ -36,12 +38,16 @@
     </h3>
     {{ title_suffix }}
 
+    <div class="book-showcase-card__author">
+      By <a href="{{ path('entity.node.canonical', {'node': 558}) }}">Bruce Whealton</a>
+    </div>
+
     <div class="book-showcase-card__body">
       {{ content.body }}
     </div>
 
     <div class="mt-auto pt-2">
-      <a href="{{ url }}" class="book-showcase-card__btn">Read Book Details</a>
+      <a href="{{ url }}" class="book-showcase-card__btn">Read Book &amp; Chapters</a>
     </div>
   </div>
 </article>

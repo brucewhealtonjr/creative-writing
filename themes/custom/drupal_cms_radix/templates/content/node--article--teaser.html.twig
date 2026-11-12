@@ -18,22 +18,59 @@
   'article-teaser-card'
 ] %}
 
-<article{{ attributes.addClass(node_classes) }} style="border-radius: 8px; overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s ease;">
-  {% if content.field_image is not empty and node.field_image.entity is not null %}
+{% set title_text = label|render|striptags|trim %}
+{% set title_lower = title_text|lower %}
+{% set owner_name = node.getOwner() ? node.getOwner().getAccountName()|lower : '' %}
+{% set raw_type = node.field_article_type.value|default('') %}
+{% set has_image = node.hasField('field_image') and not node.get('field_image').isEmpty() and node.field_image.0.entity is not null %}
+{% set related_book = (node.hasField('field_related_to_the_book') and not node.get('field_related_to_the_book').isEmpty() and node.field_related_to_the_book.0.entity is not null) ? node.field_related_to_the_book.0.entity.label() : '' %}
+
+{% if raw_type == 'margot' or owner_name == 'margot' or 'analysis' in title_lower or 'review of' in title_lower or 'summary of' in title_lower or 'between the margins' in title_lower %}
+  {% set header_variant = 'article-literary-header--margot' %}
+  {% set header_kicker = '✦ Between the Margins · Margot' %}
+  {% set badge_label = 'Between the Margins' %}
+  {% set badge_class = 'article-badge--margot' %}
+{% elseif 'ai ' in title_lower or (node.hasField('field_ai_creativity_writing') and not node.get('field_ai_creativity_writing').isEmpty()) %}
+  {% set header_variant = 'article-literary-header--psychology' %}
+  {% set header_kicker = '❖ AI & Creative Writing' %}
+  {% set badge_label = 'Writing & AI' %}
+  {% set badge_class = 'article-badge--psychology' %}
+{% else %}
+  {% set header_variant = 'article-literary-header--literary' %}
+  {% set header_kicker = related_book ? '✦ Book Companion Note' : '✦ Author Essay & Update' %}
+  {% set badge_label = raw_type ? raw_type|capitalize : 'Author Note' %}
+  {% set badge_class = 'article-badge--literary' %}
+{% endif %}
+
+<article{{ attributes.addClass(node_classes) }}>
+  {% if has_image %}
     <div class="card-img-top-wrapper p-0 d-flex align-items-center justify-content-center" style="height: 170px; overflow: hidden;">
       {{ content.field_image }}
     </div>
+  {% else %}
+    <a href="{{ url }}" rel="bookmark" class="card-img-top-wrapper article-literary-header {{ header_variant }}" aria-label="{{ title_text }}">
+      <div class="article-literary-header__frame">
+        <span class="article-literary-header__quote-mark" aria-hidden="true">“</span>
+        <span class="article-literary-header__kicker">{{ header_kicker }}</span>
+        <span class="article-literary-header__title">{{ title_text }}</span>
+        {% if related_book %}
+          <span class="article-literary-header__book">On: {{ related_book }}</span>
+        {% endif %}
+      </div>
+    </a>
   {% endif %}
   
   <div class="card-body d-flex flex-column p-3">
-    {# Display Article Type Badge if present #}
-    {% if node.field_article_type.value is not empty %}
-      <div class="mb-2">
-        <span class="badge text-uppercase fw-bold" style="background-color: #b83b5e; color: #ffffff; font-size: 0.75rem; padding: 4px 8px; border-radius: 3px; letter-spacing: 0.5px;">
-          {{ node.field_article_type.value }}
+    <div class="article-card-badges d-flex flex-wrap gap-1 mb-2">
+      <span class="badge text-uppercase fw-bold {{ badge_class }}">
+        {{ badge_label }}
+      </span>
+      {% if related_book %}
+        <span class="badge article-badge--book text-truncate" style="max-width: 100%;" title="{{ related_book }}">
+          {{ related_book }}
         </span>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
 
     {{ title_prefix }}
     <h3{{ title_attributes.addClass('card-title', 'h5', 'mb-2', 'fw-bold') }}>
@@ -43,14 +80,19 @@
     
     <div class="card-meta text-muted mb-2" style="font-size: 0.8rem;">
       <span>{{ date }}</span>
+      {% if raw_type == 'margot' or owner_name == 'margot' %}
+        <span> · By Margot (AI Literary Companion)</span>
+      {% else %}
+        <span> · By Bruce Whealton</span>
+      {% endif %}
     </div>
 
-    <div class="card-text text-muted flex-grow-1 mb-3" style="font-size: 0.9rem; line-height: 1.5; opacity: 0.85;">
+    <div class="card-text text-muted flex-grow-1 mb-3" style="font-size: 0.92rem; line-height: 1.55;">
       {{ content.body }}
     </div>
     
     <div class="mt-auto pt-2">
-      <a href="{{ url }}" class="btn btn-outline-warning btn-sm w-100 fw-semibold text-uppercase" style="letter-spacing: 0.5px;">Read Full Content</a>
+      <a href="{{ url }}" class="btn btn-outline-warning btn-sm w-100 fw-semibold text-uppercase" style="letter-spacing: 0.5px;">Read Full Article</a>
     </div>
   </div>
 </article>

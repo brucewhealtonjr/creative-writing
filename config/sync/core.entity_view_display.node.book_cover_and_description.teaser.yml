@@ -22,7 +22,7 @@ content:
     type: text_summary_or_trimmed
     label: hidden
     settings:
-      trim_length: 160
+      trim_length: 450
     third_party_settings: {  }
     weight: 101
     region: content

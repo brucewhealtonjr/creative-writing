@@ -20,6 +20,9 @@ settings:
     -
       value: essay
       label: Essay
+    -
+      value: margot
+      label: 'Between the Margins (Margot)'
   allowed_values_function: ''
 module: options
 locked: false
