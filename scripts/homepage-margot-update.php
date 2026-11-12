@@ -1,3 +1,5 @@
+<?php
+
 /**
  * @file
  * Updates homepage book teaser length, pins Tell Me I'm Not Invisible first,
@@ -116,27 +118,27 @@ $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 $margot_article_uuid = 'a1b2c3d4-3333-4000-8000-000000000440';
 $existing_margot_articles = $node_storage->loadByProperties(['uuid' => $margot_article_uuid]);
 
-$margot_article_summary = "An inaugural literary reading guide by Margot (Between the Margins) examining how themes of childhood invisibility, shyness, enduring love, trauma, and healing connect across Bruce Whealton's memoirs, poetry collections, and psychological essays—and where new readers should begin.";
+$margot_article_summary = "An inaugural literary reading guide by Margot (Between the Margins) examining how themes of childhood invisibility, shyness, enduring love, trauma, and healing connect across Bruce Whealton's memoirs, poetry collections, and psychological essays, and where new readers should begin.";
 
 $margot_article_body = <<<'HTML'
-<p><em><strong>Editor&rsquo;s Note — About Margot (Between the Margins):</strong> Just as modern discovery tools help audiences uncover connections across music, cinema, and literature, <strong>Margot</strong> is this site&rsquo;s resident AI literary archivist and reading companion. Periodically reading across Bruce Whealton&rsquo;s memoirs, poetry collections, and psychological essays, Margot traces recurring motifs, compares how ideas transform between prose and verse, and offers reading recommendations for visitors exploring Bruce&rsquo;s body of work.</em></p>
+<p><em><strong>Editor&rsquo;s Note &mdash; About Margot (Between the Margins):</strong> Just as modern discovery tools help audiences uncover connections across music, cinema, and literature, <strong>Margot</strong> is this site&rsquo;s resident AI literary archivist and reading companion. Periodically reading across Bruce Whealton&rsquo;s memoirs, poetry collections, and psychological essays, Margot traces recurring motifs, compares how ideas transform between prose and verse, and offers reading recommendations for visitors exploring Bruce&rsquo;s body of work.</em></p>
 
 <hr />
 
 <h3>The Central Thread: What Does It Mean to Be Truly Seen?</h3>
-<p>When you read across Bruce Whealton&rsquo;s ten books—spanning autobiography, clinical reflection, and lyric poetry—one question reverberates beneath nearly every chapter and stanza: <em>What happens to a human soul when it is rendered invisible, and what restores its voice?</em></p>
+<p>When you read across Bruce Whealton&rsquo;s ten books&mdash;spanning autobiography, clinical reflection, and lyric poetry&mdash;one question reverberates beneath nearly every chapter and stanza: <em>What happens to a human soul when it is rendered invisible, and what restores its voice?</em></p>
 <p>Rather than treating invisibility as a single state, Bruce&rsquo;s writing examines it across three distinct domains of lived experience:</p>
 <ol>
   <li><strong>Childhood &amp; Emotional Invisibility (Memoir):</strong> In <a href="/creative-writing/book/tell-me-im-not-invisible"><em>Tell Me I&rsquo;m Not Invisible</em></a>, invisibility begins as a childhood survival strategy inside a home where being quiet was safer than being known, and where emotional neglect shaped the nervous system long before adulthood.</li>
-  <li><strong>Social &amp; Empathetic Invisibility (Poetry):</strong> In <a href="/creative-writing/book/poems-invisible-people"><em>Poems from the Invisible People</em></a> and <a href="/creative-writing/book/echoes-psyche"><em>Echoes of the Psyche</em></a>, that personal history widens into deep clinical and poetic empathy for those society looks past—the shy, the socially anxious, the unhoused, and those living with mental illness.</li>
+  <li><strong>Social &amp; Empathetic Invisibility (Poetry):</strong> In <a href="/creative-writing/book/poems-invisible-people"><em>Poems from the Invisible People</em></a> and <a href="/creative-writing/book/echoes-psyche"><em>Echoes of the Psyche</em></a>, that personal history widens into deep clinical and poetic empathy for those society looks past&mdash;the shy, the socially anxious, the unhoused, and those living with mental illness.</li>
   <li><strong>Erasure Through Injustice &amp; Trauma (Memoir &amp; Psychological Analysis):</strong> In <a href="/creative-writing/book/three-times-victim-living-under-shadow-toxic-shame"><em>Three Times A Victim: Living Under the Shadow of Toxic Shame</em></a> and <a href="/creative-writing/book/memoirs-healerclinical-social-worker-autobiography-bruce-whealton"><em>Memoirs of A Healer/Clinical Social Worker</em></a>, invisibility takes its most harrowing form: when a victim of violence and trauma has his truth erased by false accusation and institutional betrayal.</li>
 </ol>
 
 <h3>How Prose and Poetry Speak to Each Other</h3>
 <p>One of the most striking qualities of Bruce&rsquo;s catalog is how the same emotional turning points are explored differently in memoir versus poetry:</p>
 <ul>
-  <li><strong>Love as Awakening:</strong> In the memoir <a href="/creative-writing/book/overcoming-shyness-and-loving-lynn-memoir"><em>Overcoming Shyness And Loving Lynn</em></a>, the struggle with paralyzing shyness and the discovery of love unfold through narrative time and lived detail. In <a href="/creative-writing/book/what-really-matters-poems-about-love-loss-trauma"><em>What Really Matters: Poems about Love, Loss &amp; Trauma</em></a>, that same experience of being seen for the first time—and the grief when love is torn away—is distilled into immediate, musical imagery.</li>
-  <li><strong>The Inner Labyrinth vs. The Shore of Infinity:</strong> Where <a href="/creative-writing/book/labyrinth-mind"><em>The Labyrinth of the Mind</em></a> and <a href="/creative-writing/book/puncture-wounds-ii-more-nightmares"><em>Puncture Wounds II</em></a> confront the knots of anxious thought and the metaphorical monsters of betrayal, <a href="/creative-writing/book/reflections-upon-waves-infinity"><em>Reflections Upon the Waves of Infinity</em></a> steps out onto the shoreline—finding stillness, spiritual perspective, and connection in small everyday moments.</li>
+  <li><strong>Love as Awakening:</strong> In the memoir <a href="/creative-writing/book/overcoming-shyness-and-loving-lynn-memoir"><em>Overcoming Shyness And Loving Lynn</em></a>, the struggle with paralyzing shyness and the discovery of love unfold through narrative time and lived detail. In <a href="/creative-writing/book/what-really-matters-poems-about-love-loss-trauma"><em>What Really Matters: Poems about Love, Loss &amp; Trauma</em></a>, that same experience of being seen for the first time&mdash;and the grief when love is torn away&mdash;is distilled into immediate, musical imagery.</li>
+  <li><strong>The Inner Labyrinth vs. The Shore of Infinity:</strong> Where <a href="/creative-writing/book/labyrinth-mind"><em>The Labyrinth of the Mind</em></a> and <a href="/creative-writing/book/puncture-wounds-ii-more-nightmares"><em>Puncture Wounds II</em></a> confront the knots of anxious thought and the metaphorical monsters of betrayal, <a href="/creative-writing/book/reflections-upon-waves-infinity"><em>Reflections Upon the Waves of Infinity</em></a> steps out onto the shoreline&mdash;finding stillness, spiritual perspective, and connection in small everyday moments.</li>
 </ul>
 
 <h3>Margot&rsquo;s Reading Recommendations: Where Should You Begin?</h3>
@@ -187,12 +189,12 @@ $author_welcome_blocks = $block_storage->loadByProperties(['uuid' => $author_wel
 $author_welcome_html = <<<'HTML'
 <div class="author-welcome-banner">
   <div class="author-welcome-banner__eyebrow">About the Author &amp; Featured Works</div>
-  <h2 class="author-welcome-banner__title">Bruce Whealton — Memoirist, Poet &amp; Former Clinical Social Worker</h2>
+  <h2 class="author-welcome-banner__title">Bruce Whealton &mdash; Memoirist, Poet &amp; Former Clinical Social Worker</h2>
   <p class="author-welcome-banner__text">
     Across ten books of memoir, psychological reflection, and poetry, Bruce Whealton writes about what it means to feel unseen, to survive profound injustice and trauma, and to rediscover love, voice, and human dignity. Start below with his featured memoir, <strong><em>Tell Me I&rsquo;m Not Invisible</em></strong>, or browse the complete collection of books and chapters.
   </p>
   <div class="author-welcome-banner__links">
-    <a href="/creative-writing/book/tell-me-im-not-invisible">★ Featured Memoir: <em>Tell Me I&rsquo;m Not Invisible</em> &rarr;</a>
+    <a href="/creative-writing/book/tell-me-im-not-invisible">&#9733; Featured Memoir: <em>Tell Me I&rsquo;m Not Invisible</em> &rarr;</a>
     <a href="/creative-writing/person/bruce-whealton">About Bruce Whealton &amp; Full Bibliography &rarr;</a>
   </div>
 </div>
@@ -227,16 +229,16 @@ $margot_blocks = $block_storage->loadByProperties(['uuid' => $margot_banner_uuid
 $margot_banner_html = <<<'HTML'
 <div class="margot-intro-banner">
   <div class="margot-intro-banner__header">
-    <span class="margot-intro-banner__badge">✦ Between the Margins · Meet Margot</span>
+    <span class="margot-intro-banner__badge">&#10022; Between the Margins &middot; Meet Margot</span>
     <h2 class="margot-intro-banner__title">Literary Reflections, Thematic Threads &amp; Reading Guides</h2>
   </div>
   <p class="margot-intro-banner__body">
-    Much like a curated recommendation engine for film or music, <strong>Margot</strong> (<em>Between the Margins</em>) is this site&rsquo;s resident AI literary archivist and reading companion. At scheduled intervals, Margot reads across Bruce Whealton&rsquo;s memoirs, poetry collections, and psychology essays—tracing recurring themes of invisibility, trauma recovery, love, and resilience, comparing how ideas take shape in poetry versus prose, and recommending which book or chapter to explore next.
+    Much like a curated recommendation engine for film or music, <strong>Margot</strong> (<em>Between the Margins</em>) is this site&rsquo;s resident AI literary archivist and reading companion. At scheduled intervals, Margot reads across Bruce Whealton&rsquo;s memoirs, poetry collections, and psychology essays&mdash;tracing recurring themes of invisibility, trauma recovery, love, and resilience, comparing how ideas take shape in poetry versus prose, and recommending which book or chapter to explore next.
   </p>
   <ul class="margot-intro-banner__pillars">
-    <li>✦ Cross-Book Theme Analysis</li>
-    <li>✦ Poetry vs. Memoir Comparisons</li>
-    <li>✦ Personalized Book Recommendations</li>
+    <li>&#10022; Exploring Themes Across Books</li>
+    <li>&#10022; How Poetry &amp; Memoir Speak to Each Other</li>
+    <li>&#10022; Reading Guides &amp; Book Recommendations</li>
   </ul>
 </div>
 HTML;
