@@ -56,16 +56,77 @@ if ($field_storage) {
   }
 }
 
-// 4. Pin the top 3 books in order:
+// 4. Create field_display_order on book_cover_and_description for manual sorting
+//    and set the top 3 books in order:
 //    1st: Tell Me I'm Not Invisible (node/403)
 //    2nd: The Labyrinth of the Mind (node/64)
 //    3rd: Three Times A Victim: Living Under the Shadow of Toxic Shame (node/131)
-$all_books = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'book_cover_and_description']);
-foreach ($all_books as $b) {
-  if (!in_array((int) $b->id(), [403, 64, 131], TRUE) && $b->isSticky()) {
-    $b->setSticky(FALSE);
-    $b->save();
+if (!\Drupal\field\Entity\FieldStorageConfig::loadByName('node', 'field_display_order')) {
+  \Drupal\field\Entity\FieldStorageConfig::create([
+    'field_name' => 'field_display_order',
+    'entity_type' => 'node',
+    'type' => 'integer',
+    'cardinality' => 1,
+    'settings' => [
+      'unsigned' => FALSE,
+      'size' => 'normal',
+    ],
+  ])->save();
+  echo "Created field.storage.node.field_display_order.\n";
+}
+
+if (!\Drupal\field\Entity\FieldConfig::loadByName('node', 'book_cover_and_description', 'field_display_order')) {
+  \Drupal\field\Entity\FieldConfig::create([
+    'field_name' => 'field_display_order',
+    'entity_type' => 'node',
+    'bundle' => 'book_cover_and_description',
+    'label' => 'Display Order',
+    'description' => 'Manual sort order (1 = First, 2 = Second, 3 = Third, etc.). You can also drag and drop books at /admin/content/sort-books.',
+    'required' => FALSE,
+    'default_value' => [['value' => 10]],
+  ])->save();
+  echo "Created field.field.node.book_cover_and_description.field_display_order.\n";
+}
+
+$book_form_display = \Drupal::service('entity_display.repository')->getFormDisplay('node', 'book_cover_and_description', 'default');
+if ($book_form_display) {
+  $book_form_display->setComponent('field_display_order', [
+    'type' => 'number',
+    'weight' => 0,
+    'region' => 'content',
+    'settings' => [
+      'placeholder' => '1',
+    ],
+  ])->save();
+  echo "Added field_display_order to book_cover_and_description form display.\n";
+}
+
+foreach (['default', 'teaser'] as $vm) {
+  $book_view_display = \Drupal::service('entity_display.repository')->getViewDisplay('node', 'book_cover_and_description', $vm);
+  if ($book_view_display) {
+    $book_view_display->removeComponent('field_display_order')->save();
   }
+}
+
+$preferred_order = [
+  403 => 1, // Tell Me I'm Not Invisible
+  64  => 2, // The Labyrinth of the Mind
+  131 => 3, // Three Times A Victim: Living Under the Shadow of Toxic Shame
+  437 => 4, // From Darkness to Light
+  63  => 5, // Reflections Upon the Waves of Infinity
+];
+
+$all_books = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'book_cover_and_description']);
+$next_order = 6;
+foreach ($all_books as $b) {
+  $bnid = (int) $b->id();
+  $order_val = $preferred_order[$bnid] ?? $next_order++;
+  $b->set('field_display_order', $order_val);
+  if (!in_array($bnid, [403, 64, 131], TRUE) && $b->isSticky()) {
+    $b->setSticky(FALSE);
+  }
+  $b->save();
+  echo "Set field_display_order=$order_val on book nid=$bnid (" . $b->getTitle() . ").\n";
 }
 
 $top_three_books = [
@@ -87,6 +148,21 @@ $books_view = $config_factory->getEditable('views.view.books_by_bruce');
 if ($books_view) {
   $sorts = $books_view->get('display.default.display_options.sorts') ?: [];
   $new_sorts = [
+    'field_display_order_value' => [
+      'id' => 'field_display_order_value',
+      'table' => 'node__field_display_order',
+      'field' => 'field_display_order_value',
+      'relationship' => 'none',
+      'group_type' => 'group',
+      'admin_label' => '',
+      'plugin_id' => 'standard',
+      'order' => 'ASC',
+      'expose' => [
+        'label' => '',
+        'field_identifier' => '',
+      ],
+      'exposed' => FALSE,
+    ],
     'sticky' => [
       'id' => 'sticky',
       'table' => 'node_field_data',
@@ -106,13 +182,13 @@ if ($books_view) {
     ],
   ];
   foreach ($sorts as $k => $v) {
-    if ($k !== 'sticky') {
+    if (!in_array($k, ['field_display_order_value', 'sticky'], TRUE)) {
       $new_sorts[$k] = $v;
     }
   }
   $books_view->set('display.default.display_options.sorts', $new_sorts);
   $books_view->save();
-  echo "Updated views.view.books_by_bruce primary sort to sticky DESC, then created DESC.\n";
+  echo "Updated views.view.books_by_bruce primary sort to field_display_order ASC, then sticky DESC, then created DESC.\n";
 }
 
 // 5. Ensure a Drupal user account 'Margot' exists for scheduled AI literary analyses.

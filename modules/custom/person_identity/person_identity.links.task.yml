@@ -1,0 +1,5 @@
+person_identity.book_sort_tab:
+  route_name: person_identity.book_sort
+  title: 'Sort Books'
+  base_route: system.admin_content
+  weight: 15

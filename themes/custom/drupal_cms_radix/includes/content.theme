@@ -55,11 +55,15 @@ function drupal_cms_radix_preprocess_node(array &$variables): void {
   if ($node instanceof NodeInterface && $node->bundle() === 'person' && ($variables['view_mode'] ?? '') === 'full' && !$node->isNew()) {
     $cache = new \Drupal\Core\Cache\CacheableMetadata();
     $cache->addCacheTags(['node_list:book_cover_and_description']);
-    $book_ids = \Drupal::entityQuery('node')
+    $query = \Drupal::entityQuery('node')
       ->accessCheck(TRUE)
       ->condition('status', 1)
       ->condition('type', 'book_cover_and_description')
-      ->condition('field_book_authors.target_id', (int) $node->id())
+      ->condition('field_book_authors.target_id', (int) $node->id());
+    if (\Drupal\field\Entity\FieldStorageConfig::loadByName('node', 'field_display_order')) {
+      $query->sort('field_display_order', 'ASC');
+    }
+    $book_ids = $query
       ->sort('created', 'DESC')
       ->execute();
     if ($book_ids) {

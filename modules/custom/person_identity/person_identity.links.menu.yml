@@ -1,0 +1,6 @@
+person_identity.book_sort_menu:
+  title: 'Sort Books'
+  description: 'Drag and drop books to set their display order in the homepage carousel and My Books page.'
+  route_name: person_identity.book_sort
+  parent: system.admin_content
+  weight: 15

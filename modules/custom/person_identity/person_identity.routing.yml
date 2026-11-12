@@ -1,0 +1,9 @@
+person_identity.book_sort:
+  path: '/admin/content/sort-books'
+  defaults:
+    _form: '\Drupal\person_identity\Form\BookSortForm'
+    _title: 'Sort Books'
+  requirements:
+    _permission: 'edit any book_cover_and_description content+administer nodes'
+  options:
+    _admin_route: TRUE
